@@ -23,12 +23,29 @@ export default function DashboardPage() {
       }
 
       const session = data.session;
-      const metadata = session.user.user_metadata || {};
       setUser(session.user);
-      setProfile({
-        name: metadata.full_name || metadata.name || session.user.email,
-        role: metadata.role || 'Sin rol',
-      });
+
+      // Obtener perfil desde la tabla users
+      const { data: userData, error } = await supabase
+        .from('users')
+        .select('name, role')
+        .eq('id', session.user.id)
+        .single();
+
+      if (userData) {
+        setProfile({
+          name: userData.name || session.user.email,
+          role: userData.role || 'Sin rol',
+        });
+      } else {
+        // Fallback a metadatos si no existe en BD
+        const metadata = session.user.user_metadata || {};
+        setProfile({
+          name: metadata.full_name || metadata.name || session.user.email,
+          role: metadata.role || 'Sin rol',
+        });
+      }
+
       setLoading(false);
     }
 
