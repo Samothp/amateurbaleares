@@ -31,6 +31,9 @@ export default function RegisterPage() {
       return;
     }
 
+    // Capitalize role before saving
+    const roleToSave = role ? role.charAt(0).toUpperCase() + role.slice(1) : role;
+
     const { data, error } = await supabase.auth.signUp(
       {
         email,
@@ -39,7 +42,7 @@ export default function RegisterPage() {
       {
         data: {
           full_name: name,
-          role,
+          role: roleToSave,
         },
       }
     );
@@ -56,7 +59,7 @@ export default function RegisterPage() {
         id: userId,
         name,
         email,
-        role,
+        role: roleToSave,
       });
 
       if (upsertError) {
