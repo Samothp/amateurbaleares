@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { getSupabase } from '../lib/supabaseClient';
 
+function capitalizeRole(role) {
+  if (!role) return role;
+  return role.charAt(0).toUpperCase() + role.slice(1);
+}
+
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState(null);
@@ -35,15 +40,31 @@ export default function DashboardPage() {
       if (userData) {
         setProfile({
           name: userData.name || session.user.email,
-          role: userData.role || 'Sin rol',
+          role: userData.role ? capitalizeRole(userData.role) : 'Sin rol',
         });
       } else {
-        // Fallback a metadatos si no existe en BD
+        // Fallback a metadatos si no existe en BD; intentamos crear el perfil automáticamente
         const metadata = session.user.user_metadata || {};
-        setProfile({
-          name: metadata.full_name || metadata.name || session.user.email,
-          role: metadata.role || 'Sin rol',
-        });
+        const nameToSave = metadata.full_name || metadata.name || session.user.email;
+        const roleToSave = metadata.role ? capitalizeRole(metadata.role) : 'Entrenador';
+
+        try {
+          const { data: inserted, error: insertError } = await supabase
+            .from('users')
+            .insert({ id: session.user.id, name: nameToSave, email: session.user.email, role: roleToSave })
+            .select()
+            .single();
+
+          if (insertError) {
+            console.error('Error creando perfil automáticamente:', insertError);
+            setProfile({ name: nameToSave, role: roleToSave });
+          } else {
+            setProfile({ name: inserted.name || nameToSave, role: inserted.role || roleToSave });
+          }
+        } catch (e) {
+          console.error('Excepción al crear perfil:', e);
+          setProfile({ name: nameToSave, role: roleToSave });
+        }
       }
 
       setLoading(false);
