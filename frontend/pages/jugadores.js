@@ -473,7 +473,9 @@ function JugadoresPage({ user, profile }) {
                     border: '1px solid #ffcccc',
                   }}
                 >
-                  <p style={{ fontSize: 13, marginBottom: 8 }}>¿Eliminar a &quot;{player.name}&quot;?</p>
+                  <p style={{ fontSize: 13, marginBottom: 8 }}>
+                    ¿Eliminar a &quot;{player.name}&quot;?
+                  </p>
                   <div style={{ display: 'flex', gap: 8 }}>
                     <button
                       onClick={() => handleDelete(player.id)}
