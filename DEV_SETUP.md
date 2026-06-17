@@ -1,8 +1,8 @@
 # Guía de desarrollo
 
-## Estado actual: Sprint 1 completado
+## Estado actual: Sprint 2 completado
 
-La autenticación, protección por roles y páginas básicas están implementadas.
+La autenticación, protección por roles, CRUD de equipos/jugadores y storage están implementadas.
 
 ## Setup rápido
 
@@ -23,6 +23,7 @@ El servidor de desarrollo estará en `http://localhost:3000`.
 2. Ir al SQL Editor y ejecutar en orden:
    - `supabase/schema.sql` — Crea las 7 tablas
    - `supabase/rls_policies.sql` — Activa Row Level Security
+   - `supabase/storage_setup.sql` — Crea bucket "media" para fotos
 3. Copiar la URL y la anon key del proyecto a `frontend/.env.local`:
 
 ```
@@ -64,9 +65,8 @@ Las políticas de Supabase controlan el acceso a la base de datos:
 - **matches/events**: Entrenadores y clubs crean. Entrenador del equipo o admin edita.
 - **player_stats**: Solo lectura para todos. Admin puede modificar.
 
-## Próximos pasos (Sprint 2)
+## Próximos pasos (Sprint 3)
 
-- Editar y eliminar equipos/jugadores
-- Vincular jugadores a equipos
-- Subir fotos de escudo y jugador
-- Filtrado y búsqueda avanzada
+- Crear modelo de partidos
+- CRUD de partidos
+- Registro de eventos en vivo

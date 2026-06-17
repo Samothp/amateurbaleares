@@ -20,16 +20,17 @@ Crear el MVP básico de la plataforma de estadísticas y scouting de fútbol ama
 
 ---
 
-## Sprint 2: Gestión de equipos y jugadores
+## Sprint 2: Gestión de equipos y jugadores ✅ COMPLETADO
 
 1. ✅ Crear la página de equipos.
-2. Implementar edición de equipos (nombre, categoría, ciudad, escudo).
-3. Implementar eliminación de equipos.
+2. ✅ Implementar edición de equipos (nombre, categoría).
+3. ✅ Implementar eliminación de equipos con confirmación.
 4. ✅ Crear la página de jugadores.
-5. Implementar edición de jugadores (nombre, edad, posición, altura, pierna dominante, dorsal, foto).
-6. Implementar eliminación de jugadores.
-7. Vincular jugadores a equipos (asignar team_id).
-8. Subir fotos de escudo y jugador (Supabase Storage).
+5. ✅ Implementar edición de jugadores (nombre, edad, posición, altura, pierna dominante, dorsal).
+6. ✅ Implementar eliminación de jugadores con confirmación.
+7. ✅ Vincular jugadores a equipos (select de team_id en formulario).
+8. ✅ Subir fotos de escudo y jugador (Supabase Storage bucket "media").
+9. ✅ SQL de storage: `supabase/storage_setup.sql`.
 
 ---
 
