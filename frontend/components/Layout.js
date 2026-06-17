@@ -18,11 +18,19 @@ export default function Layout({ children, profile }) {
   };
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', fontFamily: 'Inter, system-ui, sans-serif' }}>
+    <div
+      style={{ display: 'flex', minHeight: '100vh', fontFamily: 'Inter, system-ui, sans-serif' }}
+    >
       {sidebarOpen && (
         <div
           onClick={() => setSidebarOpen(false)}
-          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 40, display: 'none' }}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0,0,0,0.5)',
+            zIndex: 40,
+            display: 'none',
+          }}
           className="sidebar-overlay"
         />
       )}
@@ -56,8 +64,14 @@ export default function Layout({ children, profile }) {
                 padding: '10px 12px',
                 marginBottom: 4,
                 borderRadius: 8,
-                color: router.pathname === item.href || router.pathname.startsWith(item.href + '/') ? '#fff' : '#a0a0b0',
-                background: router.pathname === item.href || router.pathname.startsWith(item.href + '/') ? '#16213e' : 'transparent',
+                color:
+                  router.pathname === item.href || router.pathname.startsWith(item.href + '/')
+                    ? '#fff'
+                    : '#a0a0b0',
+                background:
+                  router.pathname === item.href || router.pathname.startsWith(item.href + '/')
+                    ? '#16213e'
+                    : 'transparent',
                 textDecoration: 'none',
                 fontSize: 14,
               }}
@@ -68,7 +82,9 @@ export default function Layout({ children, profile }) {
         </nav>
         <div style={{ borderTop: '1px solid #333', paddingTop: 16 }}>
           <p style={{ fontSize: 12, color: '#a0a0b0', marginBottom: 4 }}>{profile?.name}</p>
-          <p style={{ fontSize: 11, color: '#666', marginBottom: 12 }}>{ROLE_LABELS[profile?.role] || profile?.role}</p>
+          <p style={{ fontSize: 11, color: '#666', marginBottom: 12 }}>
+            {ROLE_LABELS[profile?.role] || profile?.role}
+          </p>
           <button
             onClick={handleSignOut}
             style={{
@@ -88,24 +104,49 @@ export default function Layout({ children, profile }) {
       </aside>
 
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
-        <header className="mobile-header" style={{ display: 'none', padding: '12px 16px', background: '#1a1a2e', color: '#fff', alignItems: 'center', gap: 12 }}>
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} style={{ background: 'none', border: 'none', color: '#fff', fontSize: 20, cursor: 'pointer' }}>
+        <header
+          className="mobile-header"
+          style={{
+            display: 'none',
+            padding: '12px 16px',
+            background: '#1a1a2e',
+            color: '#fff',
+            alignItems: 'center',
+            gap: 12,
+          }}
+        >
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#fff',
+              fontSize: 20,
+              cursor: 'pointer',
+            }}
+          >
             ☰
           </button>
           <span style={{ fontSize: 16, fontWeight: 600 }}>AmateurBaleares</span>
         </header>
 
-        <main style={{ flex: 1, padding: 32, background: '#f5f5f5' }}>
-          {children}
-        </main>
+        <main style={{ flex: 1, padding: 32, background: '#f5f5f5' }}>{children}</main>
       </div>
 
       <style jsx global>{`
         @media (max-width: 768px) {
-          .sidebar { display: ${sidebarOpen ? 'flex' : 'none'} !important; }
-          .sidebar-overlay { display: ${sidebarOpen ? 'block' : 'none'} !important; }
-          .mobile-header { display: flex !important; }
-          main { padding: 16px !important; }
+          .sidebar {
+            display: ${sidebarOpen ? 'flex' : 'none'} !important;
+          }
+          .sidebar-overlay {
+            display: ${sidebarOpen ? 'block' : 'none'} !important;
+          }
+          .mobile-header {
+            display: flex !important;
+          }
+          main {
+            padding: 16px !important;
+          }
         }
       `}</style>
     </div>

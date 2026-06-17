@@ -26,13 +26,12 @@ function ProfilePage({ user, profile }) {
       return;
     }
 
-    const { error } = await supabase
-      .from('users')
-      .update({ name })
-      .eq('id', user.id);
+    const { error } = await supabase.from('users').update({ name }).eq('id', user.id);
 
     setLoading(false);
-    setMessage(error ? 'Error al actualizar: ' + error.message : 'Perfil actualizado correctamente');
+    setMessage(
+      error ? 'Error al actualizar: ' + error.message : 'Perfil actualizado correctamente'
+    );
   };
 
   const handlePasswordChange = async () => {
@@ -43,9 +42,10 @@ function ProfilePage({ user, profile }) {
       redirectTo: `${window.location.origin}/reset-password`,
     });
 
-    setMessage(error
-      ? 'Error al enviar email: ' + error.message
-      : 'Email de cambio de contraseña enviado. Revisa tu bandeja.'
+    setMessage(
+      error
+        ? 'Error al enviar email: ' + error.message
+        : 'Email de cambio de contraseña enviado. Revisa tu bandeja.'
     );
   };
 
@@ -66,7 +66,13 @@ function ProfilePage({ user, profile }) {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                style={{ width: '100%', padding: 10, borderRadius: 8, border: '1px solid #ddd', fontSize: 14 }}
+                style={{
+                  width: '100%',
+                  padding: 10,
+                  borderRadius: 8,
+                  border: '1px solid #ddd',
+                  fontSize: 14,
+                }}
               />
             </label>
             <label style={{ fontSize: 14 }}>
@@ -75,7 +81,14 @@ function ProfilePage({ user, profile }) {
                 type="email"
                 value={user?.email || ''}
                 disabled
-                style={{ width: '100%', padding: 10, borderRadius: 8, border: '1px solid #ddd', fontSize: 14, background: '#f5f5f5' }}
+                style={{
+                  width: '100%',
+                  padding: 10,
+                  borderRadius: 8,
+                  border: '1px solid #ddd',
+                  fontSize: 14,
+                  background: '#f5f5f5',
+                }}
               />
             </label>
             <label style={{ fontSize: 14 }}>
@@ -84,7 +97,14 @@ function ProfilePage({ user, profile }) {
                 type="text"
                 value={profile?.role || ''}
                 disabled
-                style={{ width: '100%', padding: 10, borderRadius: 8, border: '1px solid #ddd', fontSize: 14, background: '#f5f5f5' }}
+                style={{
+                  width: '100%',
+                  padding: 10,
+                  borderRadius: 8,
+                  border: '1px solid #ddd',
+                  fontSize: 14,
+                  background: '#f5f5f5',
+                }}
               />
             </label>
             <Button type="submit" disabled={loading} style={{ marginTop: 8 }}>

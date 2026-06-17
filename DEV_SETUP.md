@@ -1,8 +1,8 @@
 # Guía de desarrollo
 
-## Estado actual: MVP completo ✅
+## Estado actual: MVP completo + Infraestructura ✅
 
-Todos los sprints completados. La plataforma incluye auth, CRUD de equipos/jugadores, partidos con eventos en vivo, dashboards estadísticos y perfiles de scouting.
+Todos los sprints completados. La plataforma incluye auth, CRUD de equipos/jugadores, partidos con eventos en vivo, dashboards estadísticos y perfiles de scouting. Infraestructura: ESLint, Prettier, Jest, GitHub Actions CI.
 
 ## Setup rápido
 
@@ -75,3 +75,35 @@ Las políticas de Supabase controlan el acceso a la base de datos:
 - Crear modelo de partidos
 - CRUD de partidos
 - Registro de eventos en vivo
+
+---
+
+## Comandos de desarrollo
+
+```bash
+npm run dev          # Servidor de desarrollo (puerto 3000)
+npm run build        # Build de producción
+npm run lint         # Verificar linting (ESLint)
+npm run format       # Formatear código (Prettier)
+npm run format:check # Verificar formato sin cambiar
+npm test             # Ejecutar tests (Jest)
+npm run test:coverage # Tests con cobertura
+```
+
+## GitHub Actions CI
+
+El workflow `.github/workflows/ci.yml` ejecuta 4 jobs en push/PR a master:
+
+1. **Lint**: `npm run lint`
+2. **Format**: `npm run format:check`
+3. **Tests**: `npm test`
+4. **Build**: `npm run build`
+
+### Secrets requeridos en GitHub
+
+Para que el build funcione en CI, añade estos secrets en Settings > Secrets:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=https://tu-proyecto.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=tu-anon-key
+```

@@ -109,6 +109,13 @@ Crear el MVP básico de la plataforma de estadísticas y scouting de fútbol ama
 - ✅ Supabase Realtime para eventos en vivo
 - ✅ Navegación actualizada con todas las páginas
 
+### Fase E: Infraestructura
+- ✅ ESLint 8 + next/core-web-vitals (0 errores, warnings informativos)
+- ✅ Prettier: formato consistente en 32 archivos
+- ✅ Jest 29 + React Testing Library: 25 tests (stats, components, roles)
+- ✅ GitHub Actions CI: lint, format, test, build en push/PR a master
+- ✅ Scripts npm: lint, format, format:check, test, test:coverage
+
 ---
 
 ## Ideas futuras (post-MVP)

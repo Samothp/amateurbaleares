@@ -27,7 +27,10 @@ function PlayerDashboardPage({ user, profile }) {
     async function fetchPlayers() {
       const supabase = getSupabase();
       if (!supabase) return;
-      const { data } = await supabase.from('players').select('id, name, position, dorsal, team_id').order('name');
+      const { data } = await supabase
+        .from('players')
+        .select('id, name, position, dorsal, team_id')
+        .order('name');
       if (data) setPlayers(data);
       setLoading(false);
     }
@@ -50,7 +53,7 @@ function PlayerDashboardPage({ user, profile }) {
       setStats(playerStats);
       setTimeline(calculatePlayerTimeline(events));
 
-      const matchIds = [...new Set(events?.map(e => e.match_id).filter(Boolean))];
+      const matchIds = [...new Set(events?.map((e) => e.match_id).filter(Boolean))];
       if (matchIds.length > 0) {
         const { data: matches } = await supabase
           .from('matches')
@@ -71,14 +74,24 @@ function PlayerDashboardPage({ user, profile }) {
         <select
           value={selectedPlayer?.id || ''}
           onChange={(e) => {
-            const p = players.find(pl => pl.id === e.target.value);
+            const p = players.find((pl) => pl.id === e.target.value);
             setSelectedPlayer(p || null);
           }}
-          style={{ padding: 12, borderRadius: 8, border: '1px solid #ddd', fontSize: 14, minWidth: 300, maxWidth: '100%' }}
+          style={{
+            padding: 12,
+            borderRadius: 8,
+            border: '1px solid #ddd',
+            fontSize: 14,
+            minWidth: 300,
+            maxWidth: '100%',
+          }}
         >
           <option value="">Seleccionar jugador...</option>
-          {players.map(p => (
-            <option key={p.id} value={p.id}>{p.name}{p.dorsal ? ' #' + p.dorsal : ''} — {p.position || 'Sin posición'}</option>
+          {players.map((p) => (
+            <option key={p.id} value={p.id}>
+              {p.name}
+              {p.dorsal ? ' #' + p.dorsal : ''} — {p.position || 'Sin posición'}
+            </option>
           ))}
         </select>
       </div>
@@ -86,19 +99,45 @@ function PlayerDashboardPage({ user, profile }) {
       {loading && <p>Cargando...</p>}
 
       {!loading && !selectedPlayer && (
-        <div style={{ background: '#fff', padding: 48, borderRadius: 12, textAlign: 'center', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+        <div
+          style={{
+            background: '#fff',
+            padding: 48,
+            borderRadius: 12,
+            textAlign: 'center',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+          }}
+        >
           <p style={{ color: '#666' }}>Selecciona un jugador para ver sus estadísticas.</p>
         </div>
       )}
 
       {selectedPlayer && stats && (
         <>
-          <div style={{ marginBottom: 24, padding: 20, background: '#fff', borderRadius: 12, boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+          <div
+            style={{
+              marginBottom: 24,
+              padding: 20,
+              background: '#fff',
+              borderRadius: 12,
+              boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+            }}
+          >
             <h2 style={{ fontSize: 20 }}>{selectedPlayer.name}</h2>
-            <p style={{ color: '#666', fontSize: 14 }}>{selectedPlayer.position || 'Sin posición'}{selectedPlayer.dorsal ? ` — #${selectedPlayer.dorsal}` : ''}</p>
+            <p style={{ color: '#666', fontSize: 14 }}>
+              {selectedPlayer.position || 'Sin posición'}
+              {selectedPlayer.dorsal ? ` — #${selectedPlayer.dorsal}` : ''}
+            </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: 12, marginBottom: 24 }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))',
+              gap: 12,
+              marginBottom: 24,
+            }}
+          >
             <StatCard label="Goles" value={stats.goals} color="#2d6a4f" />
             <StatCard label="Asistencias" value={stats.assists} color="#40916c" />
             <StatCard label="Tiros" value={stats.shots} color="#52796f" />
@@ -110,7 +149,15 @@ function PlayerDashboardPage({ user, profile }) {
           </div>
 
           {chartsReady && timeline.length > 0 && (
-            <div style={{ background: '#fff', padding: 24, borderRadius: 12, boxShadow: '0 1px 3px rgba(0,0,0,0.1)', marginBottom: 24 }}>
+            <div
+              style={{
+                background: '#fff',
+                padding: 24,
+                borderRadius: 12,
+                boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                marginBottom: 24,
+              }}
+            >
               <h3 style={{ marginBottom: 16 }}>Evolución por minuto</h3>
               <ChartsLoaded>
                 {(C) => (
@@ -130,14 +177,32 @@ function PlayerDashboardPage({ user, profile }) {
           )}
 
           {recentMatches.length > 0 && (
-            <div style={{ background: '#fff', padding: 24, borderRadius: 12, boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+            <div
+              style={{
+                background: '#fff',
+                padding: 24,
+                borderRadius: 12,
+                boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+              }}
+            >
               <h3 style={{ marginBottom: 16 }}>Partidos con actividad</h3>
               <div style={{ display: 'grid', gap: 8 }}>
-                {recentMatches.map(m => (
-                  <div key={m.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 14px', background: '#f8f9fa', borderRadius: 8 }}>
+                {recentMatches.map((m) => (
+                  <div
+                    key={m.id}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      padding: '10px 14px',
+                      background: '#f8f9fa',
+                      borderRadius: 8,
+                    }}
+                  >
                     <span>{m.opponent}</span>
                     <span style={{ color: '#666', fontSize: 13 }}>{m.result || '—'}</span>
-                    <span style={{ color: '#999', fontSize: 13 }}>{m.date ? new Date(m.date).toLocaleDateString('es-ES') : ''}</span>
+                    <span style={{ color: '#999', fontSize: 13 }}>
+                      {m.date ? new Date(m.date).toLocaleDateString('es-ES') : ''}
+                    </span>
                   </div>
                 ))}
               </div>

@@ -4,8 +4,26 @@ import Link from 'next/link';
 import withAuth from '../../lib/withAuth';
 import { getSupabase } from '../../lib/supabaseClient';
 import Layout from '../../components/Layout';
-import { calculatePlayerStats, analyzeStrengthsWeaknesses, calculatePlayerTimeline } from '../../lib/stats';
-import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import {
+  calculatePlayerStats,
+  analyzeStrengthsWeaknesses,
+  calculatePlayerTimeline,
+} from '../../lib/stats';
+import {
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  Radar,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from 'recharts';
 
 function PlayerProfilePage({ user, profile }) {
   const router = useRouter();
@@ -26,11 +44,18 @@ function PlayerProfilePage({ user, profile }) {
       if (!supabase) return;
 
       const { data: playerData } = await supabase.from('players').select('*').eq('id', id).single();
-      if (!playerData) { setLoading(false); return; }
+      if (!playerData) {
+        setLoading(false);
+        return;
+      }
       setPlayer(playerData);
 
       if (playerData.team_id) {
-        const { data: teamData } = await supabase.from('teams').select('id, name, category').eq('id', playerData.team_id).single();
+        const { data: teamData } = await supabase
+          .from('teams')
+          .select('id, name, category')
+          .eq('id', playerData.team_id)
+          .single();
         setTeam(teamData);
       }
 
@@ -41,7 +66,7 @@ function PlayerProfilePage({ user, profile }) {
         .order('created_at', { ascending: true });
       setEvents(eventsData || []);
 
-      const matchIds = [...new Set((eventsData || []).map(e => e.match_id).filter(Boolean))];
+      const matchIds = [...new Set((eventsData || []).map((e) => e.match_id).filter(Boolean))];
       if (matchIds.length > 0) {
         const { data: matchesData } = await supabase
           .from('matches')
@@ -63,35 +88,77 @@ function PlayerProfilePage({ user, profile }) {
     setTimeline(calculatePlayerTimeline(events));
   }, [events]);
 
-  const radarData = stats ? [
-    { stat: 'Goles', A: stats.goals, fullMark: Math.max(stats.goals, 5) },
-    { stat: 'Asist.', A: stats.assists, fullMark: Math.max(stats.assists, 5) },
-    { stat: 'Tiros', A: stats.shots, fullMark: Math.max(stats.shots, 5) },
-    { stat: 'Pases Cl.', A: stats.keyPasses, fullMark: Math.max(stats.keyPasses, 5) },
-    { stat: 'Recup.', A: stats.recoveries, fullMark: Math.max(stats.recoveries, 5) },
-    { stat: 'Despejes', A: stats.clearances, fullMark: Math.max(stats.clearances, 5) },
-  ] : [];
+  const radarData = stats
+    ? [
+        { stat: 'Goles', A: stats.goals, fullMark: Math.max(stats.goals, 5) },
+        { stat: 'Asist.', A: stats.assists, fullMark: Math.max(stats.assists, 5) },
+        { stat: 'Tiros', A: stats.shots, fullMark: Math.max(stats.shots, 5) },
+        { stat: 'Pases Cl.', A: stats.keyPasses, fullMark: Math.max(stats.keyPasses, 5) },
+        { stat: 'Recup.', A: stats.recoveries, fullMark: Math.max(stats.recoveries, 5) },
+        { stat: 'Despejes', A: stats.clearances, fullMark: Math.max(stats.clearances, 5) },
+      ]
+    : [];
 
-  if (loading) return <Layout profile={profile}><p>Cargando perfil...</p></Layout>;
-  if (!player) return <Layout profile={profile}><p>Jugador no encontrado.</p></Layout>;
+  if (loading)
+    return (
+      <Layout profile={profile}>
+        <p>Cargando perfil...</p>
+      </Layout>
+    );
+  if (!player)
+    return (
+      <Layout profile={profile}>
+        <p>Jugador no encontrado.</p>
+      </Layout>
+    );
 
   return (
     <Layout profile={profile}>
       <div style={{ marginBottom: 16 }}>
-        <Link href="/scouting" style={{ color: '#666', fontSize: 14, textDecoration: 'none' }}>← Volver a scouting</Link>
+        <Link href="/scouting" style={{ color: '#666', fontSize: 14, textDecoration: 'none' }}>
+          ← Volver a scouting
+        </Link>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 24, marginBottom: 24 }}>
-        <div style={{ background: '#fff', padding: 24, borderRadius: 12, boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+        <div
+          style={{
+            background: '#fff',
+            padding: 24,
+            borderRadius: 12,
+            boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+          }}
+        >
           <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 16 }}>
             {player.photo ? (
-              <img src={player.photo} alt={player.name} style={{ width: 80, height: 80, borderRadius: '50%', objectFit: 'cover' }} />
+              <img
+                src={player.photo}
+                alt={player.name}
+                style={{ width: 80, height: 80, borderRadius: '50%', objectFit: 'cover' }}
+              />
             ) : (
-              <div style={{ width: 80, height: 80, borderRadius: '50%', background: '#f0f0f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, color: '#ccc' }}>👤</div>
+              <div
+                style={{
+                  width: 80,
+                  height: 80,
+                  borderRadius: '50%',
+                  background: '#f0f0f0',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 32,
+                  color: '#ccc',
+                }}
+              >
+                👤
+              </div>
             )}
             <div>
               <h1 style={{ fontSize: 24, margin: 0 }}>{player.name}</h1>
-              <p style={{ color: '#666', margin: 0 }}>{player.position || 'Sin posición'}{player.dorsal ? ` — #${player.dorsal}` : ''}</p>
+              <p style={{ color: '#666', margin: 0 }}>
+                {player.position || 'Sin posición'}
+                {player.dorsal ? ` — #${player.dorsal}` : ''}
+              </p>
             </div>
           </div>
           <div style={{ borderTop: '1px solid #f0f0f0', paddingTop: 16 }}>
@@ -99,7 +166,14 @@ function PlayerProfilePage({ user, profile }) {
             <InfoRow label="Altura" value={player.height ? `${player.height} cm` : '—'} />
             <InfoRow label="Peso" value={player.weight ? `${player.weight} kg` : '—'} />
             <InfoRow label="Pierna" value={player.dominant_foot || '—'} />
-            <InfoRow label="Equipo" value={team ? `${team.name}${team.category ? ' (' + team.category + ')' : ''}` : 'Sin equipo'} />
+            <InfoRow
+              label="Equipo"
+              value={
+                team
+                  ? `${team.name}${team.category ? ' (' + team.category + ')' : ''}`
+                  : 'Sin equipo'
+              }
+            />
             <InfoRow label="Partidos" value={matches.length} />
             <InfoRow label="Eventos totales" value={stats?.totalEvents || 0} />
           </div>
@@ -107,45 +181,96 @@ function PlayerProfilePage({ user, profile }) {
 
         <div>
           {analysis && (
-            <div style={{ background: '#fff', padding: 24, borderRadius: 12, boxShadow: '0 1px 3px rgba(0,0,0,0.1)', marginBottom: 24 }}>
+            <div
+              style={{
+                background: '#fff',
+                padding: 24,
+                borderRadius: 12,
+                boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                marginBottom: 24,
+              }}
+            >
               <h2 style={{ fontSize: 18, marginBottom: 12 }}>Análisis Scouting</h2>
-              <p style={{ color: '#666', fontSize: 14, lineHeight: 1.6, marginBottom: 16 }}>{analysis.summary}</p>
+              <p style={{ color: '#666', fontSize: 14, lineHeight: 1.6, marginBottom: 16 }}>
+                {analysis.summary}
+              </p>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                 <div>
                   <h3 style={{ fontSize: 14, color: '#2d6a4f', marginBottom: 8 }}>Fortalezas</h3>
                   {analysis.strengths.length === 0 ? (
                     <p style={{ fontSize: 13, color: '#999' }}>Sin datos suficientes</p>
-                  ) : analysis.strengths.map((s, i) => (
-                    <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 10px', background: '#f0fff4', borderRadius: 6, marginBottom: 4, fontSize: 13 }}>
-                      <span>{s.label}</span>
-                      <span style={{ fontWeight: 600, color: '#2d6a4f' }}>{s.value}</span>
-                    </div>
-                  ))}
+                  ) : (
+                    analysis.strengths.map((s, i) => (
+                      <div
+                        key={i}
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          padding: '6px 10px',
+                          background: '#f0fff4',
+                          borderRadius: 6,
+                          marginBottom: 4,
+                          fontSize: 13,
+                        }}
+                      >
+                        <span>{s.label}</span>
+                        <span style={{ fontWeight: 600, color: '#2d6a4f' }}>{s.value}</span>
+                      </div>
+                    ))
+                  )}
                 </div>
                 <div>
-                  <h3 style={{ fontSize: 14, color: '#e76f51', marginBottom: 8 }}>Áreas de mejora</h3>
+                  <h3 style={{ fontSize: 14, color: '#e76f51', marginBottom: 8 }}>
+                    Áreas de mejora
+                  </h3>
                   {analysis.weaknesses.length === 0 ? (
                     <p style={{ fontSize: 13, color: '#999' }}>Sin debilidades detectadas</p>
-                  ) : analysis.weaknesses.map((w, i) => (
-                    <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 10px', background: '#fff5f5', borderRadius: 6, marginBottom: 4, fontSize: 13 }}>
-                      <span>{w.label}</span>
-                      <span style={{ fontWeight: 600, color: '#e76f51' }}>{w.value}</span>
-                    </div>
-                  ))}
+                  ) : (
+                    analysis.weaknesses.map((w, i) => (
+                      <div
+                        key={i}
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          padding: '6px 10px',
+                          background: '#fff5f5',
+                          borderRadius: 6,
+                          marginBottom: 4,
+                          fontSize: 13,
+                        }}
+                      >
+                        <span>{w.label}</span>
+                        <span style={{ fontWeight: 600, color: '#e76f51' }}>{w.value}</span>
+                      </div>
+                    ))
+                  )}
                 </div>
               </div>
             </div>
           )}
 
           {radarData.length > 0 && (
-            <div style={{ background: '#fff', padding: 24, borderRadius: 12, boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+            <div
+              style={{
+                background: '#fff',
+                padding: 24,
+                borderRadius: 12,
+                boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+              }}
+            >
               <h3 style={{ fontSize: 16, marginBottom: 16 }}>Rendimiento</h3>
               <ResponsiveContainer width="100%" height={280}>
                 <RadarChart data={radarData}>
                   <PolarGrid />
                   <PolarAngleAxis dataKey="stat" />
                   <PolarRadiusAxis />
-                  <Radar name="Jugador" dataKey="A" stroke="#2d6a4f" fill="#2d6a4f" fillOpacity={0.3} />
+                  <Radar
+                    name="Jugador"
+                    dataKey="A"
+                    stroke="#2d6a4f"
+                    fill="#2d6a4f"
+                    fillOpacity={0.3}
+                  />
                 </RadarChart>
               </ResponsiveContainer>
             </div>
@@ -154,7 +279,14 @@ function PlayerProfilePage({ user, profile }) {
       </div>
 
       {stats && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', gap: 12, marginBottom: 24 }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))',
+            gap: 12,
+            marginBottom: 24,
+          }}
+        >
           <MiniStat label="Goles" value={stats.goals} color="#2d6a4f" />
           <MiniStat label="Asistencias" value={stats.assists} color="#40916c" />
           <MiniStat label="Tiros" value={stats.shots} color="#52796f" />
@@ -168,14 +300,35 @@ function PlayerProfilePage({ user, profile }) {
       )}
 
       {matches.length > 0 && (
-        <div style={{ background: '#fff', padding: 24, borderRadius: 12, boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+        <div
+          style={{
+            background: '#fff',
+            padding: 24,
+            borderRadius: 12,
+            boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+          }}
+        >
           <h3 style={{ fontSize: 16, marginBottom: 16 }}>Historial de partidos</h3>
           <div style={{ display: 'grid', gap: 8 }}>
-            {matches.map(m => (
-              <Link key={m.id} href={`/partidos/${m.id}`} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 14px', background: '#f8f9fa', borderRadius: 8, textDecoration: 'none', color: 'inherit' }}>
+            {matches.map((m) => (
+              <Link
+                key={m.id}
+                href={`/partidos/${m.id}`}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  padding: '10px 14px',
+                  background: '#f8f9fa',
+                  borderRadius: 8,
+                  textDecoration: 'none',
+                  color: 'inherit',
+                }}
+              >
                 <span>vs {m.opponent}</span>
                 <span style={{ fontWeight: 600 }}>{m.result || '—'}</span>
-                <span style={{ color: '#999', fontSize: 13 }}>{m.date ? new Date(m.date).toLocaleDateString('es-ES') : ''}</span>
+                <span style={{ color: '#999', fontSize: 13 }}>
+                  {m.date ? new Date(m.date).toLocaleDateString('es-ES') : ''}
+                </span>
               </Link>
             ))}
           </div>
@@ -187,7 +340,15 @@ function PlayerProfilePage({ user, profile }) {
 
 function InfoRow({ label, value }) {
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderBottom: '1px solid #f8f8f8', fontSize: 14 }}>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '6px 0',
+        borderBottom: '1px solid #f8f8f8',
+        fontSize: 14,
+      }}
+    >
       <span style={{ color: '#666' }}>{label}</span>
       <span style={{ fontWeight: 500 }}>{value}</span>
     </div>
@@ -196,7 +357,15 @@ function InfoRow({ label, value }) {
 
 function MiniStat({ label, value, color }) {
   return (
-    <div style={{ background: '#fff', padding: 12, borderRadius: 10, boxShadow: '0 1px 3px rgba(0,0,0,0.1)', textAlign: 'center' }}>
+    <div
+      style={{
+        background: '#fff',
+        padding: 12,
+        borderRadius: 10,
+        boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+        textAlign: 'center',
+      }}
+    >
       <p style={{ fontSize: 22, fontWeight: 700, color, margin: 0 }}>{value}</p>
       <p style={{ fontSize: 12, color: '#666', margin: '4px 0 0' }}>{label}</p>
     </div>

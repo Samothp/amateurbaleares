@@ -1,9 +1,22 @@
 export function calculatePlayerStats(events) {
   if (!events || events.length === 0) {
-    return { goals: 0, assists: 0, shots: 0, keyPasses: 0, losses: 0, recoveries: 0, fouls: 0, yellowCards: 0, redCards: 0, saves: 0, clearances: 0, totalEvents: 0 };
+    return {
+      goals: 0,
+      assists: 0,
+      shots: 0,
+      keyPasses: 0,
+      losses: 0,
+      recoveries: 0,
+      fouls: 0,
+      yellowCards: 0,
+      redCards: 0,
+      saves: 0,
+      clearances: 0,
+      totalEvents: 0,
+    };
   }
 
-  const count = (type) => events.filter(e => e.event_type === type).length;
+  const count = (type) => events.filter((e) => e.event_type === type).length;
 
   return {
     goals: count('gol'),
@@ -36,7 +49,7 @@ export function calculateTeamStats(events, players) {
 
   if (!events || events.length === 0) return stats;
 
-  const count = (type) => events.filter(e => e.event_type === type).length;
+  const count = (type) => events.filter((e) => e.event_type === type).length;
   stats.totalGoals = count('gol');
   stats.totalAssists = count('asistencia');
   stats.totalShots = count('tiro');
@@ -44,7 +57,7 @@ export function calculateTeamStats(events, players) {
   stats.totalRedCards = count('tarjeta_roja');
 
   const playerEventCounts = {};
-  events.forEach(e => {
+  events.forEach((e) => {
     if (!e.player_id) return;
     if (!playerEventCounts[e.player_id]) {
       playerEventCounts[e.player_id] = { goals: 0, assists: 0 };
@@ -54,35 +67,45 @@ export function calculateTeamStats(events, players) {
   });
 
   const getPlayerName = (id) => {
-    const p = players.find(pl => pl.id === id);
+    const p = players.find((pl) => pl.id === id);
     return p ? p.name : 'Desconocido';
   };
 
   stats.topScorers = Object.entries(playerEventCounts)
     .map(([id, c]) => ({ name: getPlayerName(id), count: c.goals }))
-    .filter(s => s.count > 0)
+    .filter((s) => s.count > 0)
     .sort((a, b) => b.count - a.count)
     .slice(0, 5);
 
   stats.topAssists = Object.entries(playerEventCounts)
     .map(([id, c]) => ({ name: getPlayerName(id), count: c.assists }))
-    .filter(a => a.count > 0)
+    .filter((a) => a.count > 0)
     .sort((a, b) => b.count - a.count)
     .slice(0, 5);
 
   const typeLabels = {
-    gol: 'Goles', asistencia: 'Asistencias', tiro: 'Tiros', pase_clave: 'Pases clave',
-    perdida: 'Pérdidas', recuperacion: 'Recuperaciones', falta: 'Faltas',
-    tarjeta_amarilla: 'T. Amarillas', tarjeta_roja: 'T. Rojas', parada: 'Paradas', despeje: 'Despejes',
+    gol: 'Goles',
+    asistencia: 'Asistencias',
+    tiro: 'Tiros',
+    pase_clave: 'Pases clave',
+    perdida: 'Pérdidas',
+    recuperacion: 'Recuperaciones',
+    falta: 'Faltas',
+    tarjeta_amarilla: 'T. Amarillas',
+    tarjeta_roja: 'T. Rojas',
+    parada: 'Paradas',
+    despeje: 'Despejes',
   };
 
-  stats.eventsByType = Object.entries(typeLabels).map(([type, label]) => ({
-    name: label,
-    value: count(type),
-  })).filter(e => e.value > 0);
+  stats.eventsByType = Object.entries(typeLabels)
+    .map(([type, label]) => ({
+      name: label,
+      value: count(type),
+    }))
+    .filter((e) => e.value > 0);
 
   const minuteBuckets = {};
-  events.forEach(e => {
+  events.forEach((e) => {
     if (e.minute == null) return;
     const bucket = Math.floor(e.minute / 15) * 15;
     const key = `${bucket}'-${bucket + 14}'`;
@@ -106,7 +129,7 @@ export function calculatePlayerTimeline(events) {
   const timeline = [];
   const minuteData = {};
 
-  events.forEach(e => {
+  events.forEach((e) => {
     if (e.minute == null) return;
     if (!minuteData[e.minute]) {
       minuteData[e.minute] = { minute: e.minute, goals: 0, assists: 0, events: 0 };
@@ -132,26 +155,38 @@ export function analyzeStrengthsWeaknesses(events) {
     { key: 'assists', label: 'Asistencias', value: stats.assists, weight: 2.5, positive: true },
     { key: 'shots', label: 'Tiros', value: stats.shots, weight: 1, positive: true },
     { key: 'keyPasses', label: 'Pases clave', value: stats.keyPasses, weight: 2, positive: true },
-    { key: 'recoveries', label: 'Recuperaciones', value: stats.recoveries, weight: 1.5, positive: true },
+    {
+      key: 'recoveries',
+      label: 'Recuperaciones',
+      value: stats.recoveries,
+      weight: 1.5,
+      positive: true,
+    },
     { key: 'losses', label: 'Pérdidas', value: stats.losses, weight: 1.5, positive: false },
     { key: 'fouls', label: 'Faltas cometidas', value: stats.fouls, weight: 1, positive: false },
-    { key: 'yellowCards', label: 'Tarjetas amarillas', value: stats.yellowCards, weight: 1.5, positive: false },
+    {
+      key: 'yellowCards',
+      label: 'Tarjetas amarillas',
+      value: stats.yellowCards,
+      weight: 1.5,
+      positive: false,
+    },
     { key: 'redCards', label: 'Tarjetas rojas', value: stats.redCards, weight: 3, positive: false },
   ];
 
-  const scored = metrics.map(m => {
+  const scored = metrics.map((m) => {
     const rate = total > 0 ? (m.value / total) * 100 : 0;
     const score = m.value * m.weight * (m.positive ? 1 : -1);
     return { ...m, rate: Math.round(rate * 10) / 10, score };
   });
 
   const strengths = scored
-    .filter(m => m.positive && m.value > 0)
+    .filter((m) => m.positive && m.value > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, 3);
 
   const weaknesses = scored
-    .filter(m => !m.positive && m.value > 0)
+    .filter((m) => !m.positive && m.value > 0)
     .sort((a, b) => a.score - b.score)
     .slice(0, 3);
 

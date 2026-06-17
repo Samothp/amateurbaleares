@@ -87,7 +87,9 @@ export default function ResetPasswordPage() {
           {loading ? 'Actualizando...' : 'Actualizar contraseña'}
         </button>
         {message && (
-          <p style={{ color: message.includes('correctamente') ? 'green' : 'crimson' }}>{message}</p>
+          <p style={{ color: message.includes('correctamente') ? 'green' : 'crimson' }}>
+            {message}
+          </p>
         )}
       </form>
       <p style={{ marginTop: 24 }}>

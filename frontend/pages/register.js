@@ -25,7 +25,9 @@ export default function RegisterPage() {
 
     const supabase = getSupabase();
     if (!supabase) {
-      setMessage('Supabase no está configurado. Copia .env.local.example a .env.local con tus credenciales.');
+      setMessage(
+        'Supabase no está configurado. Copia .env.local.example a .env.local con tus credenciales.'
+      );
       setLoading(false);
       return;
     }
@@ -126,7 +128,9 @@ export default function RegisterPage() {
         <button type="submit" disabled={loading} style={{ padding: 12 }}>
           {loading ? 'Registrando...' : 'Registrar'}
         </button>
-        {message ? <p style={{ color: message.includes('completado') ? 'green' : 'crimson' }}>{message}</p> : null}
+        {message ? (
+          <p style={{ color: message.includes('completado') ? 'green' : 'crimson' }}>{message}</p>
+        ) : null}
       </form>
       <p style={{ marginTop: 24 }}>
         ¿Ya tienes cuenta? <Link href="/login">Inicia sesión</Link>

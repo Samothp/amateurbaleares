@@ -28,13 +28,10 @@ function AdminPage({ user, profile }) {
     const supabase = getSupabase();
     if (!supabase) return;
 
-    const { error } = await supabase
-      .from('users')
-      .update({ role: newRole })
-      .eq('id', userId);
+    const { error } = await supabase.from('users').update({ role: newRole }).eq('id', userId);
 
     if (!error) {
-      setUsers(users.map(u => u.id === userId ? { ...u, role: newRole } : u));
+      setUsers(users.map((u) => (u.id === userId ? { ...u, role: newRole } : u)));
     }
   };
 
@@ -46,7 +43,14 @@ function AdminPage({ user, profile }) {
       {loading ? (
         <p>Cargando usuarios...</p>
       ) : (
-        <div style={{ background: '#fff', borderRadius: 12, boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
+        <div
+          style={{
+            background: '#fff',
+            borderRadius: 12,
+            boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+            overflow: 'hidden',
+          }}
+        >
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid #eee', textAlign: 'left' }}>
@@ -65,7 +69,12 @@ function AdminPage({ user, profile }) {
                     <select
                       value={u.role || ''}
                       onChange={(e) => handleRoleChange(u.id, e.target.value)}
-                      style={{ padding: '6px 8px', borderRadius: 6, border: '1px solid #ddd', fontSize: 13 }}
+                      style={{
+                        padding: '6px 8px',
+                        borderRadius: 6,
+                        border: '1px solid #ddd',
+                        fontSize: 13,
+                      }}
                     >
                       <option value="Entrenador">Entrenador</option>
                       <option value="Club">Club</option>
