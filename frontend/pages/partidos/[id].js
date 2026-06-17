@@ -55,6 +55,25 @@ function MatchDetailPage({ user, profile }) {
   useEffect(() => { fetchData(); }, [id]);
   useEffect(() => { if (live === 'true') setIsLive(true); }, [live]);
 
+  useEffect(() => {
+    if (!id) return;
+    const supabase = getSupabase();
+    if (!supabase) return;
+
+    const channel = supabase
+      .channel(`match-events-${id}`)
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'match_events', filter: `match_id=eq.${id}` }, (payload) => {
+        if (payload.eventType === 'INSERT') {
+          setEvents(prev => [...prev, payload.new].sort((a, b) => (a.minute || 0) - (b.minute || 0)));
+        } else if (payload.eventType === 'DELETE') {
+          setEvents(prev => prev.filter(e => e.id !== payload.old.id));
+        }
+      })
+      .subscribe();
+
+    return () => { supabase.removeChannel(channel); };
+  }, [id]);
+
   const handleAddEvent = async (e) => {
     e.preventDefault();
     setMessage(null);

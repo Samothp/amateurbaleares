@@ -83,6 +83,34 @@ Crear el MVP básico de la plataforma de estadísticas y scouting de fútbol ama
 
 ---
 
+## Mejoras implementadas (post-MVP)
+
+### Seguridad
+- ✅ Rol Admin no seleccionable en registro público
+- ✅ RLS: INSERT policy para tabla users
+- ✅ Storage policies corregidas
+- ✅ Headers de seguridad (X-Frame-Options, X-Content-Type-Options)
+
+### Componentes y UX
+- ✅ Librería de componentes: Card, Button, StatCard, MessageBanner, DeleteConfirm
+- ✅ Layout responsive con sidebar colapsable en móvil
+- ✅ Error Boundary global, páginas 404 y 500
+- ✅ Font Inter cargada correctamente
+- ✅ `_app.js` con providers y metadata
+
+### Rendimiento
+- ✅ Dynamic imports para Recharts (code splitting)
+- ✅ Debouncing en búsquedas (300ms)
+- ✅ `next.config.js` con dominios de imágenes Supabase
+
+### Funcionalidad
+- ✅ Página de perfil de usuario (editar nombre, cambiar contraseña)
+- ✅ Gestión de clubs con CRUD
+- ✅ Supabase Realtime para eventos en vivo
+- ✅ Navegación actualizada con todas las páginas
+
+---
+
 ## Ideas futuras (post-MVP)
 
 - Implementar resúmenes automáticos de partido con IA.

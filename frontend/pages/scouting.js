@@ -3,11 +3,13 @@ import Link from 'next/link';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
+import { useDebounce } from '../lib/hooks';
 
 function ScoutingPage({ user, profile }) {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
+  const debouncedSearch = useDebounce(search, 300);
 
   useEffect(() => {
     async function fetchPlayers() {
@@ -18,17 +20,16 @@ function ScoutingPage({ user, profile }) {
         .from('players')
         .select('id, name, age, position, dorsal, height, weight, dominant_foot, team_id');
 
-      if (search) {
-        query = query.ilike('name', `%${search}%`);
+      if (debouncedSearch) {
+        query = query.ilike('name', `%${debouncedSearch}%`);
       }
 
-      const { data, error } = await query.order('name');
-
+      const { data } = await query.order('name');
       if (data) setPlayers(data);
       setLoading(false);
     }
     fetchPlayers();
-  }, [search]);
+  }, [debouncedSearch]);
 
   return (
     <Layout profile={profile}>

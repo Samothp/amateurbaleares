@@ -3,8 +3,11 @@ import { useRouter } from 'next/router';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
+import { StatCard } from '../components/StatCard';
 import { calculatePlayerStats, calculatePlayerTimeline } from '../lib/stats';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, Legend } from 'recharts';
+import dynamic from 'next/dynamic';
+
+const ChartsLoaded = dynamic(() => import('../lib/charts'), { ssr: false });
 
 function PlayerDashboardPage({ user, profile }) {
   const router = useRouter();
@@ -14,6 +17,11 @@ function PlayerDashboardPage({ user, profile }) {
   const [timeline, setTimeline] = useState([]);
   const [recentMatches, setRecentMatches] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [chartsReady, setChartsReady] = useState(false);
+
+  useEffect(() => {
+    setChartsReady(true);
+  }, []);
 
   useEffect(() => {
     async function fetchPlayers() {
@@ -55,13 +63,6 @@ function PlayerDashboardPage({ user, profile }) {
     fetchPlayerData();
   }, [selectedPlayer]);
 
-  const StatCard = ({ label, value, color }) => (
-    <div style={{ background: '#fff', padding: 16, borderRadius: 12, boxShadow: '0 1px 3px rgba(0,0,0,0.1)', textAlign: 'center' }}>
-      <p style={{ fontSize: 28, fontWeight: 700, color: color || '#1a1a2e' }}>{value}</p>
-      <p style={{ fontSize: 13, color: '#666', marginTop: 4 }}>{label}</p>
-    </div>
-  );
-
   return (
     <Layout profile={profile}>
       <h1 style={{ fontSize: 24, marginBottom: 24 }}>Dashboard de Jugador</h1>
@@ -73,7 +74,7 @@ function PlayerDashboardPage({ user, profile }) {
             const p = players.find(pl => pl.id === e.target.value);
             setSelectedPlayer(p || null);
           }}
-          style={{ padding: 12, borderRadius: 8, border: '1px solid #ddd', fontSize: 14, minWidth: 300 }}
+          style={{ padding: 12, borderRadius: 8, border: '1px solid #ddd', fontSize: 14, minWidth: 300, maxWidth: '100%' }}
         >
           <option value="">Seleccionar jugador...</option>
           {players.map(p => (
@@ -97,7 +98,7 @@ function PlayerDashboardPage({ user, profile }) {
             <p style={{ color: '#666', fontSize: 14 }}>{selectedPlayer.position || 'Sin posición'}{selectedPlayer.dorsal ? ` — #${selectedPlayer.dorsal}` : ''}</p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: 12, marginBottom: 24 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: 12, marginBottom: 24 }}>
             <StatCard label="Goles" value={stats.goals} color="#2d6a4f" />
             <StatCard label="Asistencias" value={stats.assists} color="#40916c" />
             <StatCard label="Tiros" value={stats.shots} color="#52796f" />
@@ -108,19 +109,23 @@ function PlayerDashboardPage({ user, profile }) {
             <StatCard label="T. Rojas" value={stats.redCards} color="#c1121f" />
           </div>
 
-          {timeline.length > 0 && (
+          {chartsReady && timeline.length > 0 && (
             <div style={{ background: '#fff', padding: 24, borderRadius: 12, boxShadow: '0 1px 3px rgba(0,0,0,0.1)', marginBottom: 24 }}>
               <h3 style={{ marginBottom: 16 }}>Evolución por minuto</h3>
-              <ResponsiveContainer width="100%" height={250}>
-                <BarChart data={timeline}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="minute" label={{ value: 'Minuto', position: 'insideBottom', offset: -5 }} />
-                  <YAxis allowDecimals={false} />
-                  <Tooltip />
-                  <Bar dataKey="goals" fill="#2d6a4f" name="Goles" />
-                  <Bar dataKey="assists" fill="#40916c" name="Asistencias" />
-                </BarChart>
-              </ResponsiveContainer>
+              <ChartsLoaded>
+                {(C) => (
+                  <C.ResponsiveContainer width="100%" height={250}>
+                    <C.BarChart data={timeline}>
+                      <C.CartesianGrid strokeDasharray="3 3" />
+                      <C.XAxis dataKey="minute" />
+                      <C.YAxis allowDecimals={false} />
+                      <C.Tooltip />
+                      <C.Bar dataKey="goals" fill="#2d6a4f" name="Goles" />
+                      <C.Bar dataKey="assists" fill="#40916c" name="Asistencias" />
+                    </C.BarChart>
+                  </C.ResponsiveContainer>
+                )}
+              </ChartsLoaded>
             </div>
           )}
 
