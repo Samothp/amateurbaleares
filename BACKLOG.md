@@ -34,13 +34,14 @@ Crear el MVP básico de la plataforma de estadísticas y scouting de fútbol ama
 
 ---
 
-## Sprint 3: Gestión de partidos y eventos
+## Sprint 3: Gestión de partidos y eventos ✅ COMPLETADO
 
-1. Crear el modelo de partidos en la base de datos.
-2. Implementar creación de un partido (equipo, rival, fecha, resultado, alineación).
-3. Crear detalle de partido.
-4. Implementar registro de eventos en vivo.
-5. Asegurar que el diseño permite registrar eventos rápidamente en móvil.
+1. ✅ Crear el modelo de partidos en la base de datos.
+2. ✅ Implementar creación de un partido (equipo, rival, fecha, resultado).
+3. ✅ Crear detalle de partido con eventos.
+4. ✅ Implementar registro de eventos en vivo (11 tipos de eventos).
+5. ✅ Diseño optimizado para registrar eventos rápido (formulario compacto).
+6. ✅ Navegación "Partidos" añadida al sidebar.
 
 ---
 

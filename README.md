@@ -84,7 +84,8 @@ python main.py
 1. Crear proyecto en Supabase
 2. Ejecutar `supabase/schema.sql` en el SQL Editor
 3. Ejecutar `supabase/rls_policies.sql` para activar RLS
-4. Copiar URL y anon key a `frontend/.env.local`
+4. Ejecutar `supabase/storage_setup.sql` para bucket de fotos
+5. Copiar URL y anon key a `frontend/.env.local`
 
 ## Comandos útiles
 
@@ -98,7 +99,7 @@ python main.py
 ## Estado del proyecto
 
 - [x] Sprint 1: Setup y autenticación completa
-- [ ] Sprint 2: Gestión avanzada de equipos y jugadores
-- [ ] Sprint 3: Partidos y eventos en vivo
+- [x] Sprint 2: Gestión avanzada de equipos y jugadores
+- [x] Sprint 3: Partidos y eventos en vivo
 - [ ] Sprint 4: Estadísticas y dashboards
 - [ ] Sprint 5: Perfil scouting y validación

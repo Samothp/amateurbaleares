@@ -17,11 +17,13 @@ export const NAV_ITEMS = {
     { label: 'Dashboard', href: '/dashboard' },
     { label: 'Mis Equipos', href: '/equipos' },
     { label: 'Jugadores', href: '/jugadores' },
+    { label: 'Partidos', href: '/partidos' },
   ],
   Club: [
     { label: 'Dashboard', href: '/dashboard' },
     { label: 'Equipos', href: '/equipos' },
     { label: 'Jugadores', href: '/jugadores' },
+    { label: 'Partidos', href: '/partidos' },
   ],
   Scout: [
     { label: 'Dashboard', href: '/dashboard' },
@@ -33,6 +35,7 @@ export const NAV_ITEMS = {
     { label: 'Usuarios', href: '/admin' },
     { label: 'Equipos', href: '/equipos' },
     { label: 'Jugadores', href: '/jugadores' },
+    { label: 'Partidos', href: '/partidos' },
   ],
 };
 

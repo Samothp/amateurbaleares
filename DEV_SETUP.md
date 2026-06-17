@@ -1,8 +1,8 @@
 # Guía de desarrollo
 
-## Estado actual: Sprint 2 completado
+## Estado actual: Sprint 3 completado
 
-La autenticación, protección por roles, CRUD de equipos/jugadores y storage están implementadas.
+La autenticación, CRUD de equipos/jugadores, partidos y eventos en vivo están implementados.
 
 ## Setup rápido
 
@@ -52,6 +52,8 @@ python main.py --nombre "Tu nombre"
 | `/dashboard` | Panel principal | Autenticados |
 | `/equipos` | Gestión de equipos | Entrenador, Club, Admin |
 | `/jugadores` | Gestión de jugadores | Todos |
+| `/partidos` | Lista de partidos | Entrenador, Club, Scout, Admin |
+| `/partidos/[id]` | Detalle + eventos en vivo | Entrenador, Club, Scout, Admin |
 | `/scouting` | Búsqueda de jugadores | Scout, Admin |
 | `/admin` | Gestión de usuarios | Admin |
 
