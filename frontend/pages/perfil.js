@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
@@ -8,9 +7,10 @@ import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { MessageBanner } from '../components/MessageBanner';
 
-function ProfilePage({ user, profile }) {
+function ProfilePage({ user, profile: initialProfile }) {
   const router = useRouter();
-  const [name, setName] = useState(profile?.name || '');
+  const [profile, setProfile] = useState(initialProfile);
+  const [name, setName] = useState(initialProfile?.name || '');
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -28,10 +28,24 @@ function ProfilePage({ user, profile }) {
 
     const { error } = await supabase.from('users').update({ name }).eq('id', user.id);
 
+    if (error) {
+      setMessage('Error al actualizar: ' + error.message);
+      setLoading(false);
+      return;
+    }
+
+    const { data: refreshed } = await supabase
+      .from('users')
+      .select('name, email, role')
+      .eq('id', user.id)
+      .single();
+
+    if (refreshed) {
+      setProfile(refreshed);
+    }
+
+    setMessage('Perfil actualizado correctamente');
     setLoading(false);
-    setMessage(
-      error ? 'Error al actualizar: ' + error.message : 'Perfil actualizado correctamente'
-    );
   };
 
   const handlePasswordChange = async () => {

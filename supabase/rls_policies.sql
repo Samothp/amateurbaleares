@@ -1,206 +1,151 @@
 -- Row Level Security (RLS) policies for AmateurBaleares
 -- Ejecutar en Supabase SQL Editor después de schema.sql
+-- IMPORTANTE: Este archivo elimina y recrea todas las políticas.
+-- Ejecutar una sola vez después de cambios.
 
 -- ============================================================
 -- USERS table
 -- ============================================================
 ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 
--- Cada usuario puede ver su propio perfil (incluyendo email completo)
+DROP POLICY IF EXISTS "users_select_own" ON users;
 CREATE POLICY "users_select_own" ON users
   FOR SELECT USING (auth.uid() = id);
 
--- Otros usuarios autenticados solo ven name y role (no email)
+DROP POLICY IF EXISTS "users_select_public" ON users;
 CREATE POLICY "users_select_public" ON users
-  FOR SELECT USING (auth.role() = 'authenticated');
+  FOR SELECT USING (auth.uid() != id AND auth.role() = 'authenticated');
 
--- Cada usuario puede insertar su propio perfil durante registro
+DROP POLICY IF EXISTS "users_insert_own" ON users;
 CREATE POLICY "users_insert_own" ON users
   FOR INSERT WITH CHECK (auth.uid() = id);
 
--- Cada usuario puede actualizar su propio perfil
+DROP POLICY IF EXISTS "users_update_own" ON users;
 CREATE POLICY "users_update_own" ON users
   FOR UPDATE USING (auth.uid() = id);
 
--- Solo admin puede eliminar usuarios
+DROP POLICY IF EXISTS "users_delete_admin" ON users;
 CREATE POLICY "users_delete_admin" ON users
-  FOR DELETE USING (
-    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role = 'Admin')
-  );
+  FOR DELETE USING (auth.uid() = id);
 
 -- ============================================================
 -- CLUBS table
 -- ============================================================
 ALTER TABLE clubs ENABLE ROW LEVEL SECURITY;
 
--- Cualquier usuario autenticado puede ver clubes
+DROP POLICY IF EXISTS "clubs_select_auth" ON clubs;
 CREATE POLICY "clubs_select_auth" ON clubs
   FOR SELECT USING (auth.role() = 'authenticated');
 
--- Entrenadores y clubs pueden crear clubes
+DROP POLICY IF EXISTS "clubs_insert_entrenador_club" ON clubs;
 CREATE POLICY "clubs_insert_entrenador_club" ON clubs
-  FOR INSERT WITH CHECK (
-    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role IN ('Entrenador', 'Club', 'Admin'))
-  );
+  FOR INSERT WITH CHECK (auth.uid() = owner_id);
 
--- Solo el club creado o admin puede actualizar
+DROP POLICY IF EXISTS "clubs_update_owner_admin" ON clubs;
 CREATE POLICY "clubs_update_owner_admin" ON clubs
-  FOR UPDATE USING (
-    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role = 'Admin')
-  );
+  FOR UPDATE USING (auth.uid() = owner_id);
+
+DROP POLICY IF EXISTS "clubs_delete_owner_admin" ON clubs;
+CREATE POLICY "clubs_delete_owner_admin" ON clubs
+  FOR DELETE USING (auth.uid() = owner_id);
 
 -- ============================================================
 -- TEAMS table
 -- ============================================================
 ALTER TABLE teams ENABLE ROW LEVEL SECURITY;
 
--- Cualquier usuario autenticado puede ver equipos
+DROP POLICY IF EXISTS "teams_select_auth" ON teams;
 CREATE POLICY "teams_select_auth" ON teams
   FOR SELECT USING (auth.role() = 'authenticated');
 
--- Entrenadores y clubs pueden crear equipos
-CREATE POLICY "teams_insert_entrenador_club" ON teams
-  FOR INSERT WITH CHECK (
-    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role IN ('Entrenador', 'Club', 'Admin'))
-  );
+DROP POLICY IF EXISTS "teams_insert_auth" ON teams;
+CREATE POLICY "teams_insert_auth" ON teams
+  FOR INSERT WITH CHECK (auth.uid() = coach_id);
 
--- Entrenador asignado o admin puede actualizar
-CREATE POLICY "teams_update_coach_admin" ON teams
-  FOR UPDATE USING (
-    coach_id = auth.uid() OR
-    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role = 'Admin')
-  );
+DROP POLICY IF EXISTS "teams_update_coach" ON teams;
+CREATE POLICY "teams_update_coach" ON teams
+  FOR UPDATE USING (auth.uid() = coach_id);
 
--- Entrenador asignado o admin puede eliminar
-CREATE POLICY "teams_delete_coach_admin" ON teams
-  FOR DELETE USING (
-    coach_id = auth.uid() OR
-    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role = 'Admin')
-  );
+DROP POLICY IF EXISTS "teams_delete_coach" ON teams;
+CREATE POLICY "teams_delete_coach" ON teams
+  FOR DELETE USING (auth.uid() = coach_id);
 
 -- ============================================================
 -- PLAYERS table
 -- ============================================================
 ALTER TABLE players ENABLE ROW LEVEL SECURITY;
 
--- Cualquier usuario autenticado puede ver jugadores
+DROP POLICY IF EXISTS "players_select_auth" ON players;
 CREATE POLICY "players_select_auth" ON players
   FOR SELECT USING (auth.role() = 'authenticated');
 
--- Entrenadores, clubs y admin pueden crear jugadores
-CREATE POLICY "players_insert_entrenador_club" ON players
-  FOR INSERT WITH CHECK (
-    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role IN ('Entrenador', 'Club', 'Admin'))
-  );
+DROP POLICY IF EXISTS "players_insert_auth" ON players;
+CREATE POLICY "players_insert_auth" ON players
+  FOR INSERT WITH CHECK (auth.role() = 'authenticated');
 
--- Entrenador del equipo o admin puede actualizar
-CREATE POLICY "players_update_coach_admin" ON players
-  FOR UPDATE USING (
-    EXISTS (
-      SELECT 1 FROM teams
-      WHERE teams.id = players.team_id AND teams.coach_id = auth.uid()
-    ) OR
-    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role = 'Admin')
-  );
+DROP POLICY IF EXISTS "players_update_auth" ON players;
+CREATE POLICY "players_update_auth" ON players
+  FOR UPDATE USING (auth.role() = 'authenticated');
 
--- Entrenador del equipo o admin puede eliminar
-CREATE POLICY "players_delete_coach_admin" ON players
-  FOR DELETE USING (
-    EXISTS (
-      SELECT 1 FROM teams
-      WHERE teams.id = players.team_id AND teams.coach_id = auth.uid()
-    ) OR
-    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role = 'Admin')
-  );
+DROP POLICY IF EXISTS "players_delete_auth" ON players;
+CREATE POLICY "players_delete_auth" ON players
+  FOR DELETE USING (auth.role() = 'authenticated');
 
 -- ============================================================
 -- MATCHES table
 -- ============================================================
 ALTER TABLE matches ENABLE ROW LEVEL SECURITY;
 
--- Cualquier usuario autenticado puede ver partidos
+DROP POLICY IF EXISTS "matches_select_auth" ON matches;
 CREATE POLICY "matches_select_auth" ON matches
   FOR SELECT USING (auth.role() = 'authenticated');
 
--- Entrenadores y clubs pueden crear partidos
-CREATE POLICY "matches_insert_entrenador_club" ON matches
-  FOR INSERT WITH CHECK (
-    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role IN ('Entrenador', 'Club', 'Admin'))
-  );
+DROP POLICY IF EXISTS "matches_insert_auth" ON matches;
+CREATE POLICY "matches_insert_auth" ON matches
+  FOR INSERT WITH CHECK (auth.role() = 'authenticated');
 
--- Entrenador del equipo o admin puede actualizar
-CREATE POLICY "matches_update_coach_admin" ON matches
-  FOR UPDATE USING (
-    EXISTS (
-      SELECT 1 FROM teams
-      WHERE teams.id = matches.team_id AND teams.coach_id = auth.uid()
-    ) OR
-    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role = 'Admin')
-  );
+DROP POLICY IF EXISTS "matches_update_auth" ON matches;
+CREATE POLICY "matches_update_auth" ON matches
+  FOR UPDATE USING (auth.role() = 'authenticated');
 
--- Entrenador del equipo o admin puede eliminar
-CREATE POLICY "matches_delete_coach_admin" ON matches
-  FOR DELETE USING (
-    EXISTS (
-      SELECT 1 FROM teams
-      WHERE teams.id = matches.team_id AND teams.coach_id = auth.uid()
-    ) OR
-    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role = 'Admin')
-  );
+DROP POLICY IF EXISTS "matches_delete_auth" ON matches;
+CREATE POLICY "matches_delete_auth" ON matches
+  FOR DELETE USING (auth.role() = 'authenticated');
 
 -- ============================================================
 -- MATCH_EVENTS table
 -- ============================================================
 ALTER TABLE match_events ENABLE ROW LEVEL SECURITY;
 
--- Cualquier usuario autenticado puede ver eventos
+DROP POLICY IF EXISTS "match_events_select_auth" ON match_events;
 CREATE POLICY "match_events_select_auth" ON match_events
   FOR SELECT USING (auth.role() = 'authenticated');
 
--- Entrenadores y clubs pueden crear eventos
-CREATE POLICY "match_events_insert_entrenador_club" ON match_events
-  FOR INSERT WITH CHECK (
-    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role IN ('Entrenador', 'Club', 'Admin'))
-  );
+DROP POLICY IF EXISTS "match_events_insert_auth" ON match_events;
+CREATE POLICY "match_events_insert_auth" ON match_events
+  FOR INSERT WITH CHECK (auth.role() = 'authenticated');
 
--- Entrenador del equipo del partido o admin puede actualizar
-CREATE POLICY "match_events_update_coach_admin" ON match_events
-  FOR UPDATE USING (
-    EXISTS (
-      SELECT 1 FROM matches
-      JOIN teams ON teams.id = matches.team_id
-      WHERE matches.id = match_events.match_id AND teams.coach_id = auth.uid()
-    ) OR
-    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role = 'Admin')
-  );
+DROP POLICY IF EXISTS "match_events_update_auth" ON match_events;
+CREATE POLICY "match_events_update_auth" ON match_events
+  FOR UPDATE USING (auth.role() = 'authenticated');
 
--- Entrenador del equipo del partido o admin puede eliminar
-CREATE POLICY "match_events_delete_coach_admin" ON match_events
-  FOR DELETE USING (
-    EXISTS (
-      SELECT 1 FROM matches
-      JOIN teams ON teams.id = matches.team_id
-      WHERE matches.id = match_events.match_id AND teams.coach_id = auth.uid()
-    ) OR
-    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role = 'Admin')
-  );
+DROP POLICY IF EXISTS "match_events_delete_auth" ON match_events;
+CREATE POLICY "match_events_delete_auth" ON match_events
+  FOR DELETE USING (auth.role() = 'authenticated');
 
 -- ============================================================
 -- PLAYER_STATS table
 -- ============================================================
 ALTER TABLE player_stats ENABLE ROW LEVEL SECURITY;
 
--- Cualquier usuario autenticado puede ver estadísticas
+DROP POLICY IF EXISTS "player_stats_select_auth" ON player_stats;
 CREATE POLICY "player_stats_select_auth" ON player_stats
   FOR SELECT USING (auth.role() = 'authenticated');
 
--- Solo sistema/admin puede modificar estadísticas (se calculan automáticamente)
-CREATE POLICY "player_stats_update_admin" ON player_stats
-  FOR UPDATE USING (
-    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role = 'Admin')
-  );
+DROP POLICY IF EXISTS "player_stats_update_auth" ON player_stats;
+CREATE POLICY "player_stats_update_auth" ON player_stats
+  FOR UPDATE USING (auth.role() = 'authenticated');
 
-CREATE POLICY "player_stats_insert_admin" ON player_stats
-  FOR INSERT WITH CHECK (
-    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role = 'Admin')
-  );
+DROP POLICY IF EXISTS "player_stats_insert_auth" ON player_stats;
+CREATE POLICY "player_stats_insert_auth" ON player_stats
+  FOR INSERT WITH CHECK (auth.role() = 'authenticated');
