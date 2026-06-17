@@ -26,12 +26,31 @@ function ProfilePage({ user, profile: initialProfile }) {
       return;
     }
 
-    const { error } = await supabase.from('users').update({ name }).eq('id', user.id);
+    const { data: updated, error } = await supabase
+      .from('users')
+      .update({ name })
+      .eq('id', user.id)
+      .select();
 
     if (error) {
       setMessage('Error al actualizar: ' + error.message);
       setLoading(false);
       return;
+    }
+
+    if (!updated || updated.length === 0) {
+      const { error: insertError } = await supabase.from('users').upsert({
+        id: user.id,
+        name,
+        email: user.email,
+        role: profile?.role || 'Entrenador',
+      });
+
+      if (insertError) {
+        setMessage('Error al crear perfil: ' + insertError.message);
+        setLoading(false);
+        return;
+      }
     }
 
     const { data: refreshed } = await supabase
@@ -42,6 +61,7 @@ function ProfilePage({ user, profile: initialProfile }) {
 
     if (refreshed) {
       setProfile(refreshed);
+      setName(refreshed.name || '');
     }
 
     setMessage('Perfil actualizado correctamente');
