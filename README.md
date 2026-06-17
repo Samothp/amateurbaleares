@@ -101,5 +101,5 @@ python main.py
 - [x] Sprint 1: Setup y autenticación completa
 - [x] Sprint 2: Gestión avanzada de equipos y jugadores
 - [x] Sprint 3: Partidos y eventos en vivo
-- [ ] Sprint 4: Estadísticas y dashboards
+- [x] Sprint 4: Estadísticas y dashboards
 - [ ] Sprint 5: Perfil scouting y validación

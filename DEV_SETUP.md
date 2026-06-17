@@ -1,8 +1,8 @@
 # Guía de desarrollo
 
-## Estado actual: Sprint 3 completado
+## Estado actual: Sprint 4 completado
 
-La autenticación, CRUD de equipos/jugadores, partidos y eventos en vivo están implementados.
+La autenticación, CRUD de equipos/jugadores, partidos, eventos en vivo y dashboards estadísticos están implementados.
 
 ## Setup rápido
 
@@ -54,6 +54,8 @@ python main.py --nombre "Tu nombre"
 | `/jugadores` | Gestión de jugadores | Todos |
 | `/partidos` | Lista de partidos | Entrenador, Club, Scout, Admin |
 | `/partidos/[id]` | Detalle + eventos en vivo | Entrenador, Club, Scout, Admin |
+| `/dashboard-jugador` | Estadísticas de jugador | Todos |
+| `/dashboard-equipo` | Estadísticas de equipo | Entrenador, Club, Admin |
 | `/scouting` | Búsqueda de jugadores | Scout, Admin |
 | `/admin` | Gestión de usuarios | Admin |
 

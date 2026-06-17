@@ -45,12 +45,14 @@ Crear el MVP básico de la plataforma de estadísticas y scouting de fútbol ama
 
 ---
 
-## Sprint 4: Estadísticas y dashboards
+## Sprint 4: Estadísticas y dashboards ✅ COMPLETADO
 
-1. Calcular estadísticas básicas a partir de eventos (goles, asistencias, minutos, precisión de pases, duelos ganados).
-2. Crear un dashboard básico de jugador.
-3. Crear un dashboard de equipo.
-4. Añadir visualización de evolución temporal y comparativas simples.
+1. ✅ Calcular estadísticas básicas a partir de eventos (goles, asistencias, minutos, tiros, faltas, tarjetas, etc).
+2. ✅ Crear un dashboard de jugador con gráficos de evolución por minuto.
+3. ✅ Crear un dashboard de equipo con gráficos de eventos por tipo, por tramo temporal, goleadores y asistentes.
+4. ✅ Añadir visualización de evolución temporal y comparativas simples.
+5. ✅ Instalada librería Recharts para gráficos.
+6. ✅ Navegación "Dash. Jugador" y "Dash. Equipo" en sidebar.
 
 ---
 
