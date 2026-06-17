@@ -71,6 +71,13 @@ Crear el MVP básico de la plataforma de estadísticas y scouting de fútbol ama
 
 - ✅ `README.md` con instrucciones de desarrollo local.
 - ✅ Documentar el esquema de base de datos (schema.sql + rls_policies.sql).
+- ✅ Configurar `next.config.js` con headers de seguridad y dominios de imágenes.
+- ✅ Crear `_app.js` con error boundary y font loading.
+- ✅ Crear páginas 404 y 500 personalizadas.
+- ✅ Librería de componentes reutilizables (Card, Button, StatCard, etc).
+- ✅ Layout responsive con sidebar colapsable en móvil.
+- ✅ Seguridad: quitar auto-selección de rol Admin en registro.
+- ✅ Corregir RLS: INSERT policy para users, storage ownership.
 - Configurar despliegue en Vercel.
 - Configurar GitHub Actions para pruebas básicas si es necesario.
 

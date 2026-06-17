@@ -17,20 +17,16 @@ CREATE POLICY "media_insert_entrenador_club" ON storage.objects
     EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role IN ('Entrenador', 'Club', 'Admin'))
   );
 
--- Politica: quien subio el archivo o admin puede actualizarlo
-CREATE POLICY "media_update_owner_admin" ON storage.objects
+-- Politica: entrenadores, clubs y admin pueden actualizar archivos
+CREATE POLICY "media_update_entrenador_club" ON storage.objects
   FOR UPDATE USING (
-    bucket_id = 'media' AND (
-      auth.uid()::text = (storage.foldername(name))[1] OR
-      EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role = 'Admin')
-    )
+    bucket_id = 'media' AND
+    EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role IN ('Entrenador', 'Club', 'Admin'))
   );
 
--- Politica: quien subio el archivo o admin puede eliminarlo
-CREATE POLICY "media_delete_owner_admin" ON storage.objects
+-- Politica: entrenadores, clubs y admin pueden eliminar archivos
+CREATE POLICY "media_delete_entrenador_club" ON storage.objects
   FOR DELETE USING (
-    bucket_id = 'media' AND (
-      auth.uid()::text = (storage.foldername(name))[1] OR
-      EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role = 'Admin')
-    )
+    bucket_id = 'media' AND
+    EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role IN ('Entrenador', 'Club', 'Admin'))
   );

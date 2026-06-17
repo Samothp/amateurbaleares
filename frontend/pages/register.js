@@ -4,10 +4,9 @@ import { useRouter } from 'next/router';
 import { getSupabase } from '../lib/supabaseClient';
 
 const ROLE_OPTIONS = [
-  { value: 'entrenador', label: 'Entrenador' },
-  { value: 'club', label: 'Club' },
-  { value: 'scout', label: 'Scout' },
-  { value: 'admin', label: 'Admin' },
+  { value: 'Entrenador', label: 'Entrenador' },
+  { value: 'Club', label: 'Club' },
+  { value: 'Scout', label: 'Scout' },
 ];
 
 export default function RegisterPage() {
@@ -15,7 +14,7 @@ export default function RegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('entrenador');
+  const [role, setRole] = useState('Entrenador');
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -31,8 +30,7 @@ export default function RegisterPage() {
       return;
     }
 
-    // Capitalize role before saving
-    const roleToSave = role ? role.charAt(0).toUpperCase() + role.slice(1) : role;
+    const roleToSave = role;
 
     const { data, error } = await supabase.auth.signUp(
       {

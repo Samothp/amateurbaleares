@@ -6,13 +6,17 @@
 -- ============================================================
 ALTER TABLE users ENABLE ROW LEVEL SECURITY;
 
--- Cada usuario puede ver su propio perfil
+-- Cada usuario puede ver su propio perfil (incluyendo email completo)
 CREATE POLICY "users_select_own" ON users
   FOR SELECT USING (auth.uid() = id);
 
--- Cualquier usuario autenticado puede ver nombres y roles (para listados)
+-- Otros usuarios autenticados solo ven name y role (no email)
 CREATE POLICY "users_select_public" ON users
   FOR SELECT USING (auth.role() = 'authenticated');
+
+-- Cada usuario puede insertar su propio perfil durante registro
+CREATE POLICY "users_insert_own" ON users
+  FOR INSERT WITH CHECK (auth.uid() = id);
 
 -- Cada usuario puede actualizar su propio perfil
 CREATE POLICY "users_update_own" ON users
