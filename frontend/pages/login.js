@@ -78,6 +78,9 @@ export default function LoginPage() {
         </button>
         {message ? <p style={{ color: 'crimson' }}>{message}</p> : null}
       </form>
+      <p style={{ marginTop: 16 }}>
+        <Link href="/forgot-password" style={{ color: '#666', fontSize: 14 }}>¿Olvidaste tu contraseña?</Link>
+      </p>
       <p style={{ marginTop: 24 }}>
         ¿No tienes cuenta? <Link href="/register">Regístrate</Link>
       </p>
