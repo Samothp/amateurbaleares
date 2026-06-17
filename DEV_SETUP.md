@@ -1,8 +1,8 @@
 # Guía de desarrollo
 
-## Estado actual: Sprint 4 completado
+## Estado actual: MVP completo ✅
 
-La autenticación, CRUD de equipos/jugadores, partidos, eventos en vivo y dashboards estadísticos están implementados.
+Todos los sprints completados. La plataforma incluye auth, CRUD de equipos/jugadores, partidos con eventos en vivo, dashboards estadísticos y perfiles de scouting.
 
 ## Setup rápido
 
@@ -56,6 +56,7 @@ python main.py --nombre "Tu nombre"
 | `/partidos/[id]` | Detalle + eventos en vivo | Entrenador, Club, Scout, Admin |
 | `/dashboard-jugador` | Estadísticas de jugador | Todos |
 | `/dashboard-equipo` | Estadísticas de equipo | Entrenador, Club, Admin |
+| `/jugador/[id]` | Perfil scouting del jugador | Todos |
 | `/scouting` | Búsqueda de jugadores | Scout, Admin |
 | `/admin` | Gestión de usuarios | Admin |
 

@@ -118,3 +118,56 @@ export function calculatePlayerTimeline(events) {
 
   return Object.values(minuteData).sort((a, b) => a.minute - b.minute);
 }
+
+export function analyzeStrengthsWeaknesses(events) {
+  if (!events || events.length === 0) {
+    return { strengths: [], weaknesses: [], summary: 'Sin datos suficientes para analizar.' };
+  }
+
+  const stats = calculatePlayerStats(events);
+  const total = stats.totalEvents;
+
+  const metrics = [
+    { key: 'goals', label: 'Goles', value: stats.goals, weight: 3, positive: true },
+    { key: 'assists', label: 'Asistencias', value: stats.assists, weight: 2.5, positive: true },
+    { key: 'shots', label: 'Tiros', value: stats.shots, weight: 1, positive: true },
+    { key: 'keyPasses', label: 'Pases clave', value: stats.keyPasses, weight: 2, positive: true },
+    { key: 'recoveries', label: 'Recuperaciones', value: stats.recoveries, weight: 1.5, positive: true },
+    { key: 'losses', label: 'Pérdidas', value: stats.losses, weight: 1.5, positive: false },
+    { key: 'fouls', label: 'Faltas cometidas', value: stats.fouls, weight: 1, positive: false },
+    { key: 'yellowCards', label: 'Tarjetas amarillas', value: stats.yellowCards, weight: 1.5, positive: false },
+    { key: 'redCards', label: 'Tarjetas rojas', value: stats.redCards, weight: 3, positive: false },
+  ];
+
+  const scored = metrics.map(m => {
+    const rate = total > 0 ? (m.value / total) * 100 : 0;
+    const score = m.value * m.weight * (m.positive ? 1 : -1);
+    return { ...m, rate: Math.round(rate * 10) / 10, score };
+  });
+
+  const strengths = scored
+    .filter(m => m.positive && m.value > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3);
+
+  const weaknesses = scored
+    .filter(m => !m.positive && m.value > 0)
+    .sort((a, b) => a.score - b.score)
+    .slice(0, 3);
+
+  const topStrength = strengths[0];
+  const topWeakness = weaknesses[0];
+
+  let summary = '';
+  if (topStrength && topWeakness) {
+    summary = `${topStrength.label.toLowerCase()} como principal fortaleza (${topStrength.value} registros) y ${topWeakness.label.toLowerCase()} como área de mejora (${topWeakness.value} registros).`;
+  } else if (topStrength) {
+    summary = `Principal fortaleza: ${topStrength.label.toLowerCase()} (${topStrength.value} registros). Sin debilidades significativas detectadas.`;
+  } else if (topWeakness) {
+    summary = `Área de mejora principal: ${topWeakness.label.toLowerCase()} (${topWeakness.value} registros).`;
+  } else {
+    summary = 'Datos insuficientes para un análisis detallado.';
+  }
+
+  return { strengths, weaknesses, summary, totalEvents: total };
+}

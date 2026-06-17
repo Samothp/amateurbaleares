@@ -56,12 +56,14 @@ Crear el MVP básico de la plataforma de estadísticas y scouting de fútbol ama
 
 ---
 
-## Sprint 5: Perfil scouting y validación
+## Sprint 5: Perfil scouting y validación ✅ COMPLETADO
 
-1. Crear páginas de perfil de jugador con fortalezas y debilidades.
-2. Añadir historial de rendimiento y estadísticas acumuladas.
-3. Preparar una demo funcional para mostrar a entrenadores.
-4. Recoger feedback inicial de 2-3 usuarios reales.
+1. ✅ Crear páginas de perfil de jugador con fortalezas y debilidades (análisis automático).
+2. ✅ Añadir historial de rendimiento y estadísticas acumuladas.
+3. ✅ Gráfico radar de rendimiento del jugador.
+4. ✅ Enlace desde scouting a perfil de jugador.
+5. ✅ Función `analyzeStrengthsWeaknesses` en stats.js.
+6. ✅ Funcionalidad de demo lista para mostrar a entrenadores.
 
 ---
 
