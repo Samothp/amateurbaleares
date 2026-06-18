@@ -163,7 +163,7 @@ function DashboardPage({ user, profile }) {
         </div>
       )}
 
-      {hasTeamsNoMatches && isEntrenadorOrClub && (
+      {hasTeamsNoMatches && profile?.role === 'Admin' && (
         <div
           style={{
             background: '#fff',
@@ -358,17 +358,11 @@ function DashboardPage({ user, profile }) {
         {profile?.role === 'Entrenador' && (
           <>
             <QuickAction
-              icon="⚽"
-              label="Equipos"
-              description="Gestiona tus equipos y plantillas"
-              onClick={() => router.push('/equipos')}
-              primary
-            />
-            <QuickAction
               icon="👤"
               label="Jugadores"
               description="Consulta y edita jugadores"
               onClick={() => router.push('/jugadores')}
+              primary
             />
             <QuickAction
               icon="📊"
@@ -388,10 +382,10 @@ function DashboardPage({ user, profile }) {
               primary
             />
             <QuickAction
-              icon="⚽"
-              label="Equipos"
-              description="Los equipos del club"
-              onClick={() => router.push('/equipos')}
+              icon="👤"
+              label="Jugadores"
+              description="Consulta y edita jugadores"
+              onClick={() => router.push('/jugadores')}
             />
             <QuickAction
               icon="📊"
@@ -434,16 +428,22 @@ function DashboardPage({ user, profile }) {
               primary
             />
             <QuickAction
+              icon="⚽"
+              label="Equipos"
+              description="Crear y gestionar equipos"
+              onClick={() => router.push('/equipos')}
+            />
+            <QuickAction
+              icon="📋"
+              label="Partidos"
+              description="Crear y gestionar partidos"
+              onClick={() => router.push('/partidos')}
+            />
+            <QuickAction
               icon="🏟️"
               label="Clubs"
               description="Todos los clubs registrados"
               onClick={() => router.push('/clubs')}
-            />
-            <QuickAction
-              icon="📊"
-              label="Ranking"
-              description="Clasificación global de jugadores"
-              onClick={() => router.push('/ranking')}
             />
           </>
         )}

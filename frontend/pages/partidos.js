@@ -159,8 +159,8 @@ function PartidosPage({ user: _user, profile }) {
     });
   };
 
-  const canEdit =
-    profile?.role === 'Entrenador' || profile?.role === 'Club' || profile?.role === 'Admin';
+  const canEdit = profile?.role === 'Admin';
+  const canCreate = profile?.role === 'Admin';
 
   const getMatchStatus = (match) => {
     if (!match.date) return match.result ? 'finalizado' : 'sin-fecha';

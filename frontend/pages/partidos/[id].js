@@ -158,7 +158,8 @@ function MatchDetailPage({ user: _user, profile }) {
     });
   };
 
-  const canEdit =
+  const canEdit = profile?.role === 'Admin';
+  const canAddEvents =
     profile?.role === 'Entrenador' || profile?.role === 'Club' || profile?.role === 'Admin';
 
   if (loading)
@@ -219,7 +220,7 @@ function MatchDetailPage({ user: _user, profile }) {
               </p>
             )}
           </div>
-          {canEdit && (
+          {canAddEvents && (
             <button
               onClick={() => setIsLive(!isLive)}
               style={{
@@ -239,7 +240,7 @@ function MatchDetailPage({ user: _user, profile }) {
         </div>
       </div>
 
-      {isLive && canEdit && (
+      {isLive && canAddEvents && (
         <form
           onSubmit={handleAddEvent}
           style={{
@@ -368,7 +369,7 @@ function MatchDetailPage({ user: _user, profile }) {
                     {event.metadata.notes}
                   </span>
                 )}
-                {canEdit && (
+                {canAddEvents && (
                   <button
                     onClick={() => handleDeleteEvent(event.id)}
                     style={{

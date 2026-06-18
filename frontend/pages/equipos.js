@@ -224,8 +224,8 @@ function EquiposPage({ user, profile }) {
     }
   };
 
-  const canEdit =
-    profile?.role === 'Entrenador' || profile?.role === 'Club' || profile?.role === 'Admin';
+  const canEdit = profile?.role === 'Admin';
+  const canCreate = profile?.role === 'Admin';
 
   const filtered = filterByText(teams, search, ['name', 'category', 'liga', 'ciudad']);
   const paged = paginate(filtered, page, PAGE_SIZE);
