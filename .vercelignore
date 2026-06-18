@@ -1,0 +1,7 @@
+main.py
+src/
+.venv/
+*.pyc
+__pycache__/
+*.egg-info/
+.env
