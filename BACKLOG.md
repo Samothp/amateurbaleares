@@ -191,6 +191,20 @@ Crear el MVP básico de la plataforma de estadísticas y scouting de fútbol ama
 - ✅ Formulario actualizado con campo jornada y selectores para local y rival
 - ✅ Build y tests pasan (97 tests)
 
+### Fase 11: Dashboard Equipo y Vercel Deployment ✅ COMPLETADO
+- ✅ Vercel deployment: Frontend desplegado exitosamente con variables de entorno configuradas
+- ✅ Entrenador team assignment: FK `coach_id` en tabla teams con RLS policy actualizada
+- ✅ Dashboard "Mi Equipo": Muestra solo el equipo asignado para Entrenador; label en sidebar corregido
+- ✅ Equipos page: Fetch de equipos por `coach_id` en lugar de `profile.team` para updates en tiempo real
+- ✅ Team card navigation: Click en tarjeta navega a dashboard-equipo con auto-selección vía URL parameter `?teamId=<id>`
+- ✅ Match history display: Muestra formato real "local vs visitante" con nombres correctos de equipos
+- ✅ Match score centering: Score centrado con flexbox independientemente de longitud de nombres
+- ✅ Dashboard charts: Pie chart "Distribución de resultados" (ganados/empatados/perdidos) + bar chart "Balance de goles"
+- ✅ Pie chart colors: Verde (ganados), amarillo (empatados), rojo (perdidos) con Cell fill mapping
+- ✅ Code formatting: Prettier fix en 5 archivos (__tests__/roles.test.js, pages/dashboard-equipo.js, dashboard.js, equipos.js, partidos.js)
+- ✅ GitHub Actions: CI workflow pasa lint, format, test, build
+- ✅ Build y tests pasan (97 tests)
+
 ---
 
 ## Ideas futuras (post-MVP)
