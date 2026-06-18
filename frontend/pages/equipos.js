@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
@@ -76,6 +77,7 @@ const CIUDADES = [
 ].sort();
 
 function EquiposPage({ user, profile }) {
+  const router = useRouter();
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -390,17 +392,35 @@ function EquiposPage({ user, profile }) {
               gap: 16,
             }}
           >
-            {paged.map((team) => (
-              <div
-                key={team.id}
-                style={{
-                  background: '#fff',
-                  padding: 20,
-                  borderRadius: 12,
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-                  position: 'relative',
-                }}
-              >
+             {paged.map((team) => (
+               <div
+                 key={team.id}
+                 onClick={() => {
+                   // Only navigate if not in edit/delete mode
+                   if (!canEdit) {
+                     router.push(`/dashboard-equipo?teamId=${team.id}`);
+                   }
+                 }}
+                 style={{
+                   background: '#fff',
+                   padding: 20,
+                   borderRadius: 12,
+                   boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                   position: 'relative',
+                   cursor: !canEdit ? 'pointer' : 'default',
+                   transition: !canEdit ? 'box-shadow 0.2s' : 'none',
+                 }}
+                 onMouseEnter={(e) => {
+                   if (!canEdit) {
+                     e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                   }
+                 }}
+                 onMouseLeave={(e) => {
+                   if (!canEdit) {
+                     e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
+                   }
+                 }}
+               >
                 <div style={{ display: 'flex', gap: 16, alignItems: 'start' }}>
                   <div style={{ position: 'relative' }}>
                     <div

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
@@ -33,6 +34,7 @@ const COLORS = [
 ];
 
 function TeamDashboardPage({ user: _user, profile }) {
+  const router = useRouter();
   const [teams, setTeams] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [teamStats, setTeamStats] = useState(null);
@@ -44,11 +46,18 @@ function TeamDashboardPage({ user: _user, profile }) {
       const supabase = getSupabase();
       if (!supabase) return;
       const { data } = await supabase.from('teams').select('id, name, category').order('name');
-      if (data) setTeams(data);
+      if (data) {
+        setTeams(data);
+        // If teamId is in URL, auto-select that team
+        if (router.query.teamId) {
+          const team = data.find((t) => t.id === router.query.teamId);
+          if (team) setSelectedTeam(team);
+        }
+      }
       setLoading(false);
     }
     fetchTeams();
-  }, []);
+  }, [router.query.teamId]);
 
   useEffect(() => {
     if (!selectedTeam) return;
