@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { getSupabase } from '../lib/supabaseClient';
 import { FormField } from '../components/FormField';
+import { PasswordStrength } from '../components/PasswordStrength';
+import { mapAuthError } from '../lib/auth';
 
 export default function ResetPasswordPage() {
   const router = useRouter();
@@ -38,7 +40,7 @@ export default function ResetPasswordPage() {
     setLoading(false);
 
     if (error) {
-      setMessage(error.message);
+      setMessage(mapAuthError(error));
     } else {
       setMessage('Contraseña actualizada correctamente.');
       setTimeout(() => router.push('/login'), 2000);
@@ -50,15 +52,18 @@ export default function ResetPasswordPage() {
       <h1>Nueva contraseña</h1>
       <p>Introduce tu nueva contraseña.</p>
       <form onSubmit={handleReset} style={{ display: 'grid', gap: 16, marginTop: 24 }}>
-        <FormField
-          label="Nueva contraseña"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          minLength={6}
-          placeholder="Mínimo 6 caracteres"
-        />
+        <div>
+          <FormField
+            label="Nueva contraseña"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            minLength={6}
+            placeholder="Mínimo 6 caracteres"
+          />
+          <PasswordStrength password={password} />
+        </div>
         <FormField
           label="Confirmar contraseña"
           type="password"

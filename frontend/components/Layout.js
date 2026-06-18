@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { getSupabase } from '../lib/supabaseClient';
@@ -8,6 +8,20 @@ export default function Layout({ children, profile }) {
   const router = useRouter();
   const navItems = NAV_ITEMS[profile?.role] || [];
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+
+  useEffect(() => {
+    const supabase = getSupabase();
+    if (!supabase) return;
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_OUT') {
+        router.replace('/login');
+      }
+    });
+
+    return () => subscription?.unsubscribe();
+  }, [router]);
 
   const handleSignOut = async () => {
     const supabase = getSupabase();
@@ -33,6 +47,67 @@ export default function Layout({ children, profile }) {
           }}
           className="sidebar-overlay"
         />
+      )}
+
+      {showLogoutConfirm && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0,0,0,0.5)',
+            zIndex: 100,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onClick={() => setShowLogoutConfirm(false)}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: '#fff',
+              padding: 24,
+              borderRadius: 12,
+              maxWidth: 360,
+              width: '90%',
+              boxShadow: '0 4px 24px rgba(0,0,0,0.15)',
+            }}
+          >
+            <h3 style={{ fontSize: 16, marginBottom: 8 }}>¿Cerrar sesión?</h3>
+            <p style={{ fontSize: 14, color: '#666', marginBottom: 20 }}>
+              Se cerrará tu sesión actual.
+            </p>
+            <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+              <button
+                onClick={() => setShowLogoutConfirm(false)}
+                style={{
+                  padding: '8px 16px',
+                  background: '#f0f0f0',
+                  border: 'none',
+                  borderRadius: 6,
+                  cursor: 'pointer',
+                  fontSize: 13,
+                }}
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleSignOut}
+                style={{
+                  padding: '8px 16px',
+                  background: '#1a1a2e',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: 6,
+                  cursor: 'pointer',
+                  fontSize: 13,
+                }}
+              >
+                Sí, cerrar
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
       <aside
@@ -86,7 +161,7 @@ export default function Layout({ children, profile }) {
             {ROLE_LABELS[profile?.role] || profile?.role}
           </p>
           <button
-            onClick={handleSignOut}
+            onClick={() => setShowLogoutConfirm(true)}
             style={{
               width: '100%',
               padding: '8px 12px',
