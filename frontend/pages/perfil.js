@@ -120,13 +120,21 @@ function ProfilePage({ user, profile: initialProfile }) {
     }
 
     if (teamId) {
-      const { error } = await supabase
+      const { data: updateData, error } = await supabase
         .from('teams')
         .update({ coach_id: user.id })
-        .eq('id', teamId);
+        .eq('id', teamId)
+        .select();
 
       if (error) {
+        console.error('Error al asignar equipo:', error);
         setMessage('Error al asignar equipo: ' + error.message);
+        setLoading(false);
+        return;
+      }
+
+      if (!updateData || updateData.length === 0) {
+        setMessage('Error: No se pudo actualizar el equipo. Verifica los permisos.');
         setLoading(false);
         return;
       }
