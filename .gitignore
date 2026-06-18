@@ -17,6 +17,15 @@ frontend/node_modules/
 frontend/.next/
 frontend/.env.local
 frontend/coverage/
+frontend/public/*.ico
+
+# Build artifacts
+*.tsbuildinfo
+next-env.d.ts
+
+# OS files
+.DS_Store
+Thumbs.db
 
 # Supabase CLI
 supabase/.temp/

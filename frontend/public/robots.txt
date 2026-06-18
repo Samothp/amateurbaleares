@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /perfil
+
+Sitemap: https://amateurbaleares.com/sitemap.xml

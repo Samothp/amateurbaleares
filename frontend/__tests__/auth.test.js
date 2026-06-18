@@ -56,29 +56,29 @@ describe('getPasswordStrength', () => {
     expect(result.score).toBe(0);
   });
 
-  it('scores 0 for short lowercase password', () => {
+  it('scores 1 for short lowercase password', () => {
     const result = getPasswordStrength('abc');
-    expect(result.score).toBe(0);
+    expect(result.score).toBe(1);
   });
 
   it('scores 1 for 6+ character lowercase', () => {
     const result = getPasswordStrength('abcdef');
-    expect(result.score).toBe(1);
+    expect(result.score).toBe(2);
   });
 
   it('scores 2 for 8+ character lowercase', () => {
     const result = getPasswordStrength('abcdefgh');
-    expect(result.score).toBe(2);
+    expect(result.score).toBe(3);
   });
 
   it('scores 3 for 8+ with uppercase', () => {
     const result = getPasswordStrength('Abcdefgh');
-    expect(result.score).toBe(3);
+    expect(result.score).toBe(4);
   });
 
   it('scores 4 for 8+ with uppercase and number', () => {
     const result = getPasswordStrength('Abcdef1g');
-    expect(result.score).toBe(4);
+    expect(result.score).toBe(5);
   });
 
   it('includes label and color', () => {
@@ -87,16 +87,16 @@ describe('getPasswordStrength', () => {
     expect(result).toHaveProperty('color');
   });
 
-  it('returns Muy débil for score 0', () => {
+  it('returns Débil for short lowercase password', () => {
     const result = getPasswordStrength('a');
-    expect(result.label).toBe('Muy débil');
-    expect(result.color).toBe('#e53e3e');
+    expect(result.label).toBe('Débil');
+    expect(result.color).toBe('#ed8936');
   });
 
-  it('returns Fuerte for score 4', () => {
+  it('returns Fuerte for strong password', () => {
     const result = getPasswordStrength('Abcdef1g!');
     expect(result.label).toBe('Fuerte');
-    expect(result.color).toBe('#38a169');
+    expect(result.color).toBe('#2f855a');
   });
 });
 
@@ -108,7 +108,7 @@ describe('PasswordStrength component', () => {
 
   it('renders strength bar for non-empty password', () => {
     render(<PasswordStrength password="abc" />);
-    expect(screen.getByText('Muy débil')).toBeInTheDocument();
+    expect(screen.getByText('Débil')).toBeInTheDocument();
   });
 
   it('shows Fuerte for strong password', () => {
@@ -116,9 +116,9 @@ describe('PasswordStrength component', () => {
     expect(screen.getByText('Fuerte')).toBeInTheDocument();
   });
 
-  it('renders 4 segments', () => {
+  it('renders 5 segments', () => {
     const { container } = render(<PasswordStrength password="test" />);
     const segments = container.querySelectorAll('[style*="height: 4px"]');
-    expect(segments.length).toBe(4);
+    expect(segments.length).toBe(5);
   });
 });

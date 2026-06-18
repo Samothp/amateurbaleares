@@ -1,8 +1,14 @@
 # Guía de desarrollo
 
-## Estado actual: MVP completo + Infraestructura ✅
+## Estado actual: Fase 6 - Infrastructure ✅
 
-Todos los sprints completados. La plataforma incluye auth, CRUD de equipos/jugadores, partidos con eventos en vivo, dashboards estadísticos y perfiles de scouting. Infraestructura: ESLint, Prettier, Jest, GitHub Actions CI.
+Plataforma completa: auth, CRUD equipos/jugadores, partidos con eventos en vivo, dashboards, perfiles scouting, componentes reutilizables, tests, CI/CD.
+
+## Requisitos previos
+
+- Node.js 20+ (verificar con `node -v`)
+- npm 9+
+- Cuenta de Supabase (https://app.supabase.com)
 
 ## Setup rápido
 
@@ -31,7 +37,13 @@ NEXT_PUBLIC_SUPABASE_URL=https://tu-proyecto.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=tu-anon-key
 ```
 
-### 3. Backend Python (opcional, en desarrollo)
+### 3. Google OAuth (opcional)
+
+1. Configurar proveedor Google en Supabase Dashboard → Authentication → Providers → Google
+2. Añadir Client ID y Client Secret
+3. Añadir URI de redirección: `https://tu-proyecto.supabase.co/auth/v1/callback`
+
+### 4. Backend Python (opcional, en desarrollo)
 
 ```bash
 python -m venv .venv
@@ -45,8 +57,8 @@ python main.py --nombre "Tu nombre"
 | Ruta | Descripción | Roles permitidos |
 |---|---|---|
 | `/` | Landing page | Público |
-| `/login` | Inicio de sesión | Público |
-| `/register` | Registro con rol | Público |
+| `/login` | Inicio de sesión (Google OAuth + email) | Público |
+| `/register` | Registro (Google OAuth + email) | Público |
 | `/forgot-password` | Recuperar contraseña | Público |
 | `/reset-password` | Nueva contraseña | Público (con token) |
 | `/dashboard` | Panel principal | Autenticados |
@@ -58,6 +70,8 @@ python main.py --nombre "Tu nombre"
 | `/dashboard-equipo` | Estadísticas de equipo | Entrenador, Club, Admin |
 | `/jugador/[id]` | Perfil scouting del jugador | Todos |
 | `/scouting` | Búsqueda de jugadores | Scout, Admin |
+| `/clubs` | Gestión de clubs | Admin |
+| `/perfil` | Editar perfil | Autenticados |
 | `/admin` | Gestión de usuarios | Admin |
 
 ## Estructura de permisos (RLS)
@@ -70,14 +84,6 @@ Las políticas de Supabase controlan el acceso a la base de datos:
 - **matches/events**: Entrenadores y clubs crean. Entrenador del equipo o admin edita.
 - **player_stats**: Solo lectura para todos. Admin puede modificar.
 
-## Próximos pasos (Sprint 3)
-
-- Crear modelo de partidos
-- CRUD de partidos
-- Registro de eventos en vivo
-
----
-
 ## Comandos de desarrollo
 
 ```bash
@@ -89,6 +95,36 @@ npm run format:check # Verificar formato sin cambiar
 npm test             # Ejecutar tests (Jest)
 npm run test:coverage # Tests con cobertura
 ```
+
+## Arquitectura
+
+### Componentes reutilizables (`components/`)
+- `Layout.js` — Sidebar + responsive con hamburger menu
+- `FormField.js` — Campo de formulario con validación
+- `Button.js` — Botón con variantes
+- `Card.js` — Tarjeta contenedora
+- `StatCard.js` — Tarjeta de estadística
+- `MessageBanner.js` — Banner de éxito/error
+- `DeleteConfirm.js` — Modal de confirmación
+- `SearchBar.js` — Búsqueda con debounce
+- `Pagination.js` — Paginación
+- `Skeleton.js` — Skeleton loading
+- `PasswordStrength.js` — Indicador de fortaleza
+- `GoogleLogo.js` — Logo SVG de Google
+
+### Lib (`lib/`)
+- `auth.js` — mapAuthError, getPasswordStrength
+- `charts.js` — Dynamic imports de Recharts
+- `stats.js` — Cálculos de estadísticas
+- `roles.js` — Constantes de roles y navegación
+- `useMessage.js` — Hook de mensajes auto-dismiss
+- `hooks.js` — useDebounce
+- `supabaseClient.js` — Cliente Supabase
+- `withAuth.js` — HOC de autenticación
+
+### Tests (`__tests__/`)
+- 7 suites de test, 90+ tests
+- Cobertura: auth, components, stats, roles, hooks, formfield, a11y
 
 ## GitHub Actions CI
 

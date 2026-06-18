@@ -11,11 +11,11 @@ export function PasswordStrength({ password }) {
         role="progressbar"
         aria-valuenow={score}
         aria-valuemin={0}
-        aria-valuemax={4}
+        aria-valuemax={5}
         aria-label={`Seguridad de la contraseña: ${label}`}
         style={{ display: 'flex', gap: 4 }}
       >
-        {[0, 1, 2, 3].map((i) => (
+        {[0, 1, 2, 3, 4].map((i) => (
           <div
             key={i}
             style={{

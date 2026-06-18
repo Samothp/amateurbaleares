@@ -139,6 +139,17 @@ Crear el MVP básico de la plataforma de estadísticas y scouting de fútbol ama
 - ✅ Skeleton keyframes movidos a CSS global en `_app.js` (eliminado `<SkeletonStyles />` de 10 páginas)
 - ✅ `GoogleLogo.js`: Componente compartido para el logo SVG de Google (usado en login y register)
 
+### Fase 6: Infrastructure ✅ COMPLETADO
+- ✅ CI workflow: Node 18 → 20
+- ✅ `.nvmrc` creado con Node 20
+- ✅ `public/`: favicon.svg + robots.txt
+- ✅ `.gitignore` actualizado (OS files, build artifacts, .ico)
+- ✅ PasswordStrength: check de minúsculas añadido (5 niveles: Muy débil → Fuerte)
+- ✅ `DEV_SETUP.md` reescrito con estado actual completo
+- ✅ Tests: 78 → 97 (8 suites: auth, components, stats, roles, hooks, formfield, deleteconfirm, a11y)
+- ✅ Tests a11y: GoogleLogo, SearchBar, Pagination, Skeleton
+- ✅ Auth tests actualizados para nuevo scoring de PasswordStrength
+
 ---
 
 ## Ideas futuras (post-MVP)

@@ -23,6 +23,7 @@ export function getPasswordStrength(password) {
   let score = 0;
   if (password.length >= 6) score++;
   if (password.length >= 8) score++;
+  if (/[a-z]/.test(password)) score++;
   if (/[A-Z]/.test(password)) score++;
   if (/[0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) score++;
 
@@ -31,8 +32,9 @@ export function getPasswordStrength(password) {
     { label: 'Débil', color: '#ed8936' },
     { label: 'Regular', color: '#ecc94b' },
     { label: 'Buena', color: '#48bb78' },
-    { label: 'Fuerte', color: '#38a169' },
+    { label: 'Muy buena', color: '#38a169' },
+    { label: 'Fuerte', color: '#2f855a' },
   ];
 
-  return { score, ...levels[score] };
+  return { score, ...levels[Math.min(score, levels.length - 1)] };
 }
