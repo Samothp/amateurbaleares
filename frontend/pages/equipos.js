@@ -9,22 +9,20 @@ import { Pagination, paginate } from '../components/Pagination';
 import { Toast } from '../components/Toast';
 
 const LIGAS = [
-  'Regional Preferente',
-  'Regional Primera',
-  'Regional Segunda',
-  'Regional Tercera',
-  '1ª Autonómica',
-  '2ª Autonómica',
-  '3ª Autonómica',
-  'Primera División',
-  'Segunda División',
-  'Tercera División',
-  'Interinsular',
-  'Copa Federación',
+  'Tercera Federación',
+  'División de Honor Mallorca',
+  'División de Honor Menorca',
+  'Preferente Regional Mallorca',
+  'Primera Regional Mallorca (Grupo A)',
+  'Primera Regional Mallorca (Grupo B)',
+  'Segunda Regional Mallorca (Grupo A)',
+  'Segunda Regional Mallorca (Grupo B)',
+  'Segunda Regional Mallorca (Grupo C)',
 ];
 
 const CIUDADES = [
   'Alaior',
+  'Alaró',
   'Alcúdia',
   'Algaida',
   'Andratx',
@@ -34,6 +32,7 @@ const CIUDADES = [
   'Bunyola',
   'Calvià',
   'Campos',
+  'Campanet',
   'Capdepera',
   'Ciutadella',
   'Consell',
@@ -45,30 +44,36 @@ const CIUDADES = [
   'Esporles',
   'Felanitx',
   'Ferreries',
+  'Formentera',
   'Inca',
+  'Lloret de Vistalegre',
   'Llucmajor',
-  'Mahon',
+  'Maó',
   'Manacor',
+  'Maria de la Salut',
   'Marratxí',
   'Montuïri',
   'Muro',
   'Palma',
+  'Petra',
   'Pollença',
   'Porreres',
   'Sa Pobla',
   'Sant Antoni de Portmany',
   'Sant Joan de Labritja',
   'Sant Lluís',
+  'Santanyí',
   'Santa Eugènia',
   'Santa Eulària des Riu',
+  'Santa Margalida',
   'Santa María del Camí',
-  'Santanyí',
   'Sencelles',
   'Ses Salines',
   'Sineu',
   'Sóller',
   'Son Servera',
   'Valldemossa',
+  'Vilafranca de Bonany',
 ].sort();
 
 function EquiposPage({ user, profile }) {
@@ -76,7 +81,7 @@ function EquiposPage({ user, profile }) {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingTeam, setEditingTeam] = useState(null);
-  const [form, setForm] = useState({ name: '', category: '', liga: '', ciudad: '' });
+  const [form, setForm] = useState({ name: '', category: 'Senior', liga: '', ciudad: '' });
   const [toast, setToast] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [search, setSearch] = useState('');
@@ -99,7 +104,7 @@ function EquiposPage({ user, profile }) {
   }, []);
 
   const resetForm = () => {
-    setForm({ name: '', category: '', liga: '', ciudad: '' });
+    setForm({ name: '', category: 'Senior', liga: '', ciudad: '' });
     setEditingTeam(null);
     setShowForm(false);
   };
@@ -291,10 +296,9 @@ function EquiposPage({ user, profile }) {
             />
             <input
               type="text"
-              placeholder="Categoría (ej: Senior, Juvenil, Cadete)"
-              value={form.category}
-              onChange={(e) => setForm({ ...form, category: e.target.value })}
-              style={{ padding: 10, borderRadius: 8, border: '1px solid #ddd' }}
+              value="Senior"
+              disabled
+              style={{ padding: 10, borderRadius: 8, border: '1px solid #ddd', background: '#f5f5f5', color: '#666' }}
             />
             <select
               value={form.liga}
