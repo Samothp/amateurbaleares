@@ -60,17 +60,29 @@ function TeamDashboardPage({ user: _user, profile }) {
         .from('players')
         .select('id, name')
         .eq('team_id', selectedTeam.id);
-      const { data: teamMatches } = await supabase
-        .from('matches')
-        .select('id, opponent, date, result')
-        .eq('team_id', selectedTeam.id)
-        .order('date', { ascending: false });
+
+      const [homeRes, awayRes] = await Promise.all([
+        supabase
+          .from('matches')
+          .select('id, opponent, date, result, team_id, opponent_team_id')
+          .eq('team_id', selectedTeam.id),
+        supabase
+          .from('matches')
+          .select('id, opponent, date, result, team_id, opponent_team_id')
+          .eq('opponent_team_id', selectedTeam.id),
+      ]);
+
+      const allMatchesMap = new Map();
+      [...(homeRes.data || []), ...(awayRes.data || [])].forEach((m) => allMatchesMap.set(m.id, m));
+      const teamMatches = [...allMatchesMap.values()].sort(
+        (a, b) => new Date(b.date) - new Date(a.date),
+      );
 
       if (teamMatches) setMatches(teamMatches);
 
       const matchIds = teamMatches?.map((m) => m.id) || [];
       if (matchIds.length === 0) {
-        setTeamStats(calculateTeamStats([], []));
+        setTeamStats(calculateTeamStats([], [], selectedTeam.id));
         return;
       }
 
@@ -79,7 +91,7 @@ function TeamDashboardPage({ user: _user, profile }) {
         .select('id, event_type, minute, player_id, match_id')
         .in('match_id', matchIds);
 
-      setTeamStats(calculateTeamStats(events || [], players || []));
+      setTeamStats(calculateTeamStats(events || [], players || [], selectedTeam.id, teamMatches));
     }
     fetchTeamData();
   }, [selectedTeam]);
@@ -192,12 +204,12 @@ function TeamDashboardPage({ user: _user, profile }) {
               marginBottom: 24,
             }}
           >
-            <StatCard label="Goles" value={teamStats.totalGoals} color="#2d6a4f" />
-            <StatCard label="Asistencias" value={teamStats.totalAssists} color="#40916c" />
-            <StatCard label="Tiros" value={teamStats.totalShots} color="#52796f" />
-            <StatCard label="T. Amarillas" value={teamStats.totalYellowCards} color="#e9c46a" />
-            <StatCard label="T. Rojas" value={teamStats.totalRedCards} color="#c1121f" />
-            <StatCard label="Partidos" value={matches.length} color="#264653" />
+            <StatCard label="Partidos" value={teamStats.played} color="#264653" />
+            <StatCard label="Ganados" value={teamStats.won} color="#2d6a4f" />
+            <StatCard label="Empatados" value={teamStats.drawn} color="#e9c46a" />
+            <StatCard label="Perdidos" value={teamStats.lost} color="#c1121f" />
+            <StatCard label="Goles FAVOR" value={teamStats.goalsFor} color="#40916c" />
+            <StatCard label="Goles CONTRA" value={teamStats.goalsAgainst} color="#e76f51" />
           </div>
 
           <div

@@ -38,8 +38,14 @@ export function calculatePlayerStats(events) {
   };
 }
 
-export function calculateTeamStats(events, players) {
+export function calculateTeamStats(events, players, teamId, matches) {
   const stats = {
+    played: 0,
+    won: 0,
+    drawn: 0,
+    lost: 0,
+    goalsFor: 0,
+    goalsAgainst: 0,
     totalGoals: 0,
     totalAssists: 0,
     totalShots: 0,
@@ -51,10 +57,29 @@ export function calculateTeamStats(events, players) {
     eventsByMinute: [],
   };
 
-  if (!events || events.length === 0) return stats;
+  if (matches && matches.length > 0 && teamId) {
+    stats.played = matches.length;
+    for (const m of matches) {
+      if (!m.result) continue;
+      const parts = m.result.split('-');
+      if (parts.length !== 2) continue;
+      const gf = parseInt(parts[0], 10);
+      const ga = parseInt(parts[1], 10);
+      if (isNaN(gf) || isNaN(ga)) continue;
+      const isHome = m.team_id === teamId;
+      const myGoals = isHome ? gf : ga;
+      const theirGoals = isHome ? ga : gf;
+      stats.goalsFor += myGoals;
+      stats.goalsAgainst += theirGoals;
+      if (myGoals > theirGoals) stats.won++;
+      else if (myGoals < theirGoals) stats.lost++;
+      else stats.drawn++;
+    }
+  }
 
   const counts = {};
   const playerEventCounts = {};
+  if (!events || events.length === 0) return stats;
   for (let i = 0; i < events.length; i++) {
     const e = events[i];
     counts[e.event_type] = (counts[e.event_type] || 0) + 1;

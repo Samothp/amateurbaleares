@@ -8,5 +8,8 @@ lxml>=5.0
 # Supabase
 supabase>=2.0
 
+# PostgreSQL direct connection
+psycopg2-binary>=2.9
+
 # Environment
 python-dotenv>=1.0
