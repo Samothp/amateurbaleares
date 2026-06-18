@@ -17,10 +17,9 @@ describe('useDebounce', () => {
   });
 
   it('does not update before delay', () => {
-    const { result, rerender } = renderHook(
-      ({ value, delay }) => useDebounce(value, delay),
-      { initialProps: { value: 'a', delay: 300 } }
-    );
+    const { result, rerender } = renderHook(({ value, delay }) => useDebounce(value, delay), {
+      initialProps: { value: 'a', delay: 300 },
+    });
     rerender({ value: 'b', delay: 300 });
     expect(result.current).toBe('a');
 
@@ -29,10 +28,9 @@ describe('useDebounce', () => {
   });
 
   it('updates after delay', () => {
-    const { result, rerender } = renderHook(
-      ({ value, delay }) => useDebounce(value, delay),
-      { initialProps: { value: 'a', delay: 300 } }
-    );
+    const { result, rerender } = renderHook(({ value, delay }) => useDebounce(value, delay), {
+      initialProps: { value: 'a', delay: 300 },
+    });
     rerender({ value: 'b', delay: 300 });
 
     act(() => jest.advanceTimersByTime(300));
@@ -40,10 +38,9 @@ describe('useDebounce', () => {
   });
 
   it('resets timer on rapid changes', () => {
-    const { result, rerender } = renderHook(
-      ({ value, delay }) => useDebounce(value, delay),
-      { initialProps: { value: 'a', delay: 300 } }
-    );
+    const { result, rerender } = renderHook(({ value, delay }) => useDebounce(value, delay), {
+      initialProps: { value: 'a', delay: 300 },
+    });
     rerender({ value: 'b', delay: 300 });
     act(() => jest.advanceTimersByTime(200));
     rerender({ value: 'c', delay: 300 });

@@ -275,167 +275,169 @@ function PartidosPage({ user: _user, profile }) {
             boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
           }}
         >
-          <p style={{ color: '#666' }}>{search ? 'No se encontraron partidos.' : 'No hay partidos registrados aún.'}</p>
+          <p style={{ color: '#666' }}>
+            {search ? 'No se encontraron partidos.' : 'No hay partidos registrados aún.'}
+          </p>
         </div>
       ) : (
         <>
-        <div style={{ display: 'grid', gap: 12 }}>
-          {paged.map((match) => (
-            <div
-              key={match.id}
-              style={{
-                background: '#fff',
-                padding: 20,
-                borderRadius: 12,
-                boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-              }}
-            >
+          <div style={{ display: 'grid', gap: 12 }}>
+            {paged.map((match) => (
               <div
-                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                key={match.id}
+                style={{
+                  background: '#fff',
+                  padding: 20,
+                  borderRadius: 12,
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                }}
               >
-                <Link
-                  href={`/partidos/${match.id}`}
-                  style={{ textDecoration: 'none', color: 'inherit', flex: 1 }}
+                <div
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                    <div style={{ textAlign: 'center', minWidth: 80 }}>
-                      <p style={{ fontSize: 12, color: '#999' }}>{formatDate(match.date)}</p>
-                      {match.result && (
-                        <p
-                          style={{
-                            fontSize: 20,
-                            fontWeight: 'bold',
-                            color: '#1a1a2e',
-                            marginTop: 4,
-                          }}
-                        >
-                          {match.result}
-                        </p>
-                      )}
-                    </div>
-                    <div>
-                      <p style={{ fontSize: 14, color: '#999' }}>{getTeamName(match.team_id)}</p>
-                      <p style={{ fontSize: 18, fontWeight: 600 }}>vs {match.opponent}</p>
-                    </div>
-                  </div>
-                </Link>
-                <div style={{ display: 'flex', gap: 8 }}>
-                  {canEdit && (
-                    <button
-                      onClick={() => handleEdit(match)}
-                      style={{
-                        padding: '8px 16px',
-                        background: '#f0f0f0',
-                        border: 'none',
-                        borderRadius: 6,
-                        cursor: 'pointer',
-                        fontSize: 13,
-                      }}
-                    >
-                      Editar
-                    </button>
-                  )}
                   <Link
                     href={`/partidos/${match.id}`}
-                    style={{
-                      padding: '8px 16px',
-                      background: '#1a1a2e',
-                      color: '#fff',
-                      border: 'none',
-                      borderRadius: 6,
-                      cursor: 'pointer',
-                      fontSize: 13,
-                      textDecoration: 'none',
-                    }}
+                    style={{ textDecoration: 'none', color: 'inherit', flex: 1 }}
                   >
-                    Ver detalle
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                      <div style={{ textAlign: 'center', minWidth: 80 }}>
+                        <p style={{ fontSize: 12, color: '#999' }}>{formatDate(match.date)}</p>
+                        {match.result && (
+                          <p
+                            style={{
+                              fontSize: 20,
+                              fontWeight: 'bold',
+                              color: '#1a1a2e',
+                              marginTop: 4,
+                            }}
+                          >
+                            {match.result}
+                          </p>
+                        )}
+                      </div>
+                      <div>
+                        <p style={{ fontSize: 14, color: '#999' }}>{getTeamName(match.team_id)}</p>
+                        <p style={{ fontSize: 18, fontWeight: 600 }}>vs {match.opponent}</p>
+                      </div>
+                    </div>
                   </Link>
-                  {canEdit && (
-                    <>
-                      <Link
-                        href={`/partidos/${match.id}?live=true`}
-                        style={{
-                          padding: '8px 16px',
-                          background: '#2d6a4f',
-                          color: '#fff',
-                          border: 'none',
-                          borderRadius: 6,
-                          cursor: 'pointer',
-                          fontSize: 13,
-                          textDecoration: 'none',
-                        }}
-                      >
-                        En vivo
-                      </Link>
-                      <button
-                        onClick={() => setDeleteConfirm(match.id)}
-                        style={{
-                          padding: '8px 16px',
-                          background: '#ffe0e0',
-                          color: 'crimson',
-                          border: 'none',
-                          borderRadius: 6,
-                          cursor: 'pointer',
-                          fontSize: 13,
-                        }}
-                      >
-                        Eliminar
-                      </button>
-                    </>
-                  )}
-                </div>
-              </div>
-              {deleteConfirm === match.id && (
-                <div
-                  style={{
-                    marginTop: 12,
-                    padding: 12,
-                    background: '#fff5f5',
-                    borderRadius: 8,
-                    border: '1px solid #ffcccc',
-                  }}
-                >
-                  <p style={{ fontSize: 13, marginBottom: 8 }}>¿Eliminar este partido?</p>
                   <div style={{ display: 'flex', gap: 8 }}>
-                    <button
-                      onClick={() => handleDelete(match.id)}
+                    {canEdit && (
+                      <button
+                        onClick={() => handleEdit(match)}
+                        style={{
+                          padding: '8px 16px',
+                          background: '#f0f0f0',
+                          border: 'none',
+                          borderRadius: 6,
+                          cursor: 'pointer',
+                          fontSize: 13,
+                        }}
+                      >
+                        Editar
+                      </button>
+                    )}
+                    <Link
+                      href={`/partidos/${match.id}`}
                       style={{
-                        padding: '6px 12px',
-                        background: 'crimson',
+                        padding: '8px 16px',
+                        background: '#1a1a2e',
                         color: '#fff',
                         border: 'none',
                         borderRadius: 6,
                         cursor: 'pointer',
                         fontSize: 13,
+                        textDecoration: 'none',
                       }}
                     >
-                      Sí, eliminar
-                    </button>
-                    <button
-                      onClick={() => setDeleteConfirm(null)}
-                      style={{
-                        padding: '6px 12px',
-                        background: '#f0f0f0',
-                        border: 'none',
-                        borderRadius: 6,
-                        cursor: 'pointer',
-                        fontSize: 13,
-                      }}
-                    >
-                      Cancelar
-                    </button>
+                      Ver detalle
+                    </Link>
+                    {canEdit && (
+                      <>
+                        <Link
+                          href={`/partidos/${match.id}?live=true`}
+                          style={{
+                            padding: '8px 16px',
+                            background: '#2d6a4f',
+                            color: '#fff',
+                            border: 'none',
+                            borderRadius: 6,
+                            cursor: 'pointer',
+                            fontSize: 13,
+                            textDecoration: 'none',
+                          }}
+                        >
+                          En vivo
+                        </Link>
+                        <button
+                          onClick={() => setDeleteConfirm(match.id)}
+                          style={{
+                            padding: '8px 16px',
+                            background: '#ffe0e0',
+                            color: 'crimson',
+                            border: 'none',
+                            borderRadius: 6,
+                            cursor: 'pointer',
+                            fontSize: 13,
+                          }}
+                        >
+                          Eliminar
+                        </button>
+                      </>
+                    )}
                   </div>
                 </div>
-              )}
-            </div>
-          ))}
-        </div>
-        <Pagination
-          currentPage={page}
-          totalItems={filtered.length}
-          pageSize={PAGE_SIZE}
-          onPageChange={setPage}
-        />
+                {deleteConfirm === match.id && (
+                  <div
+                    style={{
+                      marginTop: 12,
+                      padding: 12,
+                      background: '#fff5f5',
+                      borderRadius: 8,
+                      border: '1px solid #ffcccc',
+                    }}
+                  >
+                    <p style={{ fontSize: 13, marginBottom: 8 }}>¿Eliminar este partido?</p>
+                    <div style={{ display: 'flex', gap: 8 }}>
+                      <button
+                        onClick={() => handleDelete(match.id)}
+                        style={{
+                          padding: '6px 12px',
+                          background: 'crimson',
+                          color: '#fff',
+                          border: 'none',
+                          borderRadius: 6,
+                          cursor: 'pointer',
+                          fontSize: 13,
+                        }}
+                      >
+                        Sí, eliminar
+                      </button>
+                      <button
+                        onClick={() => setDeleteConfirm(null)}
+                        style={{
+                          padding: '6px 12px',
+                          background: '#f0f0f0',
+                          border: 'none',
+                          borderRadius: 6,
+                          cursor: 'pointer',
+                          fontSize: 13,
+                        }}
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <Pagination
+            currentPage={page}
+            totalItems={filtered.length}
+            pageSize={PAGE_SIZE}
+            onPageChange={setPage}
+          />
         </>
       )}
     </Layout>

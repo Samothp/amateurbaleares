@@ -359,177 +359,121 @@ function JugadoresPage({ user: _user, profile }) {
             boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
           }}
         >
-          <p style={{ color: '#666' }}>{search ? 'No se encontraron jugadores.' : 'No hay jugadores registrados aún.'}</p>
+          <p style={{ color: '#666' }}>
+            {search ? 'No se encontraron jugadores.' : 'No hay jugadores registrados aún.'}
+          </p>
         </div>
       ) : (
         <>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-            gap: 16,
-          }}
-        >
-          {paged.map((player) => (
-            <div
-              key={player.id}
-              style={{
-                background: '#fff',
-                padding: 20,
-                borderRadius: 12,
-                boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-              }}
-            >
-              <div style={{ display: 'flex', gap: 16, alignItems: 'start' }}>
-                <div style={{ position: 'relative' }}>
-                  {player.photo ? (
-                    <Image
-                      src={player.photo}
-                      alt={player.name}
-                      width={64}
-                      height={64}
-                      style={{
-                        borderRadius: '50%',
-                        objectFit: 'cover',
-                        background: '#f0f0f0',
-                      }}
-                    />
-                  ) : (
-                    <div
-                      style={{
-                        width: 64,
-                        height: 64,
-                        borderRadius: '50%',
-                        background: '#f0f0f0',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: 24,
-                        color: '#ccc',
-                      }}
-                    >
-                      👤
-                    </div>
-                  )}
-                  {canEdit && (
-                    <label
-                      style={{
-                        position: 'absolute',
-                        bottom: -2,
-                        right: -2,
-                        background: '#1a1a2e',
-                        color: '#fff',
-                        borderRadius: '50%',
-                        width: 22,
-                        height: 22,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        cursor: 'pointer',
-                        fontSize: 10,
-                      }}
-                    >
-                      📷
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => handlePhotoUpload(e, player.id)}
-                        style={{ display: 'none' }}
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+              gap: 16,
+            }}
+          >
+            {paged.map((player) => (
+              <div
+                key={player.id}
+                style={{
+                  background: '#fff',
+                  padding: 20,
+                  borderRadius: 12,
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                }}
+              >
+                <div style={{ display: 'flex', gap: 16, alignItems: 'start' }}>
+                  <div style={{ position: 'relative' }}>
+                    {player.photo ? (
+                      <Image
+                        src={player.photo}
+                        alt={player.name}
+                        width={64}
+                        height={64}
+                        style={{
+                          borderRadius: '50%',
+                          objectFit: 'cover',
+                          background: '#f0f0f0',
+                        }}
                       />
-                    </label>
-                  )}
-                </div>
-                <div style={{ flex: 1 }}>
-                  <h3 style={{ marginBottom: 2 }}>{player.name}</h3>
-                  <p style={{ color: '#666', fontSize: 13 }}>{player.position || 'Sin posición'}</p>
-                  <p style={{ color: '#999', fontSize: 12, marginTop: 2 }}>
-                    {getTeamName(player.team_id)}
-                  </p>
-                  <div
-                    style={{ display: 'flex', gap: 8, marginTop: 6, fontSize: 12, color: '#999' }}
-                  >
-                    {player.age && <span>{player.age} años</span>}
-                    {player.dorsal && <span>#{player.dorsal}</span>}
-                    {player.height && <span>{player.height}cm</span>}
-                    {player.dominant_foot && <span>{player.dominant_foot}</span>}
+                    ) : (
+                      <div
+                        style={{
+                          width: 64,
+                          height: 64,
+                          borderRadius: '50%',
+                          background: '#f0f0f0',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: 24,
+                          color: '#ccc',
+                        }}
+                      >
+                        👤
+                      </div>
+                    )}
+                    {canEdit && (
+                      <label
+                        style={{
+                          position: 'absolute',
+                          bottom: -2,
+                          right: -2,
+                          background: '#1a1a2e',
+                          color: '#fff',
+                          borderRadius: '50%',
+                          width: 22,
+                          height: 22,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          cursor: 'pointer',
+                          fontSize: 10,
+                        }}
+                      >
+                        📷
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handlePhotoUpload(e, player.id)}
+                          style={{ display: 'none' }}
+                        />
+                      </label>
+                    )}
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <h3 style={{ marginBottom: 2 }}>{player.name}</h3>
+                    <p style={{ color: '#666', fontSize: 13 }}>
+                      {player.position || 'Sin posición'}
+                    </p>
+                    <p style={{ color: '#999', fontSize: 12, marginTop: 2 }}>
+                      {getTeamName(player.team_id)}
+                    </p>
+                    <div
+                      style={{ display: 'flex', gap: 8, marginTop: 6, fontSize: 12, color: '#999' }}
+                    >
+                      {player.age && <span>{player.age} años</span>}
+                      {player.dorsal && <span>#{player.dorsal}</span>}
+                      {player.height && <span>{player.height}cm</span>}
+                      {player.dominant_foot && <span>{player.dominant_foot}</span>}
+                    </div>
                   </div>
                 </div>
-              </div>
-              {canEdit && (
-                <div
-                  style={{
-                    display: 'flex',
-                    gap: 8,
-                    marginTop: 12,
-                    paddingTop: 12,
-                    borderTop: '1px solid #f0f0f0',
-                  }}
-                >
-                  <button
-                    onClick={() => handleEdit(player)}
+                {canEdit && (
+                  <div
                     style={{
-                      flex: 1,
-                      padding: '6px 12px',
-                      background: '#f0f0f0',
-                      border: 'none',
-                      borderRadius: 6,
-                      cursor: 'pointer',
-                      fontSize: 13,
+                      display: 'flex',
+                      gap: 8,
+                      marginTop: 12,
+                      paddingTop: 12,
+                      borderTop: '1px solid #f0f0f0',
                     }}
                   >
-                    Editar
-                  </button>
-                  {canDelete && (
                     <button
-                      onClick={() => setDeleteConfirm(player.id)}
+                      onClick={() => handleEdit(player)}
                       style={{
                         flex: 1,
                         padding: '6px 12px',
-                        background: '#ffe0e0',
-                        color: 'crimson',
-                        border: 'none',
-                        borderRadius: 6,
-                        cursor: 'pointer',
-                        fontSize: 13,
-                      }}
-                    >
-                      Eliminar
-                    </button>
-                  )}
-                </div>
-              )}
-              {deleteConfirm === player.id && (
-                <div
-                  style={{
-                    marginTop: 12,
-                    padding: 12,
-                    background: '#fff5f5',
-                    borderRadius: 8,
-                    border: '1px solid #ffcccc',
-                  }}
-                >
-                  <p style={{ fontSize: 13, marginBottom: 8 }}>
-                    ¿Eliminar a &quot;{player.name}&quot;?
-                  </p>
-                  <div style={{ display: 'flex', gap: 8 }}>
-                    <button
-                      onClick={() => handleDelete(player.id)}
-                      style={{
-                        padding: '6px 12px',
-                        background: 'crimson',
-                        color: '#fff',
-                        border: 'none',
-                        borderRadius: 6,
-                        cursor: 'pointer',
-                        fontSize: 13,
-                      }}
-                    >
-                      Sí, eliminar
-                    </button>
-                    <button
-                      onClick={() => setDeleteConfirm(null)}
-                      style={{
-                        padding: '6px 12px',
                         background: '#f0f0f0',
                         border: 'none',
                         borderRadius: 6,
@@ -537,20 +481,80 @@ function JugadoresPage({ user: _user, profile }) {
                         fontSize: 13,
                       }}
                     >
-                      Cancelar
+                      Editar
                     </button>
+                    {canDelete && (
+                      <button
+                        onClick={() => setDeleteConfirm(player.id)}
+                        style={{
+                          flex: 1,
+                          padding: '6px 12px',
+                          background: '#ffe0e0',
+                          color: 'crimson',
+                          border: 'none',
+                          borderRadius: 6,
+                          cursor: 'pointer',
+                          fontSize: 13,
+                        }}
+                      >
+                        Eliminar
+                      </button>
+                    )}
                   </div>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-        <Pagination
-          currentPage={page}
-          totalItems={filtered.length}
-          pageSize={PAGE_SIZE}
-          onPageChange={setPage}
-        />
+                )}
+                {deleteConfirm === player.id && (
+                  <div
+                    style={{
+                      marginTop: 12,
+                      padding: 12,
+                      background: '#fff5f5',
+                      borderRadius: 8,
+                      border: '1px solid #ffcccc',
+                    }}
+                  >
+                    <p style={{ fontSize: 13, marginBottom: 8 }}>
+                      ¿Eliminar a &quot;{player.name}&quot;?
+                    </p>
+                    <div style={{ display: 'flex', gap: 8 }}>
+                      <button
+                        onClick={() => handleDelete(player.id)}
+                        style={{
+                          padding: '6px 12px',
+                          background: 'crimson',
+                          color: '#fff',
+                          border: 'none',
+                          borderRadius: 6,
+                          cursor: 'pointer',
+                          fontSize: 13,
+                        }}
+                      >
+                        Sí, eliminar
+                      </button>
+                      <button
+                        onClick={() => setDeleteConfirm(null)}
+                        style={{
+                          padding: '6px 12px',
+                          background: '#f0f0f0',
+                          border: 'none',
+                          borderRadius: 6,
+                          cursor: 'pointer',
+                          fontSize: 13,
+                        }}
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <Pagination
+            currentPage={page}
+            totalItems={filtered.length}
+            pageSize={PAGE_SIZE}
+            onPageChange={setPage}
+          />
         </>
       )}
     </Layout>

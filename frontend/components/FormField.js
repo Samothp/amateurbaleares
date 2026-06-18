@@ -20,12 +20,9 @@ export function FormField({
 
   const validate = (val) => {
     if (required && !val && val !== 0) return `${label} es obligatorio`;
-    if (minLength && val && val.length < minLength)
-      return `Mínimo ${minLength} caracteres`;
-    if (maxLength && val && val.length > maxLength)
-      return `Máximo ${maxLength} caracteres`;
-    if (pattern && val && !pattern.value.test(val))
-      return pattern.message || 'Formato no válido';
+    if (minLength && val && val.length < minLength) return `Mínimo ${minLength} caracteres`;
+    if (maxLength && val && val.length > maxLength) return `Máximo ${maxLength} caracteres`;
+    if (pattern && val && !pattern.value.test(val)) return pattern.message || 'Formato no válido';
     return '';
   };
 

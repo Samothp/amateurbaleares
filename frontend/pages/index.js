@@ -39,12 +39,18 @@ export default function Home() {
           textAlign: 'center',
         }}
       >
-        <h1 style={{ fontSize: 40, fontWeight: 700, marginBottom: 16 }}>
-          Amateur Baleares
-        </h1>
-        <p style={{ fontSize: 18, color: '#a0a0b0', maxWidth: 560, margin: '0 auto 32px', lineHeight: 1.6 }}>
-          Plataforma de estadísticas y scouting de fútbol amateur para clubes,
-          entrenadores y scouts en Baleares.
+        <h1 style={{ fontSize: 40, fontWeight: 700, marginBottom: 16 }}>Amateur Baleares</h1>
+        <p
+          style={{
+            fontSize: 18,
+            color: '#a0a0b0',
+            maxWidth: 560,
+            margin: '0 auto 32px',
+            lineHeight: 1.6,
+          }}
+        >
+          Plataforma de estadísticas y scouting de fútbol amateur para clubes, entrenadores y scouts
+          en Baleares.
         </p>
         <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link

@@ -54,7 +54,14 @@ export function SkeletonDashboard() {
   return (
     <div>
       <Skeleton height={28} width={200} style={{ marginBottom: 24 }} />
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: 16, marginBottom: 24 }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+          gap: 16,
+          marginBottom: 24,
+        }}
+      >
         {Array.from({ length: 4 }).map((_, i) => (
           <SkeletonCard key={i} lines={2} height={20} />
         ))}

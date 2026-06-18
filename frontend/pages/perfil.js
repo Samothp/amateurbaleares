@@ -88,7 +88,14 @@ function ProfilePage({ user, profile: initialProfile }) {
 
       <MessageBanner message={message} />
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24, maxWidth: 700 }}>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: 24,
+          maxWidth: 700,
+        }}
+      >
         <Card padding={24}>
           <h2 style={{ fontSize: 18, marginBottom: 16 }}>Datos personales</h2>
           <form onSubmit={handleUpdate} style={{ display: 'grid', gap: 12 }}>
@@ -99,17 +106,8 @@ function ProfilePage({ user, profile: initialProfile }) {
               required
               minLength={2}
             />
-            <FormField
-              label="Email"
-              type="email"
-              value={user?.email || ''}
-              disabled
-            />
-            <FormField
-              label="Rol"
-              value={profile?.role || ''}
-              disabled
-            />
+            <FormField label="Email" type="email" value={user?.email || ''} disabled />
+            <FormField label="Rol" value={profile?.role || ''} disabled />
             <Button type="submit" disabled={loading} style={{ marginTop: 8 }}>
               {loading ? 'Guardando...' : 'Guardar cambios'}
             </Button>

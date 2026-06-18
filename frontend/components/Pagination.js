@@ -26,7 +26,17 @@ export function Pagination({ currentPage, totalItems, pageSize, onPageChange }) 
   };
 
   return (
-    <nav aria-label="Paginación" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 20, flexWrap: 'wrap', gap: 8 }}>
+    <nav
+      aria-label="Paginación"
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 20,
+        flexWrap: 'wrap',
+        gap: 8,
+      }}
+    >
       <span style={{ fontSize: 13, color: '#666' }}>
         Mostrando {start}-{end} de {totalItems}
       </span>

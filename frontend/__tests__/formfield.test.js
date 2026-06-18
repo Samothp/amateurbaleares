@@ -44,17 +44,13 @@ describe('FormField', () => {
   });
 
   it('shows minLength error after blur', () => {
-    render(
-      <FormField label="Pass" value="ab" onChange={() => {}} required minLength={6} />
-    );
+    render(<FormField label="Pass" value="ab" onChange={() => {}} required minLength={6} />);
     fireEvent.blur(screen.getByRole('textbox'));
     expect(screen.getByText('Mínimo 6 caracteres')).toBeInTheDocument();
   });
 
   it('clears error after valid input', () => {
-    const { rerender } = render(
-      <FormField label="Name" value="" onChange={() => {}} required />
-    );
+    const { rerender } = render(<FormField label="Name" value="" onChange={() => {}} required />);
     fireEvent.blur(screen.getByRole('textbox'));
     expect(screen.getByText('Name es obligatorio')).toBeInTheDocument();
 
@@ -64,7 +60,10 @@ describe('FormField', () => {
   });
 
   it('renders select when options provided', () => {
-    const options = [{ value: 'a', label: 'Option A' }, { value: 'b', label: 'Option B' }];
+    const options = [
+      { value: 'a', label: 'Option A' },
+      { value: 'b', label: 'Option B' },
+    ];
     render(<FormField label="Rol" value="" onChange={() => {}} options={options} />);
     expect(screen.getByRole('combobox')).toBeInTheDocument();
     expect(screen.getByText('Option A')).toBeInTheDocument();
@@ -82,9 +81,7 @@ describe('FormField', () => {
   });
 
   it('displays external error', () => {
-    render(
-      <FormField label="Email" value="bad" onChange={() => {}} error="Email inválido" />
-    );
+    render(<FormField label="Email" value="bad" onChange={() => {}} error="Email inválido" />);
     expect(screen.getByText('Email inválido')).toBeInTheDocument();
   });
 });

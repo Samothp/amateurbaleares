@@ -70,10 +70,21 @@ function AdminPage({ user: _user, profile }) {
 
   return (
     <Layout profile={profile}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, flexWrap: 'wrap', gap: 12 }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: 24,
+          flexWrap: 'wrap',
+          gap: 12,
+        }}
+      >
         <div>
           <h1 style={{ fontSize: 24, marginBottom: 4 }}>Administración de Usuarios</h1>
-          <p style={{ color: '#666', fontSize: 14 }}>{filtered.length} usuario{filtered.length !== 1 ? 's' : ''}</p>
+          <p style={{ color: '#666', fontSize: 14 }}>
+            {filtered.length} usuario{filtered.length !== 1 ? 's' : ''}
+          </p>
         </div>
         <SearchBar value={search} onChange={handleSearchChange} placeholder="Buscar usuario..." />
       </div>
@@ -146,65 +157,75 @@ function AdminPage({ user: _user, profile }) {
           <SkeletonList count={5} />
         </>
       ) : filtered.length === 0 ? (
-        <div style={{ background: '#fff', padding: 48, borderRadius: 12, textAlign: 'center', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-          <p style={{ color: '#666' }}>{search ? 'No se encontraron usuarios.' : 'No hay usuarios registrados.'}</p>
-        </div>
-      ) : (
-        <>
         <div
           style={{
             background: '#fff',
+            padding: 48,
             borderRadius: 12,
+            textAlign: 'center',
             boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-            overflow: 'hidden',
           }}
         >
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ borderBottom: '1px solid #eee', textAlign: 'left' }}>
-                <th style={{ padding: '12px 16px', fontSize: 13, color: '#666' }}>Nombre</th>
-                <th style={{ padding: '12px 16px', fontSize: 13, color: '#666' }}>Email</th>
-                <th style={{ padding: '12px 16px', fontSize: 13, color: '#666' }}>Rol</th>
-                <th style={{ padding: '12px 16px', fontSize: 13, color: '#666' }}>Registro</th>
-              </tr>
-            </thead>
-            <tbody>
-              {paged.map((u) => (
-                <tr key={u.id} style={{ borderBottom: '1px solid #f5f5f5' }}>
-                  <td style={{ padding: '12px 16px' }}>{u.name || 'Sin nombre'}</td>
-                  <td style={{ padding: '12px 16px', color: '#666' }}>{u.email}</td>
-                  <td style={{ padding: '12px 16px' }}>
-                    <select
-                      value={u.role || ''}
-                      onChange={(e) => handleRoleChange(u.id, e.target.value)}
-                      style={{
-                        padding: '6px 8px',
-                        borderRadius: 6,
-                        border: '1px solid #ddd',
-                        fontSize: 13,
-                      }}
-                    >
-                      {ROLE_OPTIONS.map((r) => (
-                        <option key={r} value={r}>
-                          {r}
-                        </option>
-                      ))}
-                    </select>
-                  </td>
-                  <td style={{ padding: '12px 16px', color: '#999', fontSize: 13 }}>
-                    {new Date(u.created_at).toLocaleDateString('es-ES')}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <p style={{ color: '#666' }}>
+            {search ? 'No se encontraron usuarios.' : 'No hay usuarios registrados.'}
+          </p>
         </div>
-        <Pagination
-          currentPage={page}
-          totalItems={filtered.length}
-          pageSize={PAGE_SIZE}
-          onPageChange={setPage}
-        />
+      ) : (
+        <>
+          <div
+            style={{
+              background: '#fff',
+              borderRadius: 12,
+              boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+              overflow: 'hidden',
+            }}
+          >
+            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+              <thead>
+                <tr style={{ borderBottom: '1px solid #eee', textAlign: 'left' }}>
+                  <th style={{ padding: '12px 16px', fontSize: 13, color: '#666' }}>Nombre</th>
+                  <th style={{ padding: '12px 16px', fontSize: 13, color: '#666' }}>Email</th>
+                  <th style={{ padding: '12px 16px', fontSize: 13, color: '#666' }}>Rol</th>
+                  <th style={{ padding: '12px 16px', fontSize: 13, color: '#666' }}>Registro</th>
+                </tr>
+              </thead>
+              <tbody>
+                {paged.map((u) => (
+                  <tr key={u.id} style={{ borderBottom: '1px solid #f5f5f5' }}>
+                    <td style={{ padding: '12px 16px' }}>{u.name || 'Sin nombre'}</td>
+                    <td style={{ padding: '12px 16px', color: '#666' }}>{u.email}</td>
+                    <td style={{ padding: '12px 16px' }}>
+                      <select
+                        value={u.role || ''}
+                        onChange={(e) => handleRoleChange(u.id, e.target.value)}
+                        style={{
+                          padding: '6px 8px',
+                          borderRadius: 6,
+                          border: '1px solid #ddd',
+                          fontSize: 13,
+                        }}
+                      >
+                        {ROLE_OPTIONS.map((r) => (
+                          <option key={r} value={r}>
+                            {r}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td style={{ padding: '12px 16px', color: '#999', fontSize: 13 }}>
+                      {new Date(u.created_at).toLocaleDateString('es-ES')}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <Pagination
+            currentPage={page}
+            totalItems={filtered.length}
+            pageSize={PAGE_SIZE}
+            onPageChange={setPage}
+          />
         </>
       )}
     </Layout>

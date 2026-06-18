@@ -14,7 +14,9 @@ export default function Layout({ children, profile }) {
     const supabase = getSupabase();
     if (!supabase) return;
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event) => {
       if (event === 'SIGNED_OUT') {
         router.replace('/login');
       }
@@ -76,7 +78,9 @@ export default function Layout({ children, profile }) {
               boxShadow: '0 4px 24px rgba(0,0,0,0.15)',
             }}
           >
-            <h3 id="logout-title" style={{ fontSize: 16, marginBottom: 8 }}>¿Cerrar sesión?</h3>
+            <h3 id="logout-title" style={{ fontSize: 16, marginBottom: 8 }}>
+              ¿Cerrar sesión?
+            </h3>
             <p style={{ fontSize: 14, color: '#666', marginBottom: 20 }}>
               Se cerrará tu sesión actual.
             </p>

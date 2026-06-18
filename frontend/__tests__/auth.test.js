@@ -5,15 +5,21 @@ import { PasswordStrength } from '../components/PasswordStrength';
 
 describe('mapAuthError', () => {
   it('maps Invalid login credentials', () => {
-    expect(mapAuthError({ message: 'Invalid login credentials' })).toBe('Email o contraseña incorrectos');
+    expect(mapAuthError({ message: 'Invalid login credentials' })).toBe(
+      'Email o contraseña incorrectos'
+    );
   });
 
   it('maps Email not confirmed', () => {
-    expect(mapAuthError({ message: 'Email not confirmed' })).toBe('Confirma tu email antes de iniciar sesión');
+    expect(mapAuthError({ message: 'Email not confirmed' })).toBe(
+      'Confirma tu email antes de iniciar sesión'
+    );
   });
 
   it('maps Too many requests', () => {
-    expect(mapAuthError({ message: 'Too many requests' })).toBe('Demasiados intentos. Espera un momento.');
+    expect(mapAuthError({ message: 'Too many requests' })).toBe(
+      'Demasiados intentos. Espera un momento.'
+    );
   });
 
   it('maps User not found', () => {
@@ -21,11 +27,15 @@ describe('mapAuthError', () => {
   });
 
   it('maps signup_disabled', () => {
-    expect(mapAuthError({ message: 'signup_disabled' })).toBe('El registro está deshabilitado temporalmente');
+    expect(mapAuthError({ message: 'signup_disabled' })).toBe(
+      'El registro está deshabilitado temporalmente'
+    );
   });
 
   it('maps User already registered', () => {
-    expect(mapAuthError({ message: 'User already registered' })).toBe('Ya existe una cuenta con este email');
+    expect(mapAuthError({ message: 'User already registered' })).toBe(
+      'Ya existe una cuenta con este email'
+    );
   });
 
   it('returns original message for unknown errors', () => {

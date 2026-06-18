@@ -7,17 +7,30 @@ import withAuth from '../../lib/withAuth';
 import { getSupabase } from '../../lib/supabaseClient';
 import Layout from '../../components/Layout';
 import { SkeletonDashboard } from '../../components/Skeleton';
-import {
-  calculatePlayerStats,
-  analyzeStrengthsWeaknesses,
-} from '../../lib/stats';
+import { calculatePlayerStats, analyzeStrengthsWeaknesses } from '../../lib/stats';
 
-const DynamicRadarChart = dynamic(() => import('../../lib/charts').then((m) => m.DynamicRadarChart), { ssr: false });
-const DynamicPolarGrid = dynamic(() => import('../../lib/charts').then((m) => m.PolarGrid), { ssr: false });
-const DynamicPolarAngleAxis = dynamic(() => import('../../lib/charts').then((m) => m.PolarAngleAxis), { ssr: false });
-const DynamicPolarRadiusAxis = dynamic(() => import('../../lib/charts').then((m) => m.PolarRadiusAxis), { ssr: false });
-const DynamicRadar = dynamic(() => import('../../lib/charts').then((m) => m.DynamicRadar), { ssr: false });
-const DynamicResponsiveContainer = dynamic(() => import('../../lib/charts').then((m) => m.ResponsiveContainer), { ssr: false });
+const DynamicRadarChart = dynamic(
+  () => import('../../lib/charts').then((m) => m.DynamicRadarChart),
+  { ssr: false }
+);
+const DynamicPolarGrid = dynamic(() => import('../../lib/charts').then((m) => m.PolarGrid), {
+  ssr: false,
+});
+const DynamicPolarAngleAxis = dynamic(
+  () => import('../../lib/charts').then((m) => m.PolarAngleAxis),
+  { ssr: false }
+);
+const DynamicPolarRadiusAxis = dynamic(
+  () => import('../../lib/charts').then((m) => m.PolarRadiusAxis),
+  { ssr: false }
+);
+const DynamicRadar = dynamic(() => import('../../lib/charts').then((m) => m.DynamicRadar), {
+  ssr: false,
+});
+const DynamicResponsiveContainer = dynamic(
+  () => import('../../lib/charts').then((m) => m.ResponsiveContainer),
+  { ssr: false }
+);
 
 function PlayerProfilePage({ user: _user, profile }) {
   const router = useRouter();
@@ -38,7 +51,9 @@ function PlayerProfilePage({ user: _user, profile }) {
 
       const { data: playerData } = await supabase
         .from('players')
-        .select('id, name, age, position, dorsal, height, weight, dominant_foot, photo, team_id, created_at')
+        .select(
+          'id, name, age, position, dorsal, height, weight, dominant_foot, photo, team_id, created_at'
+        )
         .eq('id', id)
         .single();
       if (!playerData) {

@@ -152,93 +152,95 @@ function ClubsPage({ user: _user, profile }) {
         </>
       ) : filtered.length === 0 ? (
         <Card padding={48} style={{ textAlign: 'center' }}>
-          <p style={{ color: '#666' }}>{search ? 'No se encontraron clubs.' : 'No hay clubs registrados.'}</p>
+          <p style={{ color: '#666' }}>
+            {search ? 'No se encontraron clubs.' : 'No hay clubs registrados.'}
+          </p>
         </Card>
       ) : (
         <>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-            gap: 16,
-          }}
-        >
-          {paged.map((club) => (
-            <Card key={club.id} padding={20}>
-              <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 12 }}>
-                {club.crest ? (
-                  <Image
-                    src={club.crest}
-                    alt={club.name}
-                    width={48}
-                    height={48}
-                    style={{ borderRadius: 8, objectFit: 'cover' }}
-                  />
-                ) : (
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              gap: 16,
+            }}
+          >
+            {paged.map((club) => (
+              <Card key={club.id} padding={20}>
+                <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 12 }}>
+                  {club.crest ? (
+                    <Image
+                      src={club.crest}
+                      alt={club.name}
+                      width={48}
+                      height={48}
+                      style={{ borderRadius: 8, objectFit: 'cover' }}
+                    />
+                  ) : (
+                    <div
+                      style={{
+                        width: 48,
+                        height: 48,
+                        borderRadius: 8,
+                        background: '#f0f0f0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: 20,
+                      }}
+                    >
+                      ⚽
+                    </div>
+                  )}
+                  <div>
+                    <h3 style={{ margin: 0 }}>{club.name}</h3>
+                    <p style={{ color: '#666', fontSize: 13, margin: 0 }}>
+                      {club.city || 'Sin ciudad'}
+                    </p>
+                  </div>
+                </div>
+                {canEdit && (
                   <div
                     style={{
-                      width: 48,
-                      height: 48,
-                      borderRadius: 8,
-                      background: '#f0f0f0',
                       display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      fontSize: 20,
+                      gap: 8,
+                      marginTop: 12,
+                      paddingTop: 12,
+                      borderTop: '1px solid #f0f0f0',
                     }}
                   >
-                    ⚽
+                    <Button
+                      variant="ghost"
+                      onClick={() => handleEdit(club)}
+                      style={{ flex: 1, padding: '6px 12px', fontSize: 13 }}
+                    >
+                      Editar
+                    </Button>
+                    <Button
+                      variant="danger"
+                      onClick={() => setDeleteConfirm(club.id)}
+                      style={{ flex: 1, padding: '6px 12px', fontSize: 13 }}
+                    >
+                      Eliminar
+                    </Button>
                   </div>
                 )}
-                <div>
-                  <h3 style={{ margin: 0 }}>{club.name}</h3>
-                  <p style={{ color: '#666', fontSize: 13, margin: 0 }}>
-                    {club.city || 'Sin ciudad'}
-                  </p>
-                </div>
-              </div>
-              {canEdit && (
-                <div
-                  style={{
-                    display: 'flex',
-                    gap: 8,
-                    marginTop: 12,
-                    paddingTop: 12,
-                    borderTop: '1px solid #f0f0f0',
-                  }}
-                >
-                  <Button
-                    variant="ghost"
-                    onClick={() => handleEdit(club)}
-                    style={{ flex: 1, padding: '6px 12px', fontSize: 13 }}
-                  >
-                    Editar
-                  </Button>
-                  <Button
-                    variant="danger"
-                    onClick={() => setDeleteConfirm(club.id)}
-                    style={{ flex: 1, padding: '6px 12px', fontSize: 13 }}
-                  >
-                    Eliminar
-                  </Button>
-                </div>
-              )}
-              {deleteConfirm === club.id && (
-                <DeleteConfirm
-                  name={club.name}
-                  onConfirm={() => handleDelete(club.id)}
-                  onCancel={() => setDeleteConfirm(null)}
-                />
-              )}
-            </Card>
-          ))}
-        </div>
-        <Pagination
-          currentPage={page}
-          totalItems={filtered.length}
-          pageSize={PAGE_SIZE}
-          onPageChange={setPage}
-        />
+                {deleteConfirm === club.id && (
+                  <DeleteConfirm
+                    name={club.name}
+                    onConfirm={() => handleDelete(club.id)}
+                    onCancel={() => setDeleteConfirm(null)}
+                  />
+                )}
+              </Card>
+            ))}
+          </div>
+          <Pagination
+            currentPage={page}
+            totalItems={filtered.length}
+            pageSize={PAGE_SIZE}
+            onPageChange={setPage}
+          />
         </>
       )}
     </Layout>

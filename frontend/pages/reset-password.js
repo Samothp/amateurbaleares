@@ -66,7 +66,9 @@ export default function ResetPasswordPage() {
 
   if (tokenValid === null) {
     return (
-      <main style={{ padding: 24, fontFamily: 'Inter, sans-serif', maxWidth: 480, margin: '0 auto' }}>
+      <main
+        style={{ padding: 24, fontFamily: 'Inter, sans-serif', maxWidth: 480, margin: '0 auto' }}
+      >
         <p>Verificando enlace...</p>
       </main>
     );
@@ -74,7 +76,9 @@ export default function ResetPasswordPage() {
 
   if (tokenValid === false) {
     return (
-      <main style={{ padding: 24, fontFamily: 'Inter, sans-serif', maxWidth: 480, margin: '0 auto' }}>
+      <main
+        style={{ padding: 24, fontFamily: 'Inter, sans-serif', maxWidth: 480, margin: '0 auto' }}
+      >
         <h1>Enlace no válido</h1>
         <p style={{ color: '#666', marginTop: 12 }}>
           El enlace de recuperación no es válido o ha expirado.

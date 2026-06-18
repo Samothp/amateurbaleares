@@ -130,7 +130,8 @@ export default function RegisterPage() {
       </div>
 
       <p style={{ marginTop: 24, fontSize: 14, color: '#666' }}>
-        Tu cuenta se creará como <strong>Entrenador</strong>. Un administrador puede cambiar tu rol después.
+        Tu cuenta se creará como <strong>Entrenador</strong>. Un administrador puede cambiar tu rol
+        después.
       </p>
       <form onSubmit={handleRegister} style={{ display: 'grid', gap: 16 }}>
         <FormField

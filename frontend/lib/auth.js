@@ -3,7 +3,7 @@ const AUTH_ERROR_MAP = {
   'Email not confirmed': 'Confirma tu email antes de iniciar sesión',
   'Too many requests': 'Demasiados intentos. Espera un momento.',
   'User not found': 'No existe una cuenta con este email',
-  'signup_disabled': 'El registro está deshabilitado temporalmente',
+  signup_disabled: 'El registro está deshabilitado temporalmente',
   'Invalid email': 'El formato del email no es válido',
   'Password should be at least 6 characters': 'La contraseña debe tener al menos 6 caracteres',
   'User already registered': 'Ya existe una cuenta con este email',
