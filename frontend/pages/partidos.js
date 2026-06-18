@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 import { SkeletonList } from '../components/Skeleton';
 import { SearchBar, filterByText } from '../components/SearchBar';
 import { Pagination, paginate } from '../components/Pagination';
+import { Toast } from '../components/Toast';
 
 function PartidosPage({ user: _user, profile }) {
   const [matches, setMatches] = useState([]);
@@ -14,7 +15,7 @@ function PartidosPage({ user: _user, profile }) {
   const [showForm, setShowForm] = useState(false);
   const [editingMatch, setEditingMatch] = useState(null);
   const [form, setForm] = useState({ team_id: '', opponent: '', date: '', result: '' });
-  const [message, setMessage] = useState(null);
+  const [toast, setToast] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
@@ -63,7 +64,7 @@ function PartidosPage({ user: _user, profile }) {
 
   const handleCreate = async (e) => {
     e.preventDefault();
-    setMessage(null);
+    setToast(null);
     const supabase = getSupabase();
     if (!supabase) return;
 
@@ -80,9 +81,9 @@ function PartidosPage({ user: _user, profile }) {
         .eq('id', editingMatch.id);
 
       if (error) {
-        setMessage('Error al actualizar: ' + error.message);
+        setToast('Error al actualizar: ' + error.message);
       } else {
-        setMessage('Partido actualizado correctamente');
+        setToast('Partido actualizado correctamente');
         resetForm();
         fetchData();
       }
@@ -96,9 +97,9 @@ function PartidosPage({ user: _user, profile }) {
       });
 
       if (error) {
-        setMessage('Error al crear partido: ' + error.message);
+        setToast('Error al crear partido: ' + error.message);
       } else {
-        setMessage('Partido creado correctamente');
+        setToast('Partido creado correctamente');
         resetForm();
         fetchData();
       }
@@ -130,9 +131,9 @@ function PartidosPage({ user: _user, profile }) {
     if (!supabase) return;
     const { error } = await supabase.from('matches').delete().eq('id', matchId);
     if (error) {
-      setMessage('Error al eliminar: ' + error.message);
+      setToast('Error al eliminar: ' + error.message);
     } else {
-      setMessage('Partido eliminado');
+      setToast('Partido eliminado');
       setDeleteConfirm(null);
       fetchData();
     }
@@ -167,6 +168,7 @@ function PartidosPage({ user: _user, profile }) {
 
   return (
     <Layout profile={profile}>
+      <Toast message={toast} onClose={() => setToast(null)} />
       <div
         style={{
           display: 'flex',
@@ -204,20 +206,6 @@ function PartidosPage({ user: _user, profile }) {
           )}
         </div>
       </div>
-
-      {message && (
-        <p
-          style={{
-            padding: 12,
-            borderRadius: 8,
-            marginBottom: 16,
-            background: message.includes('Error') ? '#ffe0e0' : '#e0ffe0',
-            color: message.includes('Error') ? 'crimson' : 'green',
-          }}
-        >
-          {message}
-        </p>
-      )}
 
       {showForm && (
         <form
@@ -349,9 +337,28 @@ function PartidosPage({ user: _user, profile }) {
             boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
           }}
         >
-          <p style={{ color: '#666' }}>
-            {search ? 'No se encontraron partidos.' : 'No hay partidos registrados aún.'}
+          <p style={{ color: '#666', marginBottom: 16 }}>
+            {search ? 'No se encontraron partidos.' : 'No tienes partidos creados aún.'}
           </p>
+          {!search && canEdit && (
+            <button
+              onClick={() => {
+                resetForm();
+                setShowForm(true);
+              }}
+              style={{
+                padding: '10px 20px',
+                background: '#1a1a2e',
+                color: '#fff',
+                border: 'none',
+                borderRadius: 8,
+                cursor: 'pointer',
+                fontSize: 14,
+              }}
+            >
+              + Crear primer partido
+            </button>
+          )}
         </div>
       ) : (
         <>

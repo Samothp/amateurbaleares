@@ -157,6 +157,14 @@ Crear el MVP básico de la plataforma de estadísticas y scouting de fútbol ama
 - ✅ `/ranking`: Ranking global con filtros por equipo y tipo de estadística
 - ✅ Navegación actualizada para todos los roles (Comparativa + Ranking)
 
+### Fase 8: UX Pre-lanzamiento ✅ COMPLETADO
+- ✅ Onboarding: Checklist de 3 pasos en dashboard para nuevos usuarios (crear equipo → jugadores → partido)
+- ✅ Toast: Componente de notificación temporal con auto-dismiss (3s), animación slide-in, variantes success/error/info
+- ✅ Empty states: Botones de acción en páginas vacías (jugadores, partidos, scouting)
+- ✅ Dashboard mejorado: Stats rápidos (equipos/jugadores/partidos), botones por rol, siguiente paso contextual
+- ✅ Mobile: CSS `.mobile-fullscreen-form` para forms a pantalla completa en móvil
+- ✅ Toast integrado en: equipos, jugadores, partidos, clubs, admin (reemplaza mensajes estáticos)
+
 ---
 
 ## Ideas futuras (post-MVP)

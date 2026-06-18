@@ -70,7 +70,14 @@ function ScoutingPage({ user: _user, profile }) {
             boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
           }}
         >
-          <p style={{ color: '#666' }}>No se encontraron jugadores.</p>
+          <p style={{ color: '#666', marginBottom: 8 }}>
+            {search
+              ? 'No se encontraron jugadores.'
+              : 'No hay jugadores disponibles para scouting.'}
+          </p>
+          <p style={{ color: '#999', fontSize: 13 }}>
+            Los jugadores creados por entrenadores y clubs aparecerán aquí.
+          </p>
         </div>
       ) : (
         <div

@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
-import { MessageBanner } from '../components/MessageBanner';
 import { SkeletonList } from '../components/Skeleton';
 import { SearchBar, filterByText } from '../components/SearchBar';
 import { Pagination, paginate } from '../components/Pagination';
+import { Toast } from '../components/Toast';
 
 const ROLE_OPTIONS = ['Entrenador', 'Club', 'Scout', 'Admin'];
 
 function AdminPage({ user: _user, profile }) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState(null);
+  const [toast, setToast] = useState(null);
   const [confirmRole, setConfirmRole] = useState(null);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
@@ -29,7 +29,7 @@ function AdminPage({ user: _user, profile }) {
         .order('created_at', { ascending: false });
 
       if (error) {
-        setMessage('Error al cargar usuarios: ' + error.message);
+        setToast('Error al cargar usuarios: ' + error.message);
       } else if (data) {
         setUsers(data);
       }
@@ -53,10 +53,10 @@ function AdminPage({ user: _user, profile }) {
     const { error } = await supabase.from('users').update({ role: newRole }).eq('id', userId);
 
     if (error) {
-      setMessage('Error al cambiar rol: ' + error.message);
+      setToast('Error al cambiar rol: ' + error.message);
     } else {
       setUsers(users.map((u) => (u.id === userId ? { ...u, role: newRole } : u)));
-      setMessage('Rol actualizado correctamente');
+      setToast('Rol actualizado correctamente');
     }
   };
 
@@ -70,6 +70,7 @@ function AdminPage({ user: _user, profile }) {
 
   return (
     <Layout profile={profile}>
+      <Toast message={toast} onClose={() => setToast(null)} />
       <div
         style={{
           display: 'flex',
@@ -88,8 +89,6 @@ function AdminPage({ user: _user, profile }) {
         </div>
         <SearchBar value={search} onChange={handleSearchChange} placeholder="Buscar usuario..." />
       </div>
-
-      <MessageBanner message={message} />
 
       {confirmRole && (
         <div

@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 import { SkeletonList } from '../components/Skeleton';
 import { SearchBar, filterByText } from '../components/SearchBar';
 import { Pagination, paginate } from '../components/Pagination';
+import { Toast } from '../components/Toast';
 
 function JugadoresPage({ user: _user, profile }) {
   const [players, setPlayers] = useState([]);
@@ -23,7 +24,7 @@ function JugadoresPage({ user: _user, profile }) {
     dominant_foot: '',
     team_id: '',
   });
-  const [message, setMessage] = useState(null);
+  const [toast, setToast] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
@@ -84,7 +85,7 @@ function JugadoresPage({ user: _user, profile }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage(null);
+    setToast(null);
     const supabase = getSupabase();
     if (!supabase) return;
 
@@ -102,18 +103,18 @@ function JugadoresPage({ user: _user, profile }) {
     if (editingPlayer) {
       const { error } = await supabase.from('players').update(payload).eq('id', editingPlayer.id);
       if (error) {
-        setMessage('Error al actualizar: ' + error.message);
+        setToast('Error al actualizar: ' + error.message);
       } else {
-        setMessage('Jugador actualizado correctamente');
+        setToast('Jugador actualizado correctamente');
         resetForm();
         fetchData();
       }
     } else {
       const { error } = await supabase.from('players').insert(payload);
       if (error) {
-        setMessage('Error al crear: ' + error.message);
+        setToast('Error al crear: ' + error.message);
       } else {
-        setMessage('Jugador creado correctamente');
+        setToast('Jugador creado correctamente');
         resetForm();
         fetchData();
       }
@@ -125,9 +126,9 @@ function JugadoresPage({ user: _user, profile }) {
     if (!supabase) return;
     const { error } = await supabase.from('players').delete().eq('id', playerId);
     if (error) {
-      setMessage('Error al eliminar: ' + error.message);
+      setToast('Error al eliminar: ' + error.message);
     } else {
-      setMessage('Jugador eliminado');
+      setToast('Jugador eliminado');
       setDeleteConfirm(null);
       fetchData();
     }
@@ -139,11 +140,11 @@ function JugadoresPage({ user: _user, profile }) {
 
     const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
     if (!allowedTypes.includes(file.type)) {
-      setMessage('Formato no válido. Usa JPG, PNG, WebP o GIF.');
+      setToast('Formato no válido. Usa JPG, PNG, WebP o GIF.');
       return;
     }
     if (file.size > 5 * 1024 * 1024) {
-      setMessage('El archivo supera los 5MB.');
+      setToast('El archivo supera los 5MB.');
       return;
     }
 
@@ -158,7 +159,7 @@ function JugadoresPage({ user: _user, profile }) {
       .upload(path, file, { upsert: true });
 
     if (uploadError) {
-      setMessage('Error al subir foto: ' + uploadError.message);
+      setToast('Error al subir foto: ' + uploadError.message);
       return;
     }
 
@@ -171,9 +172,9 @@ function JugadoresPage({ user: _user, profile }) {
       .eq('id', playerId);
 
     if (updateError) {
-      setMessage('Error al guardar foto: ' + updateError.message);
+      setToast('Error al guardar foto: ' + updateError.message);
     } else {
-      setMessage('Foto actualizada');
+      setToast('Foto actualizada');
       fetchData();
     }
   };
@@ -198,6 +199,7 @@ function JugadoresPage({ user: _user, profile }) {
 
   return (
     <Layout profile={profile}>
+      <Toast message={toast} onClose={() => setToast(null)} />
       <div
         style={{
           display: 'flex',
@@ -232,20 +234,6 @@ function JugadoresPage({ user: _user, profile }) {
           )}
         </div>
       </div>
-
-      {message && (
-        <p
-          style={{
-            padding: 12,
-            borderRadius: 8,
-            marginBottom: 16,
-            background: message.includes('Error') ? '#ffe0e0' : '#e0ffe0',
-            color: message.includes('Error') ? 'crimson' : 'green',
-          }}
-        >
-          {message}
-        </p>
-      )}
 
       {showForm && (
         <form
@@ -359,9 +347,28 @@ function JugadoresPage({ user: _user, profile }) {
             boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
           }}
         >
-          <p style={{ color: '#666' }}>
-            {search ? 'No se encontraron jugadores.' : 'No hay jugadores registrados aún.'}
+          <p style={{ color: '#666', marginBottom: 16 }}>
+            {search ? 'No se encontraron jugadores.' : 'No tienes jugadores creados aún.'}
           </p>
+          {!search && canEdit && (
+            <button
+              onClick={() => {
+                resetForm();
+                setShowForm(true);
+              }}
+              style={{
+                padding: '10px 20px',
+                background: '#1a1a2e',
+                color: '#fff',
+                border: 'none',
+                borderRadius: 8,
+                cursor: 'pointer',
+                fontSize: 14,
+              }}
+            >
+              + Crear primer jugador
+            </button>
+          )}
         </div>
       ) : (
         <>

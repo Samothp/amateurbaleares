@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 import { SkeletonList } from '../components/Skeleton';
 import { SearchBar, filterByText } from '../components/SearchBar';
 import { Pagination, paginate } from '../components/Pagination';
+import { Toast } from '../components/Toast';
 
 function EquiposPage({ user, profile }) {
   const [teams, setTeams] = useState([]);
@@ -13,7 +14,7 @@ function EquiposPage({ user, profile }) {
   const [showForm, setShowForm] = useState(false);
   const [editingTeam, setEditingTeam] = useState(null);
   const [form, setForm] = useState({ name: '', category: '', liga: '', ciudad: '' });
-  const [message, setMessage] = useState(null);
+  const [toast, setToast] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
@@ -53,7 +54,7 @@ function EquiposPage({ user, profile }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage(null);
+    setToast(null);
     const supabase = getSupabase();
     if (!supabase) return;
 
@@ -63,9 +64,9 @@ function EquiposPage({ user, profile }) {
         .update({ name: form.name, category: form.category, liga: form.liga, ciudad: form.ciudad })
         .eq('id', editingTeam.id);
       if (error) {
-        setMessage('Error al actualizar: ' + error.message);
+        setToast('Error al actualizar: ' + error.message);
       } else {
-        setMessage('Equipo actualizado correctamente');
+        setToast('Equipo actualizado correctamente');
         resetForm();
         fetchTeams();
       }
@@ -78,9 +79,9 @@ function EquiposPage({ user, profile }) {
         coach_id: user.id,
       });
       if (error) {
-        setMessage('Error al crear: ' + error.message);
+        setToast('Error al crear: ' + error.message);
       } else {
-        setMessage('Equipo creado correctamente');
+        setToast('Equipo creado correctamente');
         resetForm();
         fetchTeams();
       }
@@ -92,9 +93,9 @@ function EquiposPage({ user, profile }) {
     if (!supabase) return;
     const { error } = await supabase.from('teams').delete().eq('id', teamId);
     if (error) {
-      setMessage('Error al eliminar: ' + error.message);
+      setToast('Error al eliminar: ' + error.message);
     } else {
-      setMessage('Equipo eliminado');
+      setToast('Equipo eliminado');
       setDeleteConfirm(null);
       fetchTeams();
     }
@@ -106,11 +107,11 @@ function EquiposPage({ user, profile }) {
 
     const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
     if (!allowedTypes.includes(file.type)) {
-      setMessage('Formato no válido. Usa JPG, PNG, WebP o GIF.');
+      setToast('Formato no válido. Usa JPG, PNG, WebP o GIF.');
       return;
     }
     if (file.size > 5 * 1024 * 1024) {
-      setMessage('El archivo supera los 5MB.');
+      setToast('El archivo supera los 5MB.');
       return;
     }
 
@@ -125,7 +126,7 @@ function EquiposPage({ user, profile }) {
       .upload(path, file, { upsert: true });
 
     if (uploadError) {
-      setMessage('Error al subir escudo: ' + uploadError.message);
+      setToast('Error al subir escudo: ' + uploadError.message);
       return;
     }
 
@@ -138,9 +139,9 @@ function EquiposPage({ user, profile }) {
       .eq('id', teamId);
 
     if (updateError) {
-      setMessage('Error al guardar escudo: ' + updateError.message);
+      setToast('Error al guardar escudo: ' + updateError.message);
     } else {
-      setMessage('Escudo actualizado');
+      setToast('Escudo actualizado');
       fetchTeams();
     }
   };
@@ -158,6 +159,7 @@ function EquiposPage({ user, profile }) {
 
   return (
     <Layout profile={profile}>
+      <Toast message={toast} onClose={() => setToast(null)} />
       <div
         style={{
           display: 'flex',
@@ -192,20 +194,6 @@ function EquiposPage({ user, profile }) {
           )}
         </div>
       </div>
-
-      {message && (
-        <p
-          style={{
-            padding: 12,
-            borderRadius: 8,
-            marginBottom: 16,
-            background: message.includes('Error') ? '#ffe0e0' : '#e0ffe0',
-            color: message.includes('Error') ? 'crimson' : 'green',
-          }}
-        >
-          {message}
-        </p>
-      )}
 
       {showForm && (
         <form

@@ -6,10 +6,10 @@ import Layout from '../components/Layout';
 import { Button } from '../components/Button';
 import { SkeletonList } from '../components/Skeleton';
 import { Card } from '../components/Card';
-import { MessageBanner } from '../components/MessageBanner';
 import { DeleteConfirm } from '../components/DeleteConfirm';
 import { SearchBar, filterByText } from '../components/SearchBar';
 import { Pagination, paginate } from '../components/Pagination';
+import { Toast } from '../components/Toast';
 
 function ClubsPage({ user: _user, profile }) {
   const [clubs, setClubs] = useState([]);
@@ -17,7 +17,7 @@ function ClubsPage({ user: _user, profile }) {
   const [showForm, setShowForm] = useState(false);
   const [editingClub, setEditingClub] = useState(null);
   const [form, setForm] = useState({ name: '', city: '' });
-  const [message, setMessage] = useState(null);
+  const [toast, setToast] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
@@ -52,7 +52,7 @@ function ClubsPage({ user: _user, profile }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage(null);
+    setToast(null);
     const supabase = getSupabase();
     if (!supabase) return;
 
@@ -61,10 +61,10 @@ function ClubsPage({ user: _user, profile }) {
         .from('clubs')
         .update({ name: form.name, city: form.city })
         .eq('id', editingClub.id);
-      setMessage(error ? 'Error al actualizar: ' + error.message : 'Club actualizado');
+      setToast(error ? 'Error al actualizar: ' + error.message : 'Club actualizado');
     } else {
       const { error } = await supabase.from('clubs').insert({ name: form.name, city: form.city });
-      setMessage(error ? 'Error al crear: ' + error.message : 'Club creado');
+      setToast(error ? 'Error al crear: ' + error.message : 'Club creado');
     }
     resetForm();
     fetchClubs();
@@ -74,7 +74,7 @@ function ClubsPage({ user: _user, profile }) {
     const supabase = getSupabase();
     if (!supabase) return;
     const { error } = await supabase.from('clubs').delete().eq('id', clubId);
-    setMessage(error ? 'Error al eliminar: ' + error.message : 'Club eliminado');
+    setToast(error ? 'Error al eliminar: ' + error.message : 'Club eliminado');
     setDeleteConfirm(null);
     fetchClubs();
   };
@@ -91,6 +91,7 @@ function ClubsPage({ user: _user, profile }) {
 
   return (
     <Layout profile={profile}>
+      <Toast message={toast} onClose={() => setToast(null)} />
       <div
         style={{
           display: 'flex',
@@ -119,8 +120,6 @@ function ClubsPage({ user: _user, profile }) {
           )}
         </div>
       </div>
-
-      <MessageBanner message={message} />
 
       {showForm && (
         <Card padding={24} style={{ marginBottom: 24 }}>

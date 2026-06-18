@@ -80,6 +80,22 @@ export default function App({ Component, pageProps }) {
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
           }
+          @media (max-width: 768px) {
+            .mobile-fullscreen-form {
+              position: fixed;
+              inset: 0;
+              z-index: 60;
+              background: #f5f5f5;
+              padding: 16px;
+              overflow-y: auto;
+            }
+            .mobile-form-header {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 16px;
+            }
+          }
         `}</style>
       </Head>
       <ErrorBoundary>
