@@ -194,6 +194,22 @@ function MatchDetailPage({ user: _user, profile }) {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
           <div>
             <p style={{ color: '#999', fontSize: 13 }}>{formatDate(match.date)}</p>
+            {match.jornada && (
+              <span
+                style={{
+                  display: 'inline-block',
+                  background: '#1a1a2e',
+                  color: '#fff',
+                  padding: '2px 10px',
+                  borderRadius: 12,
+                  fontSize: 12,
+                  fontWeight: 600,
+                  marginBottom: 8,
+                }}
+              >
+                Jornada {match.jornada}
+              </span>
+            )}
             <h1 style={{ fontSize: 28, marginTop: 4 }}>
               {team?.name || 'Equipo'} vs {match.opponent}
             </h1>

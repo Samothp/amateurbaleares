@@ -48,8 +48,10 @@ CREATE TABLE IF NOT EXISTS matches (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   team_id uuid REFERENCES teams(id) ON DELETE SET NULL,
   opponent text,
+  opponent_team_id uuid REFERENCES teams(id) ON DELETE SET NULL,
   date timestamptz,
   result text,
+  jornada int,
   lineup jsonb,
   created_at timestamptz DEFAULT now()
 );
