@@ -25,7 +25,7 @@ function EquiposPage({ user, profile }) {
     if (!supabase) return;
     const { data } = await supabase
       .from('teams')
-      .select('id, name, category, liga, ciudad, crest, coach_id, created_at')
+      .select('id, name, category, crest, coach_id, created_at')
       .order('created_at', { ascending: false });
     if (data) setTeams(data);
     setLoading(false);
@@ -59,10 +59,14 @@ function EquiposPage({ user, profile }) {
     if (!supabase) return;
 
     if (editingTeam) {
-      const { error } = await supabase
-        .from('teams')
-        .update({ name: form.name, category: form.category, liga: form.liga, ciudad: form.ciudad })
-        .eq('id', editingTeam.id);
+      const updateData = {
+        name: form.name,
+        category: form.category,
+      };
+      if (form.liga) updateData.liga = form.liga;
+      if (form.ciudad) updateData.ciudad = form.ciudad;
+
+      const { error } = await supabase.from('teams').update(updateData).eq('id', editingTeam.id);
       if (error) {
         setToast('Error al actualizar: ' + error.message);
       } else {
@@ -71,15 +75,19 @@ function EquiposPage({ user, profile }) {
         fetchTeams();
       }
     } else {
-      const { error } = await supabase.from('teams').insert({
+      const insertData = {
         name: form.name,
         category: form.category,
-        liga: form.liga,
-        ciudad: form.ciudad,
         coach_id: user.id,
-      });
+      };
+      if (form.liga) insertData.liga = form.liga;
+      if (form.ciudad) insertData.ciudad = form.ciudad;
+
+      const { data, error } = await supabase.from('teams').insert(insertData).select();
       if (error) {
         setToast('Error al crear: ' + error.message);
+      } else if (!data || data.length === 0) {
+        setToast('Error al crear: verifica las políticas de acceso.');
       } else {
         setToast('Equipo creado correctamente');
         resetForm();
@@ -149,7 +157,7 @@ function EquiposPage({ user, profile }) {
   const canEdit =
     profile?.role === 'Entrenador' || profile?.role === 'Club' || profile?.role === 'Admin';
 
-  const filtered = filterByText(teams, search, ['name', 'category', 'liga', 'ciudad']);
+  const filtered = filterByText(teams, search, ['name', 'category']);
   const paged = paginate(filtered, page, PAGE_SIZE);
 
   const handleSearchChange = (val) => {
