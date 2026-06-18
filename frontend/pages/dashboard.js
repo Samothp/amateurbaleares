@@ -26,18 +26,29 @@ function DashboardPage({ user, profile }) {
       if (profile?.role === 'Entrenador' && profile?.team?.id) {
         const [teamRes, playersRes, matchesRes] = await Promise.all([
           supabase.from('teams').select('id, name, category').eq('id', profile.team.id).single(),
-          supabase.from('players').select('id', { count: 'exact', head: true }).eq('team_id', profile.team.id),
-          supabase.from('matches').select('id, team_id, opponent, date, result, jornada')
+          supabase
+            .from('players')
+            .select('id', { count: 'exact', head: true })
+            .eq('team_id', profile.team.id),
+          supabase
+            .from('matches')
+            .select('id, team_id, opponent, date, result, jornada')
             .eq('team_id', profile.team.id)
             .order('date', { ascending: false }),
         ]);
 
         setTeams(teamRes.data ? [teamRes.data] : []);
-        setStats({ teams: 1, players: playersRes.count || 0, matches: matchesRes.data?.length || 0 });
+        setStats({
+          teams: 1,
+          players: playersRes.count || 0,
+          matches: matchesRes.data?.length || 0,
+        });
 
         if (matchesRes.data) {
           const completed = matchesRes.data.filter((m) => m.result);
-          const upcoming = matchesRes.data.filter((m) => !m.result && m.date && new Date(m.date) >= new Date());
+          const upcoming = matchesRes.data.filter(
+            (m) => !m.result && m.date && new Date(m.date) >= new Date()
+          );
           setRecentMatches(completed.slice(0, 3));
           setUpcomingMatches(upcoming.slice(0, 3));
 
@@ -108,7 +119,14 @@ function DashboardPage({ user, profile }) {
 
         const statsMap = {};
         allTeamsRes.data.forEach((t) => {
-          statsMap[t.id] = { name: t.name, category: t.category, players: 0, won: 0, drawn: 0, lost: 0 };
+          statsMap[t.id] = {
+            name: t.name,
+            category: t.category,
+            players: 0,
+            won: 0,
+            drawn: 0,
+            lost: 0,
+          };
         });
 
         if (playersForTeams.data) {

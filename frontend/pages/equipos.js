@@ -197,7 +197,7 @@ function EquiposPage({ user, profile }) {
     }
   };
 
-   const handleCrestUpload = async (e, teamId) => {
+  const handleCrestUpload = async (e, teamId) => {
     // Crest upload feature disabled - column doesn't exist
     setToast('Función de escudo no disponible');
     /*
@@ -322,7 +322,13 @@ function EquiposPage({ user, profile }) {
               type="text"
               value="Senior"
               disabled
-              style={{ padding: 10, borderRadius: 8, border: '1px solid #ddd', background: '#f5f5f5', color: '#666' }}
+              style={{
+                padding: 10,
+                borderRadius: 8,
+                border: '1px solid #ddd',
+                background: '#f5f5f5',
+                color: '#666',
+              }}
             />
             <select
               value={form.liga}
@@ -392,35 +398,35 @@ function EquiposPage({ user, profile }) {
               gap: 16,
             }}
           >
-             {paged.map((team) => (
-               <div
-                 key={team.id}
-                 onClick={() => {
-                   // Only navigate if not in edit/delete mode
-                   if (!canEdit) {
-                     router.push(`/dashboard-equipo?teamId=${team.id}`);
-                   }
-                 }}
-                 style={{
-                   background: '#fff',
-                   padding: 20,
-                   borderRadius: 12,
-                   boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-                   position: 'relative',
-                   cursor: !canEdit ? 'pointer' : 'default',
-                   transition: !canEdit ? 'box-shadow 0.2s' : 'none',
-                 }}
-                 onMouseEnter={(e) => {
-                   if (!canEdit) {
-                     e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-                   }
-                 }}
-                 onMouseLeave={(e) => {
-                   if (!canEdit) {
-                     e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
-                   }
-                 }}
-               >
+            {paged.map((team) => (
+              <div
+                key={team.id}
+                onClick={() => {
+                  // Only navigate if not in edit/delete mode
+                  if (!canEdit) {
+                    router.push(`/dashboard-equipo?teamId=${team.id}`);
+                  }
+                }}
+                style={{
+                  background: '#fff',
+                  padding: 20,
+                  borderRadius: 12,
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                  position: 'relative',
+                  cursor: !canEdit ? 'pointer' : 'default',
+                  transition: !canEdit ? 'box-shadow 0.2s' : 'none',
+                }}
+                onMouseEnter={(e) => {
+                  if (!canEdit) {
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!canEdit) {
+                    e.currentTarget.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
+                  }
+                }}
+              >
                 <div style={{ display: 'flex', gap: 16, alignItems: 'start' }}>
                   <div style={{ position: 'relative' }}>
                     <div

@@ -34,7 +34,9 @@ function PartidosPage({ user: _user, profile }) {
     const [matchesRes, teamsRes, eventsRes] = await Promise.all([
       supabase
         .from('matches')
-        .select('id, team_id, opponent, opponent_team_id, date, result, jornada, lineup, created_at')
+        .select(
+          'id, team_id, opponent, opponent_team_id, date, result, jornada, lineup, created_at'
+        )
         .order('jornada', { ascending: true })
         .order('date', { ascending: true }),
       supabase.from('teams').select('id, name, category'),
@@ -217,9 +219,7 @@ function PartidosPage({ user: _user, profile }) {
     setSearch(val);
   };
 
-  const availableOpponents = form.team_id
-    ? teams.filter((t) => t.id !== form.team_id)
-    : teams;
+  const availableOpponents = form.team_id ? teams.filter((t) => t.id !== form.team_id) : teams;
 
   return (
     <Layout profile={profile}>
@@ -282,7 +282,9 @@ function PartidosPage({ user: _user, profile }) {
               </label>
               <select
                 value={form.team_id}
-                onChange={(e) => setForm({ ...form, team_id: e.target.value, opponent_team_id: '' })}
+                onChange={(e) =>
+                  setForm({ ...form, team_id: e.target.value, opponent_team_id: '' })
+                }
                 required
                 style={{ width: '100%', padding: 10, borderRadius: 8, border: '1px solid #ddd' }}
               >
@@ -517,7 +519,9 @@ function PartidosPage({ user: _user, profile }) {
                         >
                           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
                             <div style={{ textAlign: 'center', minWidth: 80 }}>
-                              <p style={{ fontSize: 12, color: '#999' }}>{formatDate(match.date)}</p>
+                              <p style={{ fontSize: 12, color: '#999' }}>
+                                {formatDate(match.date)}
+                              </p>
                               {match.result && (
                                 <p
                                   style={{
@@ -568,15 +572,11 @@ function PartidosPage({ user: _user, profile }) {
                                 color: '#666',
                               }}
                             >
-                              {stats.goles > 0 && (
-                                <span title="Goles">⚽ {stats.goles}</span>
-                              )}
+                              {stats.goles > 0 && <span title="Goles">⚽ {stats.goles}</span>}
                               {stats.asistencias > 0 && (
                                 <span title="Asistencias">🅰️ {stats.asistencias}</span>
                               )}
-                              {stats.faltas > 0 && (
-                                <span title="Faltas">⚠️ {stats.faltas}</span>
-                              )}
+                              {stats.faltas > 0 && <span title="Faltas">⚠️ {stats.faltas}</span>}
                               {stats.tarjetas > 0 && (
                                 <span title="Tarjetas">🟨 {stats.tarjetas}</span>
                               )}

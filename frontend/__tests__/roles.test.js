@@ -40,7 +40,9 @@ describe('roles.js', () => {
   });
 
   it('NAV_ITEMS for Entrenador includes Mi Equipo', () => {
-    expect(NAV_ITEMS.Entrenador.some((i) => i.href === '/equipos' && i.label === 'Mi Equipo')).toBe(true);
+    expect(NAV_ITEMS.Entrenador.some((i) => i.href === '/equipos' && i.label === 'Mi Equipo')).toBe(
+      true
+    );
   });
 
   it('NAV_ITEMS for Scout includes Scouting', () => {

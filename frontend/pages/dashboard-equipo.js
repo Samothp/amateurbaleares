@@ -81,39 +81,39 @@ function TeamDashboardPage({ user: _user, profile }) {
           .eq('opponent_team_id', selectedTeam.id),
       ]);
 
-       const allMatchesMap = new Map();
-       [...(homeRes.data || []), ...(awayRes.data || [])].forEach((m) => allMatchesMap.set(m.id, m));
-       
-       // Fetch home team names for away matches
-       const awayMatches = awayRes.data || [];
-       const homeTeamIds = [...new Set(awayMatches.map((m) => m.team_id))];
-       
-       let homeTeamNames = {};
-       if (homeTeamIds.length > 0) {
-         const { data: homeTeams } = await supabase
-           .from('teams')
-           .select('id, name')
-           .in('id', homeTeamIds);
-         if (homeTeams) {
-           homeTeams.forEach((t) => {
-             homeTeamNames[t.id] = t.name;
-           });
-         }
-       }
-       
-       const teamMatches = [...allMatchesMap.values()].map((m) => {
-         const isHome = m.team_id === selectedTeam.id;
-         return {
-           ...m,
-           isHome,
-           homeTeamName: isHome ? selectedTeam.name : homeTeamNames[m.team_id] || 'Unknown',
-           awayTeamName: isHome ? m.opponent : selectedTeam.name,
-         };
-       }).sort(
-         (a, b) => new Date(b.date) - new Date(a.date),
-       );
+      const allMatchesMap = new Map();
+      [...(homeRes.data || []), ...(awayRes.data || [])].forEach((m) => allMatchesMap.set(m.id, m));
 
-       if (teamMatches) setMatches(teamMatches);
+      // Fetch home team names for away matches
+      const awayMatches = awayRes.data || [];
+      const homeTeamIds = [...new Set(awayMatches.map((m) => m.team_id))];
+
+      let homeTeamNames = {};
+      if (homeTeamIds.length > 0) {
+        const { data: homeTeams } = await supabase
+          .from('teams')
+          .select('id, name')
+          .in('id', homeTeamIds);
+        if (homeTeams) {
+          homeTeams.forEach((t) => {
+            homeTeamNames[t.id] = t.name;
+          });
+        }
+      }
+
+      const teamMatches = [...allMatchesMap.values()]
+        .map((m) => {
+          const isHome = m.team_id === selectedTeam.id;
+          return {
+            ...m,
+            isHome,
+            homeTeamName: isHome ? selectedTeam.name : homeTeamNames[m.team_id] || 'Unknown',
+            awayTeamName: isHome ? m.opponent : selectedTeam.name,
+          };
+        })
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      if (teamMatches) setMatches(teamMatches);
 
       const matchIds = teamMatches?.map((m) => m.id) || [];
       if (matchIds.length === 0) {
@@ -469,17 +469,13 @@ function TeamDashboardPage({ user: _user, profile }) {
                     }}
                   >
                     <div style={{ flex: 1, minWidth: 0 }}>
-                      <span style={{ fontSize: 13, color: '#666' }}>
-                        {m.homeTeamName}
-                      </span>
+                      <span style={{ fontSize: 13, color: '#666' }}>{m.homeTeamName}</span>
                     </div>
                     <div style={{ textAlign: 'center', minWidth: '60px' }}>
                       <span style={{ fontWeight: 700, fontSize: 16 }}>{m.result || '—'}</span>
                     </div>
                     <div style={{ flex: 1, minWidth: 0, textAlign: 'right' }}>
-                      <span style={{ fontSize: 13, color: '#666' }}>
-                        {m.awayTeamName}
-                      </span>
+                      <span style={{ fontSize: 13, color: '#666' }}>{m.awayTeamName}</span>
                     </div>
                     <span style={{ color: '#999', fontSize: 12, whiteSpace: 'nowrap' }}>
                       {m.date ? new Date(m.date).toLocaleDateString('es-ES') : ''}
