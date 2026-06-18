@@ -1,0 +1,1101 @@
+[
+  {
+    "name": "C D ATLÉTICO BALEARES SAD",
+    "ffib_code": "1002",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "ATº BALEARES", "category": "SEGUNDA FEDERACION"},
+      {"name": "ATº BALEARES \"A\"", "category": "JUVENIL LIGA NACIONAL"},
+      {"name": "ATº BALEARES \"B\"", "category": "JUVENIL PREFERENTE MALLORCA"},
+      {"name": "ATº BALEARES", "category": "CADETE AUTONÓMICA"},
+      {"name": "ATº BALEARES", "category": "INFANTIL DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "ATº BALEARES \"A\"", "category": "ALEVÍN DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "ATº BALEARES \"B\"", "category": "ALEVIN PREFERENTE MALLORCA"},
+      {"name": "ATº BALEARES", "category": "BENJAMÍN DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "ATº BALEARES", "category": "BENJAMIN SUB-9 DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "ATº BALEARES", "category": "PRE BENJAMIN DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "ATº BALEARES", "category": "PRE BENJAMIN SUB-7 DIVISIÓN DE HONOR MALLORCA"}
+    ]
+  },
+  {
+    "name": "S C R PEÑA DEPORTIVA",
+    "ffib_code": "1030",
+    "delegation": "Ibiza - Formentera",
+    "city": "Santa Eulalia Del Río",
+    "teams": [
+      {"name": "PEÑA DEPORTIVA \"A\"", "category": "SEGUNDA FEDERACION"},
+      {"name": "PEÑA DEPORTIVA \"B\"", "category": "DIVISIÓN DE HONOR IBIZA Y FORMENTERA"},
+      {"name": "PEÑA DEPORTIVA", "category": "JUVENIL PREFERENTE IBIZA Y FORMENTERA"},
+      {"name": "PEÑA DEPORTIVA", "category": "CADETE PREFERENTE IBIZA Y FORMENTERA"},
+      {"name": "PEÑA DEPORTIVA", "category": "INFANTIL DIVISIÓN DE HONOR IBIZA Y FORMENTERA"},
+      {"name": "PEÑA DEPORTIVA", "category": "DIVISIÓN DE HONOR ALEVIN IBIZA Y FORMENTERA"},
+      {"name": "PEÑA DEPORTIVA", "category": "ALEVIN SUB-11 IBIZA-FORMENTERA"},
+      {"name": "PEÑA DEPORTIVA", "category": "DIVISIÓN DE HONOR BENJAMIN IBIZA Y FORMENTERA"},
+      {"name": "PEÑA DEPORTIVA", "category": "BENJAMIN SUB-9 IBIZA-FORMENTERA"},
+      {"name": "PEÑA DEPORTIVA", "category": "PRE BENJAMIN DIVISIÓN DE HONOR IBIZA Y FORMENTERA"},
+      {"name": "PEÑA DEPORTIVA", "category": "PRE BENJAMIN SUB-7 IBIZA Y FORMENTERA"}
+    ]
+  },
+  {
+    "name": "C D SAN FRANCISCO",
+    "ffib_code": "1154",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "SAN FRANCISCO \"A\"", "category": "JUVENIL DIVISION DE HONOR"},
+      {"name": "SAN FRANCISCO \"B\"", "category": "JUVENIL LIGA NACIONAL"},
+      {"name": "SAN FRANCISCO \"C\"", "category": "JUVENIL PREFERENTE MALLORCA"},
+      {"name": "SAN FRANCISCO \"A\"", "category": "CADETE PREFERENTE MALLORCA"},
+      {"name": "SAN FRANCISCO", "category": "INFANTIL PREFERENTE MALLORCA"},
+      {"name": "SAN FRANCISCO", "category": "INFANTIL SUB 13 DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "SAN FRANCISCO \"A\"", "category": "ALEVÍN DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "SAN FRANCISCO \"B\"", "category": "ALEVIN PREFERENTE MALLORCA"},
+      {"name": "SAN FRANCISCO", "category": "BENJAMÍN DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "SAN FRANCISCO", "category": "BENJAMIN SUB-9 DIVISIÓN DE HONOR MALLORCA"}
+    ]
+  },
+  {
+    "name": "CLUB DEPORTIVO IBIZA ISLAS PITIUSAS SAD",
+    "ffib_code": "1702",
+    "delegation": "Ibiza - Formentera",
+    "city": "Eivissa",
+    "teams": [
+      {"name": "CD IBIZA ISLAS PITIUSAS", "category": "SEGUNDA FEDERACION"}
+    ]
+  },
+  {
+    "name": "C D IBIZA INSULAR",
+    "ffib_code": "1544",
+    "delegation": "Ibiza - Formentera",
+    "city": "Eivissa",
+    "teams": [
+      {"name": "IBIZA INSULAR DEL I.I.P.", "category": "JUVENIL PREFERENTE IBIZA Y FORMENTERA"},
+      {"name": "IBIZA INSULAR DEL I.IS.P.", "category": "CADETE PREFERENTE IBIZA Y FORMENTERA"},
+      {"name": "IBIZA INSULAR DEL I.IS.P. \"A\"", "category": "INFANTIL DIVISIÓN DE HONOR IBIZA Y FORMENTERA"},
+      {"name": "IBIZA INSULAR DEL I.IS.P. \"B\"", "category": "INFANTIL PREFERENTE IBIZA Y FORMENTERA"},
+      {"name": "IBIZA-INSULAR DEL I.IS.P. \"A\"", "category": "ALEVÍN DIVISIÓN DE HONOR IBIZA Y FORMENTERA"},
+      {"name": "IBIZA INSULAR DEL I.IS.P. \"B\"", "category": "ALEVIN PREFERENTE IBIZA Y FORMENTERA"},
+      {"name": "IBIZA-INSULAR DEL I.IS.P.", "category": "ALEVIN SUB-11 IBIZA-FORMENTERA"},
+      {"name": "IBIZA INSULAR DEL I.IS.P. \"A\"", "category": "BENJAMÍN DIVISIÓN DE HONOR IBIZA Y FORMENTERA"},
+      {"name": "IBIZA-INSULAR DEL I.IS.P. \"B\"", "category": "BENJAMÍN PREFERENTE IBIZA Y FORMENTERA"},
+      {"name": "IBIZA-INSULAR DEL I.IS.P.", "category": "BENJAMÍN SUB-9 IBIZA-FORMENTERA"},
+      {"name": "IBIZA-INSULAR DEL I.IS.P.", "category": "PRE BENJAMÍN DIVISIÓN DE HONOR IBIZA Y FORMENTERA"}
+    ]
+  },
+  {
+    "name": "UD POBLENSE",
+    "ffib_code": "1044",
+    "delegation": "Mallorca",
+    "city": "Sa Pobla",
+    "teams": [
+      {"name": "POBLENSE", "category": "SEGUNDA FEDERACION"},
+      {"name": "POBLENSE \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "R C D MALLORCA \"B\"",
+    "ffib_code": "1001",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "R.C.D. MALLORCA SAD \"B\"", "category": "TERCERA FEDERACION"}
+    ]
+  },
+  {
+    "name": "C D MANACOR",
+    "ffib_code": "1018",
+    "delegation": "Mallorca",
+    "city": "Manacor",
+    "teams": [
+      {"name": "MANACOR", "category": "TERCERA FEDERACION"}
+    ]
+  },
+  {
+    "name": "C D SANTANYÍ",
+    "ffib_code": "1068",
+    "delegation": "Mallorca",
+    "city": "Santanyí",
+    "teams": [
+      {"name": "SANTANYI", "category": "TERCERA FEDERACION"}
+    ]
+  },
+  {
+    "name": "C D FELANITX",
+    "ffib_code": "1009",
+    "delegation": "Mallorca",
+    "city": "Felanitx",
+    "teams": [
+      {"name": "FELANITX", "category": "TERCERA FEDERACION"}
+    ]
+  },
+  {
+    "name": "C D BINISSALEM",
+    "ffib_code": "1005",
+    "delegation": "Mallorca",
+    "city": "Binissalem",
+    "teams": [
+      {"name": "BINISSALEM", "category": "TERCERA FEDERACION"}
+    ]
+  },
+  {
+    "name": "C D CARDASSAR",
+    "ffib_code": "1006",
+    "delegation": "Mallorca",
+    "city": "Son Servera",
+    "teams": [
+      {"name": "CARDASSAR", "category": "TERCERA FEDERACION"}
+    ]
+  },
+  {
+    "name": "C E MERCADAL",
+    "ffib_code": "1021",
+    "delegation": "Menorca",
+    "city": "Es Mercadal",
+    "teams": [
+      {"name": "CE MERCADAL", "category": "TERCERA FEDERACION"}
+    ]
+  },
+  {
+    "name": "U D COLLERENSE",
+    "ffib_code": "1007",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "COLLERENSE", "category": "TERCERA FEDERACION"},
+      {"name": "COLLERENSE \"B\"", "category": "PREFERENTE REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C D CONSTANCIA",
+    "ffib_code": "1008",
+    "delegation": "Mallorca",
+    "city": "Inca",
+    "teams": [
+      {"name": "CONSTANCIA", "category": "TERCERA FEDERACION"},
+      {"name": "CONSTANCIA \"B\"", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C D LLOSETENSE",
+    "ffib_code": "1016",
+    "delegation": "Mallorca",
+    "city": "Lloseta",
+    "teams": [
+      {"name": "LLOSETENSE", "category": "TERCERA FEDERACION"},
+      {"name": "LLOSETENSE \"B\"", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "S C R INTER IBIZA",
+    "ffib_code": "1013",
+    "delegation": "Ibiza - Formentera",
+    "city": "Eivissa",
+    "teams": [
+      {"name": "INTER IBIZA", "category": "TERCERA FEDERACION"}
+    ]
+  },
+  {
+    "name": "U D FORMENTERA",
+    "ffib_code": "1011",
+    "delegation": "Ibiza - Formentera",
+    "city": "Formentera",
+    "teams": [
+      {"name": "FORMENTERA", "category": "TERCERA FEDERACION"}
+    ]
+  },
+  {
+    "name": "C D ALCÚDIA",
+    "ffib_code": "1003",
+    "delegation": "Mallorca",
+    "city": "Alcúdia",
+    "teams": [
+      {"name": "ALCUDIA", "category": "TERCERA FEDERACION"},
+      {"name": "ALCUDIA \"B\"", "category": "DIVISIÓN DE HONOR MALLORCA"}
+    ]
+  },
+  {
+    "name": "C D SON CLADERA",
+    "ffib_code": "1071",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "SON CLADERA", "category": "TERCERA FEDERACION"},
+      {"name": "SON CLADERA \"B\"", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C D ROTLET-MOLINAR",
+    "ffib_code": "1062",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "ROTLET-MOLINAR", "category": "TERCERA FEDERACION"},
+      {"name": "ROTLET-MOLINAR \"B\"", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C D PORTMANY",
+    "ffib_code": "1045",
+    "delegation": "Ibiza - Formentera",
+    "city": "Sant Antoni de Portmany",
+    "teams": [
+      {"name": "PORTMANY", "category": "TERCERA FEDERACION"}
+    ]
+  },
+  {
+    "name": "P L A T G E S   D E   C A L V I A",
+    "ffib_code": "1043",
+    "delegation": "Mallorca",
+    "city": "Calvià",
+    "teams": [
+      {"name": "PLATGES DE CALVIA", "category": "TERCERA FEDERACION"},
+      {"name": "PLATGES DE CALVIA \"B\"", "category": "DIVISIÓN DE HONOR MALLORCA"}
+    ]
+  },
+  {
+    "name": "C E A R E N A L",
+    "ffib_code": "1004",
+    "delegation": "Mallorca",
+    "city": "Llucmajor",
+    "teams": [
+      {"name": "ARENAL", "category": "DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "ARENAL \"B\"", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C D A L A R Ó",
+    "ffib_code": "1033",
+    "delegation": "Mallorca",
+    "city": "Alaró",
+    "teams": [
+      {"name": "ALARÓ", "category": "DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "ALARÓ \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C D A N D R A T X",
+    "ffib_code": "1034",
+    "delegation": "Mallorca",
+    "city": "Andratx",
+    "teams": [
+      {"name": "ANDRATX \"B\"", "category": "DIVISIÓN DE HONOR MALLORCA"}
+    ]
+  },
+  {
+    "name": "A T L É T I C O   R A F A L",
+    "ffib_code": "1036",
+    "delegation": "Mallorca",
+    "city": "Son Servera",
+    "teams": [
+      {"name": "ATLÉTICO RAFAL", "category": "DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "ATLÉTICO RAFAL \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C E   E S P O R L E S",
+    "ffib_code": "1037",
+    "delegation": "Mallorca",
+    "city": "Esporles",
+    "teams": [
+      {"name": "C.E. ESPORLES", "category": "DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "C.E. ESPORLES \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C F   S Ó L L E R",
+    "ffib_code": "1038",
+    "delegation": "Mallorca",
+    "city": "Sóller",
+    "teams": [
+      {"name": "C.F. SÓLLER", "category": "DIVISIÓN DE HONOR MALLORCA"}
+    ]
+  },
+  {
+    "name": "C A M P O S",
+    "ffib_code": "1039",
+    "delegation": "Mallorca",
+    "city": "Campos",
+    "teams": [
+      {"name": "CAMPOS", "category": "DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "CAMPOS \"B\"", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C D   F E R R I O L E N S E",
+    "ffib_code": "1040",
+    "delegation": "Mallorca",
+    "city": "Manacor",
+    "teams": [
+      {"name": "FERRIOLENSE", "category": "DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "FERRIOLENSE \"B\"", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C D   I N T E R   M A N A C O R",
+    "ffib_code": "1041",
+    "delegation": "Mallorca",
+    "city": "Manacor",
+    "teams": [
+      {"name": "INTER MANACOR", "category": "DIVISIÓN DE HONOR MALLORCA"}
+    ]
+  },
+  {
+    "name": "P Ò R T O L",
+    "ffib_code": "1042",
+    "delegation": "Mallorca",
+    "city": "Marratxí",
+    "teams": [
+      {"name": "PÒRTOL", "category": "DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "PÒRTOL \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "R T V Ó   L A   V I C T O R I A",
+    "ffib_code": "1046",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "RTVº LA VICTORIA", "category": "DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "RTVº LA VICTORIA \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C E   S A N T   J O R D I",
+    "ffib_code": "1047",
+    "delegation": "Mallorca",
+    "city": "Sant Joan de Labritja",
+    "teams": [
+      {"name": "SANT JORDI", "category": "DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "SANT JORDI \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "S A N T A   C A T A L I N A   A T Ó",
+    "ffib_code": "1048",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "SANTA CATALINA ATÓ", "category": "DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "SANTA CATALINA ATÓ \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C D   S E R V E R E N S E",
+    "ffib_code": "1049",
+    "delegation": "Mallorca",
+    "city": "Servera",
+    "teams": [
+      {"name": "SERVERENSE", "category": "DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "SERVERENSE \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C E   S I N E U",
+    "ffib_code": "1050",
+    "delegation": "Mallorca",
+    "city": "Sineu",
+    "teams": [
+      {"name": "SINEU", "category": "DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "SINEU \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C D   S O N   V E R Í",
+    "ffib_code": "1051",
+    "delegation": "Mallorca",
+    "city": "Llucmajor",
+    "teams": [
+      {"name": "SON VERÍ", "category": "DIVISIÓN DE HONOR MALLORCA"},
+      {"name": "SON VERÍ \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C D   A L G A I D A",
+    "ffib_code": "1052",
+    "delegation": "Mallorca",
+    "city": "Algaida",
+    "teams": [
+      {"name": "ALGAIDA", "category": "PREFERENTE REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "A T L E T I C   C L U B   D E   M O N T U I R I",
+    "ffib_code": "1053",
+    "delegation": "Mallorca",
+    "city": "Montuïri",
+    "teams": [
+      {"name": "ATHLETIC CLUB MONTUIRI", "category": "PREFERENTE REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C A   D E   P Á G U E R A",
+    "ffib_code": "1054",
+    "delegation": "Mallorca",
+    "city": "Calvià",
+    "teams": [
+      {"name": "C.A. DE PAGUERA", "category": "PREFERENTE REGIONAL MALLORCA"},
+      {"name": "C.A. DE PAGUERA \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C D   C O N S E L L",
+    "ffib_code": "1055",
+    "delegation": "Mallorca",
+    "city": "Consell",
+    "teams": [
+      {"name": "CD CONSELL", "category": "PREFERENTE REGIONAL MALLORCA"},
+      {"name": "CD CONSELL \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C E   E S P A N Y A",
+    "ffib_code": "1056",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "CE ESPANYA", "category": "PREFERENTE REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "J U V .   C ' A N   P I C A F O R T",
+    "ffib_code": "1057",
+    "delegation": "Mallorca",
+    "city": "Santa Margalida",
+    "teams": [
+      {"name": "JUV. C'AN PICAFORT", "category": "PREFERENTE REGIONAL MALLORCA"},
+      {"name": "JUV. C'AN PICAFORT \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "L A   U N I Ó N",
+    "ffib_code": "1058",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "LA UNIÓN", "category": "PREFERENTE REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C D   M U R E N S E",
+    "ffib_code": "1059",
+    "delegation": "Mallorca",
+    "city": "Muro",
+    "teams": [
+      {"name": "MURENSE", "category": "PREFERENTE REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C D   P E T R A",
+    "ffib_code": "1060",
+    "delegation": "Mallorca",
+    "city": "Petra",
+    "teams": [
+      {"name": "PETRA", "category": "PREFERENTE REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "P L A   D E   N A   T E S A",
+    "ffib_code": "1061",
+    "delegation": "Mallorca",
+    "city": "Marratxí",
+    "teams": [
+      {"name": "PLA DE NA TESA", "category": "PREFERENTE REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "P O L L E N Ç A   I   P O R T",
+    "ffib_code": "1063",
+    "delegation": "Mallorca",
+    "city": "Pollença",
+    "teams": [
+      {"name": "POLLENÇA I PORT", "category": "PREFERENTE REGIONAL MALLORCA"},
+      {"name": "POLLENÇA I PORT \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "P O R T O   C R I S T O",
+    "ffib_code": "1064",
+    "delegation": "Mallorca",
+    "city": "Manacor",
+    "teams": [
+      {"name": "PORTO CRISTO", "category": "PREFERENTE REGIONAL MALLORCA"},
+      {"name": "PORTO CRISTO \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "S ' H O R T A",
+    "ffib_code": "1065",
+    "delegation": "Mallorca",
+    "city": "Santanyí",
+    "teams": [
+      {"name": "S'HORTA", "category": "PREFERENTE REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "S O N   S A R D I N A",
+    "ffib_code": "1066",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "SON SARDINA", "category": "PREFERENTE REGIONAL MALLORCA"},
+      {"name": "SON SARDINA \"B\"", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "U N I Ó   E S P O R T I V A   S T A   M A R I A",
+    "ffib_code": "1067",
+    "delegation": "Mallorca",
+    "city": "Santa María del Camí",
+    "teams": [
+      {"name": "UNIÓ ESPORTIVA STA MARIA", "category": "PREFERENTE REGIONAL MALLORCA"},
+      {"name": "UNIÓ ESPORTIVA STA MARIA \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "X I L V A R",
+    "ffib_code": "1069",
+    "delegation": "Mallorca",
+    "city": "Calvià",
+    "teams": [
+      {"name": "XILVAR", "category": "PREFERENTE REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C E   A T L E T I C O   V I L L A C A R L O S",
+    "ffib_code": "1070",
+    "delegation": "Menorca",
+    "city": "Es Castell",
+    "teams": [
+      {"name": "ATLETICO VILLACARLOS", "category": "DIVISIÓN DE HONOR MENORCA"}
+    ]
+  },
+  {
+    "name": "C C E   S A N T   L L U Í S",
+    "ffib_code": "1072",
+    "delegation": "Menorca",
+    "city": "Sant Lluís",
+    "teams": [
+      {"name": "CCE SANT LLUÍS", "category": "DIVISIÓN DE HONOR MENORCA"}
+    ]
+  },
+  {
+    "name": "C D   M E N O R C A",
+    "ffib_code": "1073",
+    "delegation": "Menorca",
+    "city": "Maó",
+    "teams": [
+      {"name": "CD MENORCA", "category": "DIVISIÓN DE HONOR MENORCA"}
+    ]
+  },
+  {
+    "name": "C D   M I G J O R N",
+    "ffib_code": "1074",
+    "delegation": "Menorca",
+    "city": "Es Mercadal",
+    "teams": [
+      {"name": "CD MIGJORN", "category": "DIVISIÓN DE HONOR MENORCA"}
+    ]
+  },
+  {
+    "name": "C E   A L A I O R",
+    "ffib_code": "1075",
+    "delegation": "Menorca",
+    "city": "Alaior",
+    "teams": [
+      {"name": "CE ALAIOR", "category": "DIVISIÓN DE HONOR MENORCA"}
+    ]
+  },
+  {
+    "name": "C E   F E R R E R I E S",
+    "ffib_code": "1076",
+    "delegation": "Menorca",
+    "city": "Ferreries",
+    "teams": [
+      {"name": "CE FERRERIES", "category": "DIVISIÓN DE HONOR MENORCA"}
+    ]
+  },
+  {
+    "name": "C F   N O R T E Ñ O",
+    "ffib_code": "1077",
+    "delegation": "Menorca",
+    "city": "Maó",
+    "teams": [
+      {"name": "CF NORTEÑO", "category": "DIVISIÓN DE HONOR MENORCA"}
+    ]
+  },
+  {
+    "name": "C F   S P O R T I N G   D E   M A H Ó N",
+    "ffib_code": "1078",
+    "delegation": "Menorca",
+    "city": "Maó",
+    "teams": [
+      {"name": "CF SPORTING DE MAHON", "category": "DIVISIÓN DE HONOR MENORCA"}
+    ]
+  },
+  {
+    "name": "C I U T A D E L L A   C . E .",
+    "ffib_code": "1079",
+    "delegation": "Menorca",
+    "city": "Ciutadella",
+    "teams": [
+      {"name": "CIUTADELLA C.E.", "category": "DIVISIÓN DE HONOR MENORCA"}
+    ]
+  },
+  {
+    "name": "P E N Y A   C I U T A D E L L A   E S P O R T I V A",
+    "ffib_code": "1080",
+    "delegation": "Menorca",
+    "city": "Ciutadella",
+    "teams": [
+      {"name": "PENYA CIUTADELLA ESPORTIVA", "category": "DIVISIÓN DE HONOR MENORCA"}
+    ]
+  },
+  {
+    "name": "U D   M A H Ó N",
+    "ffib_code": "1081",
+    "delegation": "Menorca",
+    "city": "Maó",
+    "teams": [
+      {"name": "UD MAHON", "category": "DIVISIÓN DE HONOR MENORCA"}
+    ]
+  },
+  {
+    "name": "A L Q U E R I A",
+    "ffib_code": "1082",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "ALQUERIA", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "A R T À",
+    "ffib_code": "1083",
+    "delegation": "Mallorca",
+    "city": "Artà",
+    "teams": [
+      {"name": "ARTA", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "A T H L È T I C   S E N C E L L E S",
+    "ffib_code": "1084",
+    "delegation": "Mallorca",
+    "city": "Sencelles",
+    "teams": [
+      {"name": "ATLÈTIC SENCELLES", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C A L A   D ' O R",
+    "ffib_code": "1085",
+    "delegation": "Mallorca",
+    "city": "Santanyí",
+    "teams": [
+      {"name": "CALA D'OR", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C A M P A N E T",
+    "ffib_code": "1086",
+    "delegation": "Mallorca",
+    "city": "Campanet",
+    "teams": [
+      {"name": "CAMPANET", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "E S C O L A R",
+    "ffib_code": "1087",
+    "delegation": "Mallorca",
+    "city": "Inca",
+    "teams": [
+      {"name": "ESCOLAR", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "J O V E N T U T   B U N Y O L A",
+    "ffib_code": "1088",
+    "delegation": "Mallorca",
+    "city": "Bunyola",
+    "teams": [
+      {"name": "JOVENTUT BUNYOLA", "category": "PRIMERA REGIONAL MALLORCA"},
+      {"name": "JOVENTUT BUNYOLA \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "M A R I A   D E   L A   S A L U T",
+    "ffib_code": "1089",
+    "delegation": "Mallorca",
+    "city": "Maria de la Salut",
+    "teams": [
+      {"name": "MARIA DE LA SALUT", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "M O N T A U R A",
+    "ffib_code": "1090",
+    "delegation": "Mallorca",
+    "city": "Montuïri",
+    "teams": [
+      {"name": "MONTAURA", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "P O R R E R E S   \" B \"",
+    "ffib_code": "1091",
+    "delegation": "Mallorca",
+    "city": "Porreres",
+    "teams": [
+      {"name": "PORRERES \"B\"", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "S E S   S A L I N E S",
+    "ffib_code": "1092",
+    "delegation": "Mallorca",
+    "city": "Ses Salines",
+    "teams": [
+      {"name": "SES SALINES", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "V I L A F R A N C A",
+    "ffib_code": "1093",
+    "delegation": "Mallorca",
+    "city": "Vilafranca de Bonany",
+    "teams": [
+      {"name": "VILAFRANCA", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "A R E N A L   \" B \"",
+    "ffib_code": "1094",
+    "delegation": "Mallorca",
+    "city": "Llucmajor",
+    "teams": [
+      {"name": "ARENAL \"B\"", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "A T H L E T I C   M A R R A T X Í",
+    "ffib_code": "1095",
+    "delegation": "Mallorca",
+    "city": "Marratxí",
+    "teams": [
+      {"name": "ATHLETIC MARRATXÍ", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "B A L E A R E S   S I N   F R O N T E R A S",
+    "ffib_code": "1096",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "BALEARES SIN FRONTERAS", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "B E L L V E R   P A L M A",
+    "ffib_code": "1097",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "BELLVER PALMA", "category": "PRIMERA REGIONAL MALLORCA"},
+      {"name": "BELLVER PALMA \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C L U B   D E P O R T I V O   S ' A R R A C O",
+    "ffib_code": "1098",
+    "delegation": "Mallorca",
+    "city": "Andratx",
+    "teams": [
+      {"name": "CLUB DEPORTIVO S'ARRACO", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "G E N O V A",
+    "ffib_code": "1099",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "GENOVA", "category": "PRIMERA REGIONAL MALLORCA"},
+      {"name": "GENOVA \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "I N D E P E N D I E N T E   C / R",
+    "ffib_code": "1100",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "INDEPENDIENTE C/R", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "P A L M A N Y O L A",
+    "ffib_code": "1101",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "PALMANYOLA", "category": "PRIMERA REGIONAL MALLORCA"},
+      {"name": "PALMANYOLA \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "P O R T   D E   S Ó L L E R   D E L   S .",
+    "ffib_code": "1102",
+    "delegation": "Mallorca",
+    "city": "Sóller",
+    "teams": [
+      {"name": "PORT DE SOLLER DEL S.", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "S A N   C A Y E T A N O",
+    "ffib_code": "1103",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "SAN CAYETANO", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "S A N   R O Q U E",
+    "ffib_code": "1104",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "SAN ROQUE", "category": "PRIMERA REGIONAL MALLORCA"},
+      {"name": "SAN ROQUE \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "S A N T A   P O N S A   C F",
+    "ffib_code": "1105",
+    "delegation": "Mallorca",
+    "city": "Calvià",
+    "teams": [
+      {"name": "SANTA PONSA CF", "category": "PRIMERA REGIONAL MALLORCA"},
+      {"name": "SANTA PONSA CF \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "S P .   S A N T   M A R Ç A L",
+    "ffib_code": "1106",
+    "delegation": "Mallorca",
+    "city": "Calvià",
+    "teams": [
+      {"name": "SP. SANT MARÇAL", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "U R B A N I T Z A C I O N S",
+    "ffib_code": "1107",
+    "delegation": "Mallorca",
+    "city": "Calvià",
+    "teams": [
+      {"name": "URBANITZACIONS", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "V I V A   S P O R T S",
+    "ffib_code": "1108",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "VIVA SPORTS", "category": "PRIMERA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "D E P O R T I V O   M A R R A T X I",
+    "ffib_code": "1109",
+    "delegation": "Mallorca",
+    "city": "Marratxí",
+    "teams": [
+      {"name": "DEPORTIVO MARRATXI", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "R T V Ó   P U I G P U N Y E N T   I   G A L I L E A",
+    "ffib_code": "1110",
+    "delegation": "Mallorca",
+    "city": "Calvià",
+    "teams": [
+      {"name": "RTVº PUIGPUNYENT I GALILEA", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "S O N   F E R R E R",
+    "ffib_code": "1111",
+    "delegation": "Mallorca",
+    "city": "Calvià",
+    "teams": [
+      {"name": "SON FERRER", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "T A U J À",
+    "ffib_code": "1112",
+    "delegation": "Mallorca",
+    "city": "Calvià",
+    "teams": [
+      {"name": "TAUJÀ", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "U N I Ó   E S P O R T I V A   V A L L D E M O S S A",
+    "ffib_code": "1113",
+    "delegation": "Mallorca",
+    "city": "Valldemossa",
+    "teams": [
+      {"name": "UNIÓ ESPORTIVA VALLDEMOSSA", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "A - L L U B I",
+    "ffib_code": "1114",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "A-LLUBI", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "A T H L È T I C   H U I A L F À S",
+    "ffib_code": "1115",
+    "delegation": "Mallorca",
+    "city": "Lloret de Vistalegre",
+    "teams": [
+      {"name": "ATHLÈTIC HUIALFÀS", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C E   S O N   M A C I À",
+    "ffib_code": "1116",
+    "delegation": "Mallorca",
+    "city": "Sant Joan de Labritja",
+    "teams": [
+      {"name": "CE SON MACIÀ", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C L U B   A T L A S   D E P .   M A L L O R C A",
+    "ffib_code": "1117",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "CLUB ATLAS DEP. MALLORCA", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "M A R G A R I T E N S E   A T L È T I C",
+    "ffib_code": "1118",
+    "delegation": "Mallorca",
+    "city": "Manacor",
+    "teams": [
+      {"name": "MARGARITENSE ATLÈTIC", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "U N I Ó   E S P O R T I V A   L L O R E T",
+    "ffib_code": "1119",
+    "delegation": "Mallorca",
+    "city": "Lloret de Vistalegre",
+    "teams": [
+      {"name": "UNIÓ ESPORTIVA LLORET", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "A T L É T I C O   R A F A L   \" B \"",
+    "ffib_code": "1120",
+    "delegation": "Mallorca",
+    "city": "Son Servera",
+    "teams": [
+      {"name": "ATLÉTICO RAFAL \"B\"", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "A T Ó   A L D O S I V I   D E   M A L L O R C A",
+    "ffib_code": "1121",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "ATÓ ALDOSIVI DE MALLORCA", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "B O C A   M A L L O R C A   C L U B",
+    "ffib_code": "1122",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "BOCA MALLORCA CLUB", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C .   F .   P L A Y A   D E   P A L M A",
+    "ffib_code": "1123",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "C. F. PLAYA DE PALMA", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "C O L .   S A N   P E D R O",
+    "ffib_code": "1124",
+    "delegation": "Mallorca",
+    "city": "San Pedro de Algaida",
+    "teams": [
+      {"name": "COL. SAN PEDRO", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "E S   J O N Q U E T   P E N Y A   A R R A B A L",
+    "ffib_code": "1125",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "ES JONQUET PENYA ARRABAL", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "J O V E N T U T   M A L L O R C A",
+    "ffib_code": "1126",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "JOVENTUT MALLORCA", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "M A L L O R C A   C I T Y   F C",
+    "ffib_code": "1127",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "MALLORCA CITY FC", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "R T V O .   L A   V I L E T A",
+    "ffib_code": "1128",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "RTVO. LA VILETA", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  },
+  {
+    "name": "S A N T A   M Ó N I C A",
+    "ffib_code": "1129",
+    "delegation": "Mallorca",
+    "city": "Palma de Mallorca",
+    "teams": [
+      {"name": "SANTA MÓNICA", "category": "SEGUNDA REGIONAL MALLORCA"}
+    ]
+  }
+]
