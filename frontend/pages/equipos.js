@@ -92,13 +92,15 @@ function EquiposPage({ user, profile }) {
     const supabase = getSupabase();
     if (!supabase) return;
 
-    if (profile?.role === 'Entrenador' && profile?.team) {
+    if (profile?.role === 'Entrenador') {
+      // For Entrenador, fetch the team where they are the coach
       const { data } = await supabase
         .from('teams')
         .select('id, name, category, liga, ciudad, crest, coach_id, created_at')
-        .eq('id', profile.team.id);
+        .eq('coach_id', user.id);
       if (data) setTeams(data);
     } else {
+      // For other roles, fetch all teams
       const { data } = await supabase
         .from('teams')
         .select('id, name, category, liga, ciudad, crest, coach_id, created_at')
@@ -110,7 +112,7 @@ function EquiposPage({ user, profile }) {
 
   useEffect(() => {
     fetchTeams();
-  }, []);
+  }, [user?.id, profile?.role]);
 
   const resetForm = () => {
     setForm({ name: '', category: 'Senior', liga: '', ciudad: '' });
