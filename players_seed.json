@@ -1,0 +1,1079 @@
+{
+  "R.C.D. MALLORCA SAD \"B\"": [
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "A. Torres",
+      "number": 31,
+      "position": "Portero",
+      "age": 19,
+      "height": 190
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "Nil",
+      "number": 13,
+      "position": "Portero",
+      "age": 24,
+      "height": 188
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "R. Kiriejevas",
+      "number": 1,
+      "position": "Portero",
+      "age": 22,
+      "height": 187
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "Rareș Vlad",
+      "number": 25,
+      "position": "Portero",
+      "age": 20,
+      "height": 192
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "A. Giner",
+      "number": 32,
+      "position": "Defensa",
+      "age": 19,
+      "height": 181
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "I. Vicens",
+      "number": 27,
+      "position": "Defensa",
+      "age": 19,
+      "height": null
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "Iliesse Salhi",
+      "number": 26,
+      "position": "Defensa",
+      "age": 18,
+      "height": 172
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "J. Olaizola",
+      "number": 33,
+      "position": "Defensa",
+      "age": 19,
+      "height": 185
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "Jordi Porras",
+      "number": 3,
+      "position": "Defensa",
+      "age": 20,
+      "height": 189
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "L. Orejuela",
+      "number": 30,
+      "position": "Defensa",
+      "age": 18,
+      "height": 178
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "Leo Sánchez",
+      "number": 4,
+      "position": "Defensa",
+      "age": 20,
+      "height": 183
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "M. Calatayud",
+      "number": 2,
+      "position": "Defensa",
+      "age": 20,
+      "height": 182
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "M. Jaume",
+      "number": 11,
+      "position": "Defensa",
+      "age": 26,
+      "height": 183
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "N. Espinós",
+      "number": 20,
+      "position": "Defensa",
+      "age": 20,
+      "height": 173
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "P. Amer",
+      "number": 5,
+      "position": "Defensa",
+      "age": 24,
+      "height": null
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "S. Ávila",
+      "number": 17,
+      "position": "Defensa",
+      "age": 21,
+      "height": 172
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "S. Chlaghmo",
+      "number": 18,
+      "position": "Defensa",
+      "age": 20,
+      "height": 179
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "A. Yerga",
+      "number": 28,
+      "position": "Centrocampista",
+      "age": 19,
+      "height": 180
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "Albert Rubio",
+      "number": 12,
+      "position": "Centrocampista",
+      "age": 20,
+      "height": null
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "Cesc Riba",
+      "number": 10,
+      "position": "Centrocampista",
+      "age": 19,
+      "height": 181
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "I. Torres",
+      "number": 22,
+      "position": "Centrocampista",
+      "age": 19,
+      "height": null
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "J. Martin",
+      "number": 29,
+      "position": "Centrocampista",
+      "age": 18,
+      "height": 178
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "Jandro",
+      "number": 8,
+      "position": "Centrocampista",
+      "age": 20,
+      "height": 177
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "Marcos Gorriti",
+      "number": 7,
+      "position": "Centrocampista",
+      "age": 23,
+      "height": 178
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "Óscar López",
+      "number": 16,
+      "position": "Centrocampista",
+      "age": 19,
+      "height": 187
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "S. Guzmán",
+      "number": 6,
+      "position": "Centrocampista",
+      "age": 20,
+      "height": null
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "A. Diallo",
+      "number": 27,
+      "position": "Delantero",
+      "age": 18,
+      "height": null
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "A. Sidiropoulos",
+      "number": 27,
+      "position": "Delantero",
+      "age": 18,
+      "height": 187
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "Aimar Peña",
+      "number": 19,
+      "position": "Delantero",
+      "age": 22,
+      "height": 186
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "B. Calcagno",
+      "number": 23,
+      "position": "Delantero",
+      "age": 21,
+      "height": 177
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "Hugo Burgos",
+      "number": 21,
+      "position": "Delantero",
+      "age": 20,
+      "height": 179
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "M. Whyte",
+      "number": 27,
+      "position": "Delantero",
+      "age": 18,
+      "height": null
+    },
+    {
+      "team_name": "R.C.D. MALLORCA SAD \"B\"",
+      "name": "W. Hurtado",
+      "number": 9,
+      "position": "Delantero",
+      "age": 25,
+      "height": 188
+    }
+  ],
+  "MANACOR": [],
+  "SANTANYI": [],
+  "FELANITX": [
+    {
+      "team_name": "FELANITX",
+      "name": "B. Bennassar",
+      "number": 13,
+      "position": "Portero",
+      "age": 19,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "Joan Salva",
+      "number": 1,
+      "position": "Portero",
+      "age": 24,
+      "height": 190
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "B. Muntaner",
+      "number": 4,
+      "position": "Defensa",
+      "age": 26,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "D. Quintana",
+      "number": 5,
+      "position": "Defensa",
+      "age": 24,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "Joan Sansó",
+      "number": 3,
+      "position": "Defensa",
+      "age": 25,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "Jorge",
+      "number": 20,
+      "position": "Defensa",
+      "age": 32,
+      "height": 184
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "Miguel Corral",
+      "number": 2,
+      "position": "Defensa",
+      "age": 21,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "A. Adrover",
+      "number": 23,
+      "position": "Centrocampista",
+      "age": 20,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "A. Beas",
+      "number": 21,
+      "position": "Centrocampista",
+      "age": 24,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "A. Rodriguez",
+      "number": 22,
+      "position": "Centrocampista",
+      "age": 24,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "Diego Granados",
+      "number": 8,
+      "position": "Centrocampista",
+      "age": 22,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "I. Salama",
+      "number": 6,
+      "position": "Centrocampista",
+      "age": 22,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "J. Vaquer",
+      "number": 14,
+      "position": "Centrocampista",
+      "age": 21,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "M. Llompart",
+      "number": 7,
+      "position": "Centrocampista",
+      "age": 22,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "S. Bouhamid",
+      "number": 26,
+      "position": "Centrocampista",
+      "age": 20,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "T. Jackson",
+      "number": 17,
+      "position": "Centrocampista",
+      "age": 26,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "T. Nebot",
+      "number": 11,
+      "position": "Centrocampista",
+      "age": 25,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "T. Pou",
+      "number": 10,
+      "position": "Centrocampista",
+      "age": 23,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "Toni Arrom",
+      "number": 18,
+      "position": "Centrocampista",
+      "age": 21,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "Zamora",
+      "number": 16,
+      "position": "Centrocampista",
+      "age": 26,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "C. Carosso",
+      "number": 9,
+      "position": "Delantero",
+      "age": 29,
+      "height": 174
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "S. Saugar",
+      "number": 25,
+      "position": "Delantero",
+      "age": 19,
+      "height": null
+    },
+    {
+      "team_name": "FELANITX",
+      "name": "Vinicius",
+      "number": 17,
+      "position": "Delantero",
+      "age": 29,
+      "height": 171
+    }
+  ],
+  "BINISSALEM": [],
+  "CARDASSAR": [],
+  "CE MERCADAL": [],
+  "COLLERENSE": [
+    {
+      "team_name": "COLLERENSE",
+      "name": "J. Schmidt",
+      "number": 13,
+      "position": "Portero",
+      "age": 20,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "R. Brusi",
+      "number": 1,
+      "position": "Portero",
+      "age": 22,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "R. Carrasco",
+      "number": 13,
+      "position": "Portero",
+      "age": 20,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "R. Ferreira",
+      "number": 1,
+      "position": "Portero",
+      "age": 19,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "A. Martinez",
+      "number": 18,
+      "position": "Defensa",
+      "age": 24,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "I. Jimenez",
+      "number": 16,
+      "position": "Defensa",
+      "age": 22,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "J. Aguilo",
+      "number": 31,
+      "position": "Defensa",
+      "age": 20,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "Juan Osorio",
+      "number": 11,
+      "position": "Defensa",
+      "age": 25,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "M. Huguet",
+      "number": 19,
+      "position": "Defensa",
+      "age": 20,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "M. Salado",
+      "number": 23,
+      "position": "Defensa",
+      "age": 23,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "N. Pellegrino",
+      "number": 3,
+      "position": "Defensa",
+      "age": 19,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "V. Rodríguez",
+      "number": 4,
+      "position": "Defensa",
+      "age": 24,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "Victor",
+      "number": 24,
+      "position": "Defensa",
+      "age": 25,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "A. Calvo",
+      "number": 11,
+      "position": "Centrocampista",
+      "age": 21,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "Adrián Gómez",
+      "number": 24,
+      "position": "Centrocampista",
+      "age": 22,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "Alex Ebulabate",
+      "number": 8,
+      "position": "Centrocampista",
+      "age": 26,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "E. Bonnin",
+      "number": 11,
+      "position": "Centrocampista",
+      "age": 22,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "G. Rodriguez",
+      "number": 17,
+      "position": "Centrocampista",
+      "age": 20,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "I. Baghat",
+      "number": 16,
+      "position": "Centrocampista",
+      "age": 19,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "I. Ndion",
+      "number": 16,
+      "position": "Centrocampista",
+      "age": 21,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "Ivo",
+      "number": 15,
+      "position": "Centrocampista",
+      "age": 33,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "Juli",
+      "number": 7,
+      "position": "Centrocampista",
+      "age": 40,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "M. Matos",
+      "number": 8,
+      "position": "Centrocampista",
+      "age": 27,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "M. Nuñez",
+      "number": 14,
+      "position": "Centrocampista",
+      "age": 28,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "P. Sancho",
+      "number": 11,
+      "position": "Centrocampista",
+      "age": 20,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "R. Coll",
+      "number": 20,
+      "position": "Centrocampista",
+      "age": 21,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "R. Segura",
+      "number": 12,
+      "position": "Centrocampista",
+      "age": 23,
+      "height": 178
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "Y. Vorobei",
+      "number": 3,
+      "position": "Centrocampista",
+      "age": 22,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "A. Navio",
+      "number": 11,
+      "position": "Delantero",
+      "age": 18,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "Álvaro Jiménez",
+      "number": 9,
+      "position": "Delantero",
+      "age": 25,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "D. Atero",
+      "number": 2,
+      "position": "Delantero",
+      "age": 20,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "Daniel Gomez",
+      "number": 24,
+      "position": "Delantero",
+      "age": 21,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "Dennis Pastor",
+      "number": 10,
+      "position": "Delantero",
+      "age": 22,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "G. Frontera",
+      "number": 6,
+      "position": "Delantero",
+      "age": 20,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "J. Palacios",
+      "number": 22,
+      "position": "Delantero",
+      "age": 25,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "M. Jaume",
+      "number": 11,
+      "position": "Delantero",
+      "age": 24,
+      "height": null
+    },
+    {
+      "team_name": "COLLERENSE",
+      "name": "Toni Abo",
+      "number": 14,
+      "position": "Delantero",
+      "age": 28,
+      "height": 180
+    }
+  ],
+  "CONSTANCIA": [],
+  "LLOSETENSE": [],
+  "INTER IBIZA": [],
+  "FORMENTERA": [],
+  "ALCUDIA": [
+    {
+      "team_name": "ALCUDIA",
+      "name": "A. Donaire",
+      "number": 1,
+      "position": "Portero",
+      "age": 20,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "Bartomeu",
+      "number": 13,
+      "position": "Portero",
+      "age": 29,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "H. Mazzarella",
+      "number": 13,
+      "position": "Portero",
+      "age": 18,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "J. Carbonell",
+      "number": 28,
+      "position": "Portero",
+      "age": 22,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "Ruben",
+      "number": 1,
+      "position": "Portero",
+      "age": 28,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "Alex Hofmann",
+      "number": 12,
+      "position": "Defensa",
+      "age": 22,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "Bernat",
+      "number": 4,
+      "position": "Defensa",
+      "age": 33,
+      "height": 185
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "C. Rigo",
+      "number": 5,
+      "position": "Defensa",
+      "age": 27,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "Cuba",
+      "number": 16,
+      "position": "Defensa",
+      "age": 23,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "Felipe Arana",
+      "number": 23,
+      "position": "Defensa",
+      "age": 21,
+      "height": 190
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "J. Caballol",
+      "number": 25,
+      "position": "Defensa",
+      "age": 23,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "M. Draghi",
+      "number": 28,
+      "position": "Defensa",
+      "age": 19,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "Ruben",
+      "number": 6,
+      "position": "Defensa",
+      "age": 34,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "S. Gashi",
+      "number": 14,
+      "position": "Defensa",
+      "age": 22,
+      "height": 194
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "Vaz",
+      "number": 3,
+      "position": "Defensa",
+      "age": 28,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "A. Bria",
+      "number": 2,
+      "position": "Centrocampista",
+      "age": 20,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "A. Fiol",
+      "number": 30,
+      "position": "Centrocampista",
+      "age": 18,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "A. Peluffo",
+      "number": 11,
+      "position": "Centrocampista",
+      "age": 28,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "A. Ventayol",
+      "number": 25,
+      "position": "Centrocampista",
+      "age": 22,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "Ayoub El Mkadmi",
+      "number": 12,
+      "position": "Centrocampista",
+      "age": 21,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "C. Perez",
+      "number": 25,
+      "position": "Centrocampista",
+      "age": 21,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "Carles",
+      "number": 10,
+      "position": "Centrocampista",
+      "age": 29,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "D. Perez",
+      "number": 22,
+      "position": "Centrocampista",
+      "age": 24,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "I. Martinez",
+      "number": 30,
+      "position": "Centrocampista",
+      "age": 18,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "J. Martinez",
+      "number": 24,
+      "position": "Centrocampista",
+      "age": 21,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "Jaume Estrany",
+      "number": 15,
+      "position": "Centrocampista",
+      "age": 25,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "M. Bibiloni",
+      "number": 21,
+      "position": "Centrocampista",
+      "age": 29,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "M. Crespi",
+      "number": 27,
+      "position": "Centrocampista",
+      "age": 18,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "M. Llompart",
+      "number": 28,
+      "position": "Centrocampista",
+      "age": 21,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "M. Quetglas",
+      "number": 27,
+      "position": "Centrocampista",
+      "age": 21,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "P. Atwal",
+      "number": 18,
+      "position": "Centrocampista",
+      "age": 21,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "P. Botello",
+      "number": 30,
+      "position": "Centrocampista",
+      "age": 20,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "T. Bisquerra",
+      "number": 26,
+      "position": "Centrocampista",
+      "age": 20,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "A. Núñez",
+      "number": 9,
+      "position": "Delantero",
+      "age": 25,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "F. Fernández",
+      "number": 20,
+      "position": "Delantero",
+      "age": 23,
+      "height": 171
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "I. Huerta",
+      "number": 19,
+      "position": "Delantero",
+      "age": 25,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "Kike",
+      "number": 17,
+      "position": "Delantero",
+      "age": 30,
+      "height": null
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "P. Gonzalez",
+      "number": 8,
+      "position": "Delantero",
+      "age": 25,
+      "height": 179
+    },
+    {
+      "team_name": "ALCUDIA",
+      "name": "Ripoll",
+      "number": 7,
+      "position": "Delantero",
+      "age": 33,
+      "height": 176
+    }
+  ],
+  "SON CLADERA": [],
+  "ROTLET-MOLINAR": [],
+  "PORTMANY": [],
+  "PLATGES DE CALVIA": []
+}

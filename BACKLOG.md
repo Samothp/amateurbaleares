@@ -167,6 +167,16 @@ Crear el MVP básico de la plataforma de estadísticas y scouting de fútbol ama
 
 ---
 
+### Fase 9: Importación de datos de jugadores ✅ COMPLETADO
+- ✅ Scraper de resultados-futbol.com: Parser HTML con BeautifulSoup para extraer plantillas (nombre, posición, dorsal, edad, altura)
+- ✅ Mapeo de 17 equipos de Tercera Federación Grupo 11 a slugs de resultados-futbol.com
+- ✅ Importación de 132 jugadores para 4 equipos: RCD Mallorca B (33), Felanitx (23), Collerense (37), Alcudia (39)
+- ✅ Importador Supabase con upsert (evita duplicados)
+- ✅ Archivos: `src/scraper/besoccer_scraper.py`, `src/scraper/player_importer.py`, `players_seed.json`
+- ⚠️ 13 equipos restantes requieren datos manuales (sitios usan JavaScript rendering)
+
+---
+
 ## Ideas futuras (post-MVP)
 
 - Implementar resúmenes automáticos de partido con IA.
