@@ -13,7 +13,7 @@ function EquiposPage({ user, profile }) {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingTeam, setEditingTeam] = useState(null);
-  const [form, setForm] = useState({ name: '', category: '', liga: '', ciudad: '' });
+  const [form, setForm] = useState({ name: '', category: '' });
   const [toast, setToast] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [search, setSearch] = useState('');
@@ -36,7 +36,7 @@ function EquiposPage({ user, profile }) {
   }, []);
 
   const resetForm = () => {
-    setForm({ name: '', category: '', liga: '', ciudad: '' });
+    setForm({ name: '', category: '' });
     setEditingTeam(null);
     setShowForm(false);
   };
@@ -46,8 +46,6 @@ function EquiposPage({ user, profile }) {
     setForm({
       name: team.name || '',
       category: team.category || '',
-      liga: team.liga || '',
-      ciudad: team.ciudad || '',
     });
     setShowForm(true);
   };
@@ -59,14 +57,10 @@ function EquiposPage({ user, profile }) {
     if (!supabase) return;
 
     if (editingTeam) {
-      const updateData = {
-        name: form.name,
-        category: form.category,
-      };
-      if (form.liga) updateData.liga = form.liga;
-      if (form.ciudad) updateData.ciudad = form.ciudad;
-
-      const { error } = await supabase.from('teams').update(updateData).eq('id', editingTeam.id);
+      const { error } = await supabase
+        .from('teams')
+        .update({ name: form.name, category: form.category })
+        .eq('id', editingTeam.id);
       if (error) {
         setToast('Error al actualizar: ' + error.message);
       } else {
@@ -75,15 +69,14 @@ function EquiposPage({ user, profile }) {
         fetchTeams();
       }
     } else {
-      const insertData = {
-        name: form.name,
-        category: form.category,
-        coach_id: user.id,
-      };
-      if (form.liga) insertData.liga = form.liga;
-      if (form.ciudad) insertData.ciudad = form.ciudad;
-
-      const { data, error } = await supabase.from('teams').insert(insertData).select();
+      const { data, error } = await supabase
+        .from('teams')
+        .insert({
+          name: form.name,
+          category: form.category,
+          coach_id: user.id,
+        })
+        .select();
       if (error) {
         setToast('Error al crear: ' + error.message);
       } else if (!data || data.length === 0) {
@@ -231,20 +224,6 @@ function EquiposPage({ user, profile }) {
               onChange={(e) => setForm({ ...form, category: e.target.value })}
               style={{ padding: 10, borderRadius: 8, border: '1px solid #ddd' }}
             />
-            <input
-              type="text"
-              placeholder="Liga (ej: Regional Balear)"
-              value={form.liga}
-              onChange={(e) => setForm({ ...form, liga: e.target.value })}
-              style={{ padding: 10, borderRadius: 8, border: '1px solid #ddd' }}
-            />
-            <input
-              type="text"
-              placeholder="Ciudad"
-              value={form.ciudad}
-              onChange={(e) => setForm({ ...form, ciudad: e.target.value })}
-              style={{ padding: 10, borderRadius: 8, border: '1px solid #ddd' }}
-            />
             <button
               type="submit"
               style={{
@@ -364,14 +343,6 @@ function EquiposPage({ user, profile }) {
                     <p style={{ color: '#666', fontSize: 14 }}>
                       {team.category || 'Sin categoría'}
                     </p>
-                    {team.liga && (
-                      <p style={{ color: '#666', fontSize: 13, marginTop: 2 }}>Liga: {team.liga}</p>
-                    )}
-                    {team.ciudad && (
-                      <p style={{ color: '#666', fontSize: 13, marginTop: 2 }}>
-                        Ciudad: {team.ciudad}
-                      </p>
-                    )}
                     <p style={{ color: '#999', fontSize: 12, marginTop: 4 }}>
                       Creado: {new Date(team.created_at).toLocaleDateString('es-ES')}
                     </p>
