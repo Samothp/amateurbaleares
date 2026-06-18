@@ -20,6 +20,8 @@ export const NAV_ITEMS = {
     { label: 'Partidos', href: '/partidos' },
     { label: 'Dash. Jugador', href: '/dashboard-jugador' },
     { label: 'Dash. Equipo', href: '/dashboard-equipo' },
+    { label: 'Comparativa', href: '/comparativa' },
+    { label: 'Ranking', href: '/ranking' },
     { label: 'Mi Perfil', href: '/perfil' },
   ],
   Club: [
@@ -30,6 +32,8 @@ export const NAV_ITEMS = {
     { label: 'Partidos', href: '/partidos' },
     { label: 'Dash. Jugador', href: '/dashboard-jugador' },
     { label: 'Dash. Equipo', href: '/dashboard-equipo' },
+    { label: 'Comparativa', href: '/comparativa' },
+    { label: 'Ranking', href: '/ranking' },
     { label: 'Mi Perfil', href: '/perfil' },
   ],
   Scout: [
@@ -37,6 +41,8 @@ export const NAV_ITEMS = {
     { label: 'Scouting', href: '/scouting' },
     { label: 'Jugadores', href: '/jugadores' },
     { label: 'Dash. Jugador', href: '/dashboard-jugador' },
+    { label: 'Comparativa', href: '/comparativa' },
+    { label: 'Ranking', href: '/ranking' },
     { label: 'Mi Perfil', href: '/perfil' },
   ],
   Admin: [
@@ -48,6 +54,8 @@ export const NAV_ITEMS = {
     { label: 'Partidos', href: '/partidos' },
     { label: 'Dash. Jugador', href: '/dashboard-jugador' },
     { label: 'Dash. Equipo', href: '/dashboard-equipo' },
+    { label: 'Comparativa', href: '/comparativa' },
+    { label: 'Ranking', href: '/ranking' },
     { label: 'Mi Perfil', href: '/perfil' },
   ],
 };

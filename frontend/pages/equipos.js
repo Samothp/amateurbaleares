@@ -12,7 +12,7 @@ function EquiposPage({ user, profile }) {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingTeam, setEditingTeam] = useState(null);
-  const [form, setForm] = useState({ name: '', category: '' });
+  const [form, setForm] = useState({ name: '', category: '', liga: '', ciudad: '' });
   const [message, setMessage] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [search, setSearch] = useState('');
@@ -24,7 +24,7 @@ function EquiposPage({ user, profile }) {
     if (!supabase) return;
     const { data } = await supabase
       .from('teams')
-      .select('id, name, category, crest, coach_id, created_at')
+      .select('id, name, category, liga, ciudad, crest, coach_id, created_at')
       .order('created_at', { ascending: false });
     if (data) setTeams(data);
     setLoading(false);
@@ -35,14 +35,19 @@ function EquiposPage({ user, profile }) {
   }, []);
 
   const resetForm = () => {
-    setForm({ name: '', category: '' });
+    setForm({ name: '', category: '', liga: '', ciudad: '' });
     setEditingTeam(null);
     setShowForm(false);
   };
 
   const handleEdit = (team) => {
     setEditingTeam(team);
-    setForm({ name: team.name || '', category: team.category || '' });
+    setForm({
+      name: team.name || '',
+      category: team.category || '',
+      liga: team.liga || '',
+      ciudad: team.ciudad || '',
+    });
     setShowForm(true);
   };
 
@@ -55,7 +60,7 @@ function EquiposPage({ user, profile }) {
     if (editingTeam) {
       const { error } = await supabase
         .from('teams')
-        .update({ name: form.name, category: form.category })
+        .update({ name: form.name, category: form.category, liga: form.liga, ciudad: form.ciudad })
         .eq('id', editingTeam.id);
       if (error) {
         setMessage('Error al actualizar: ' + error.message);
@@ -68,6 +73,8 @@ function EquiposPage({ user, profile }) {
       const { error } = await supabase.from('teams').insert({
         name: form.name,
         category: form.category,
+        liga: form.liga,
+        ciudad: form.ciudad,
         coach_id: user.id,
       });
       if (error) {
@@ -141,7 +148,7 @@ function EquiposPage({ user, profile }) {
   const canEdit =
     profile?.role === 'Entrenador' || profile?.role === 'Club' || profile?.role === 'Admin';
 
-  const filtered = filterByText(teams, search, ['name', 'category']);
+  const filtered = filterByText(teams, search, ['name', 'category', 'liga', 'ciudad']);
   const paged = paginate(filtered, page, PAGE_SIZE);
 
   const handleSearchChange = (val) => {
@@ -226,6 +233,20 @@ function EquiposPage({ user, profile }) {
               placeholder="Categoría (ej: Senior, Juvenil, Cadete)"
               value={form.category}
               onChange={(e) => setForm({ ...form, category: e.target.value })}
+              style={{ padding: 10, borderRadius: 8, border: '1px solid #ddd' }}
+            />
+            <input
+              type="text"
+              placeholder="Liga (ej: Regional Balear)"
+              value={form.liga}
+              onChange={(e) => setForm({ ...form, liga: e.target.value })}
+              style={{ padding: 10, borderRadius: 8, border: '1px solid #ddd' }}
+            />
+            <input
+              type="text"
+              placeholder="Ciudad"
+              value={form.ciudad}
+              onChange={(e) => setForm({ ...form, ciudad: e.target.value })}
               style={{ padding: 10, borderRadius: 8, border: '1px solid #ddd' }}
             />
             <button
@@ -347,6 +368,14 @@ function EquiposPage({ user, profile }) {
                     <p style={{ color: '#666', fontSize: 14 }}>
                       {team.category || 'Sin categoría'}
                     </p>
+                    {team.liga && (
+                      <p style={{ color: '#666', fontSize: 13, marginTop: 2 }}>Liga: {team.liga}</p>
+                    )}
+                    {team.ciudad && (
+                      <p style={{ color: '#666', fontSize: 13, marginTop: 2 }}>
+                        Ciudad: {team.ciudad}
+                      </p>
+                    )}
                     <p style={{ color: '#999', fontSize: 12, marginTop: 4 }}>
                       Creado: {new Date(team.created_at).toLocaleDateString('es-ES')}
                     </p>

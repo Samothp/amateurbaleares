@@ -18,6 +18,8 @@ function PartidosPage({ user: _user, profile }) {
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(1);
+  const [lineup, setLineup] = useState([]);
+  const [availablePlayers, setAvailablePlayers] = useState([]);
   const PAGE_SIZE = 10;
 
   async function fetchData() {
@@ -27,7 +29,7 @@ function PartidosPage({ user: _user, profile }) {
     const [matchesRes, teamsRes] = await Promise.all([
       supabase
         .from('matches')
-        .select('id, team_id, opponent, date, result, created_at')
+        .select('id, team_id, opponent, date, result, lineup, created_at')
         .order('date', { ascending: false }),
       supabase.from('teams').select('id, name, category'),
     ]);
@@ -40,6 +42,24 @@ function PartidosPage({ user: _user, profile }) {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (!form.team_id) {
+      setAvailablePlayers([]);
+      return;
+    }
+    async function fetchPlayers() {
+      const supabase = getSupabase();
+      if (!supabase) return;
+      const { data } = await supabase
+        .from('players')
+        .select('id, name, dorsal, position')
+        .eq('team_id', form.team_id)
+        .order('dorsal', { ascending: true });
+      if (data) setAvailablePlayers(data);
+    }
+    fetchPlayers();
+  }, [form.team_id]);
 
   const handleCreate = async (e) => {
     e.preventDefault();
@@ -55,6 +75,7 @@ function PartidosPage({ user: _user, profile }) {
           opponent: form.opponent,
           date: form.date || null,
           result: form.result || null,
+          lineup: lineup,
         })
         .eq('id', editingMatch.id);
 
@@ -71,6 +92,7 @@ function PartidosPage({ user: _user, profile }) {
         opponent: form.opponent,
         date: form.date || null,
         result: form.result || null,
+        lineup: lineup,
       });
 
       if (error) {
@@ -87,6 +109,8 @@ function PartidosPage({ user: _user, profile }) {
     setForm({ team_id: '', opponent: '', date: '', result: '' });
     setEditingMatch(null);
     setShowForm(false);
+    setLineup([]);
+    setAvailablePlayers([]);
   };
 
   const handleEdit = (match) => {
@@ -97,6 +121,7 @@ function PartidosPage({ user: _user, profile }) {
       date: match.date ? match.date.slice(0, 16) : '',
       result: match.result || '',
     });
+    setLineup(match.lineup || []);
     setShowForm(true);
   };
 
@@ -243,6 +268,55 @@ function PartidosPage({ user: _user, profile }) {
               style={{ padding: 10, borderRadius: 8, border: '1px solid #ddd' }}
             />
           </div>
+          {availablePlayers.length > 0 && (
+            <div style={{ marginTop: 12 }}>
+              <label style={{ fontSize: 14, color: '#666', display: 'block', marginBottom: 6 }}>
+                Alineación ({lineup.length} jugadores)
+              </label>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+                  gap: 6,
+                  maxHeight: 200,
+                  overflowY: 'auto',
+                  padding: 8,
+                  background: '#f8f9fa',
+                  borderRadius: 8,
+                }}
+              >
+                {availablePlayers.map((p) => (
+                  <label
+                    key={p.id}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      fontSize: 13,
+                      cursor: 'pointer',
+                      padding: '4px 8px',
+                      borderRadius: 4,
+                      background: lineup.includes(p.id) ? '#e8f5e9' : 'transparent',
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={lineup.includes(p.id)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setLineup([...lineup, p.id]);
+                        } else {
+                          setLineup(lineup.filter((id) => id !== p.id));
+                        }
+                      }}
+                    />
+                    {p.dorsal ? `#${p.dorsal}` : ''} {p.name}
+                    {p.position ? ` (${p.position})` : ''}
+                  </label>
+                ))}
+              </div>
+            </div>
+          )}
           <button
             type="submit"
             style={{

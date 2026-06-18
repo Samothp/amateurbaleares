@@ -150,6 +150,13 @@ Crear el MVP básico de la plataforma de estadísticas y scouting de fútbol ama
 - ✅ Tests a11y: GoogleLogo, SearchBar, Pagination, Skeleton
 - ✅ Auth tests actualizados para nuevo scoring de PasswordStrength
 
+### Fase 7: Completar Roadmap ✅ COMPLETADO
+- ✅ Equipos: campos `liga` y `ciudad` añadidos (formulario, display, búsqueda)
+- ✅ Partidos: alineación con checkboxes de jugadores (usa columna `lineup jsonb` existente)
+- ✅ `/comparativa`: Comparativa side-by-side de dos jugadores (radar + bar chart + tabla)
+- ✅ `/ranking`: Ranking global con filtros por equipo y tipo de estadística
+- ✅ Navegación actualizada para todos los roles (Comparativa + Ranking)
+
 ---
 
 ## Ideas futuras (post-MVP)
