@@ -18,6 +18,39 @@ function DashboardPage({ user, profile }) {
       const supabase = getSupabase();
       if (!supabase) return;
 
+      if (profile?.role === 'Entrenador' && profile?.team) {
+        const [teamRes, playersRes, matchesRes] = await Promise.all([
+          supabase.from('teams').select('id, name, category').eq('id', profile.team.id).single(),
+          supabase.from('players').select('id', { count: 'exact', head: true }).eq('team_id', profile.team.id),
+          supabase.from('matches').select('id, team_id, opponent, date, result, jornada')
+            .eq('team_id', profile.team.id)
+            .order('date', { ascending: false }),
+        ]);
+
+        setTeams(teamRes.data ? [teamRes.data] : []);
+        setStats({ teams: 1, players: playersRes.count || 0, matches: matchesRes.data?.length || 0 });
+
+        if (matchesRes.data) {
+          const completed = matchesRes.data.filter((m) => m.result);
+          const upcoming = matchesRes.data.filter((m) => !m.result && m.date && new Date(m.date) >= new Date());
+          setRecentMatches(completed.slice(0, 3));
+          setUpcomingMatches(upcoming.slice(0, 3));
+
+          const s = { players: playersRes.count || 0, won: 0, drawn: 0, lost: 0 };
+          completed.forEach((m) => {
+            if (!m.result) return;
+            const parts = m.result.split('-').map((x) => parseInt(x.trim(), 10));
+            if (parts.length !== 2 || isNaN(parts[0]) || isNaN(parts[1])) return;
+            if (parts[0] > parts[1]) s.won++;
+            else if (parts[0] === parts[1]) s.drawn++;
+            else s.lost++;
+          });
+          setTeamStats({ [profile.team.id]: s });
+        }
+        setLoading(false);
+        return;
+      }
+
       const [teamsRes, playersRes, matchesRes, allTeamsRes] = await Promise.all([
         supabase.from('teams').select('id', { count: 'exact', head: true }),
         supabase.from('players').select('id', { count: 'exact', head: true }),
@@ -99,7 +132,7 @@ function DashboardPage({ user, profile }) {
       }
     }
     fetchDashboard();
-  }, []);
+  }, [profile]);
 
   const isNewUser = stats.teams === 0 && stats.players === 0;
   const hasTeamsNoMatches = stats.teams > 0 && stats.matches === 0;
@@ -210,7 +243,9 @@ function DashboardPage({ user, profile }) {
 
       {teams.length > 0 && (
         <div style={{ marginBottom: 24 }}>
-          <h2 style={{ fontSize: 18, marginBottom: 12 }}>Mis Equipos</h2>
+          <h2 style={{ fontSize: 18, marginBottom: 12 }}>
+            {profile?.role === 'Entrenador' ? 'Mi Equipo' : 'Mis Equipos'}
+          </h2>
           <div
             style={{
               display: 'grid',

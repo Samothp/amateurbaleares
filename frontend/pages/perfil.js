@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
@@ -12,6 +12,18 @@ function ProfilePage({ user, profile: initialProfile }) {
   const [name, setName] = useState(initialProfile?.name || '');
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [teams, setTeams] = useState([]);
+  const [selectedTeamId, setSelectedTeamId] = useState(initialProfile?.team?.id || '');
+
+  useEffect(() => {
+    async function fetchTeams() {
+      const supabase = getSupabase();
+      if (!supabase) return;
+      const { data } = await supabase.from('teams').select('id, name, category').order('name');
+      if (data) setTeams(data);
+    }
+    fetchTeams();
+  }, []);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -82,6 +94,49 @@ function ProfilePage({ user, profile: initialProfile }) {
     );
   };
 
+  const handleAssignTeam = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage(null);
+
+    const supabase = getSupabase();
+    if (!supabase) {
+      setMessage('Error: Supabase no disponible');
+      setLoading(false);
+      return;
+    }
+
+    const teamId = selectedTeamId || null;
+
+    const { error: clearError } = await supabase
+      .from('teams')
+      .update({ coach_id: null })
+      .eq('coach_id', user.id);
+
+    if (teamId) {
+      const { error } = await supabase
+        .from('teams')
+        .update({ coach_id: user.id })
+        .eq('id', teamId);
+
+      if (error) {
+        setMessage('Error al asignar equipo: ' + error.message);
+        setLoading(false);
+        return;
+      }
+    }
+
+    const { data: teamData } = await supabase
+      .from('teams')
+      .select('id, name, category, liga, ciudad')
+      .eq('coach_id', user.id)
+      .single();
+
+    setProfile({ ...profile, team: teamData || null });
+    setMessage(teamId ? 'Equipo asignado correctamente' : 'Equipo desasignado');
+    setLoading(false);
+  };
+
   return (
     <Layout profile={profile}>
       <h1 style={{ fontSize: 24, marginBottom: 24 }}>Mi Perfil</h1>
@@ -123,6 +178,44 @@ function ProfilePage({ user, profile: initialProfile }) {
             Cambiar contraseña
           </Button>
         </Card>
+
+        {profile?.role === 'Entrenador' && (
+          <Card padding={24}>
+            <h2 style={{ fontSize: 18, marginBottom: 16 }}>Mi Equipo</h2>
+            <p style={{ fontSize: 14, color: '#666', marginBottom: 16 }}>
+              Asocia tu perfil con un equipo del sistema.
+            </p>
+            <form onSubmit={handleAssignTeam} style={{ display: 'grid', gap: 12 }}>
+              <div>
+                <label style={{ fontSize: 13, color: '#666', display: 'block', marginBottom: 4 }}>
+                  Equipo asignado
+                </label>
+                <select
+                  value={selectedTeamId}
+                  onChange={(e) => setSelectedTeamId(e.target.value)}
+                  style={{
+                    width: '100%',
+                    padding: 10,
+                    borderRadius: 8,
+                    border: '1px solid #ddd',
+                    fontSize: 14,
+                  }}
+                >
+                  <option value="">Sin equipo asignado</option>
+                  {teams.map((t) => (
+                    <option key={t.id} value={t.id}>
+                      {t.name}
+                      {t.category ? ' (' + t.category + ')' : ''}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <Button type="submit" disabled={loading} style={{ marginTop: 8 }}>
+                {loading ? 'Guardando...' : 'Guardar asignación'}
+              </Button>
+            </form>
+          </Card>
+        )}
       </div>
     </Layout>
   );

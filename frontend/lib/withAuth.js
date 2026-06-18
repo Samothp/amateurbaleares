@@ -38,11 +38,22 @@ export default function withAuth(WrappedComponent, allowedRoles = []) {
             .eq('id', sessionUser.id)
             .single();
 
-          const userProfile = userData || {
+          let userProfile = userData || {
             name: sessionUser.user_metadata?.full_name || sessionUser.email,
             email: sessionUser.email,
             role: sessionUser.user_metadata?.role || 'Entrenador',
           };
+
+          if (userProfile.role === 'Entrenador') {
+            const { data: teamData } = await supabase
+              .from('teams')
+              .select('id, name, category, liga, ciudad')
+              .eq('coach_id', sessionUser.id)
+              .single();
+            if (teamData) {
+              userProfile = { ...userProfile, team: teamData };
+            }
+          }
 
           if (!cancelled) {
             if (allowedRoles.length > 0 && !allowedRoles.includes(userProfile.role)) {

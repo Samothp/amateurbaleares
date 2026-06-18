@@ -91,11 +91,20 @@ function EquiposPage({ user, profile }) {
   async function fetchTeams() {
     const supabase = getSupabase();
     if (!supabase) return;
-    const { data } = await supabase
-      .from('teams')
-      .select('id, name, category, liga, ciudad, crest, coach_id, created_at')
-      .order('created_at', { ascending: false });
-    if (data) setTeams(data);
+
+    if (profile?.role === 'Entrenador' && profile?.team) {
+      const { data } = await supabase
+        .from('teams')
+        .select('id, name, category, liga, ciudad, crest, coach_id, created_at')
+        .eq('id', profile.team.id);
+      if (data) setTeams(data);
+    } else {
+      const { data } = await supabase
+        .from('teams')
+        .select('id, name, category, liga, ciudad, crest, coach_id, created_at')
+        .order('created_at', { ascending: false });
+      if (data) setTeams(data);
+    }
     setLoading(false);
   }
 
@@ -248,7 +257,9 @@ function EquiposPage({ user, profile }) {
           gap: 12,
         }}
       >
-        <h1 style={{ fontSize: 24 }}>Mis Equipos</h1>
+        <h1 style={{ fontSize: 24 }}>
+          {profile?.role === 'Entrenador' ? 'Mi Equipo' : 'Mis Equipos'}
+        </h1>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
           <SearchBar value={search} onChange={handleSearchChange} placeholder="Buscar equipo..." />
           {canEdit && (
