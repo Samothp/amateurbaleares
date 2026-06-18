@@ -55,7 +55,7 @@ export default function RegisterPage() {
 
     const userId = data.user?.id;
     if (userId) {
-      const { data: upsertData, error: upsertError } = await supabase.from('users').upsert({
+      const { error: upsertError } = await supabase.from('users').upsert({
         id: userId,
         name,
         email,
@@ -63,7 +63,6 @@ export default function RegisterPage() {
       });
 
       if (upsertError) {
-        console.error('Error upserting user profile:', upsertError);
         setLoading(false);
         setMessage('Registro completado, pero fallo al guardar el perfil: ' + upsertError.message);
         return;

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { getSupabase } from '../lib/supabaseClient';
@@ -9,18 +9,6 @@ export default function ResetPasswordPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    const supabase = getSupabase();
-    if (!supabase) return;
-
-    supabase.auth.onAuthStateChange((event) => {
-      if (event === 'PASSWORD_RECOVERY') {
-        setReady(true);
-      }
-    });
-  }, []);
 
   const handleReset = async (e) => {
     e.preventDefault();

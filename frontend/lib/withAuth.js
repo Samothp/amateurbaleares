@@ -54,8 +54,7 @@ export default function withAuth(WrappedComponent, allowedRoles = []) {
             setProfile(userProfile);
             setLoading(false);
           }
-        } catch (err) {
-          console.error('Auth check failed:', err);
+        } catch (_err) {
           if (!cancelled) {
             router.replace('/login');
           }

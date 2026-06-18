@@ -19,7 +19,7 @@ const EVENT_TYPES = [
   { value: 'despeje', label: '🛡️ Despeje', color: '#2a9d8f' },
 ];
 
-function MatchDetailPage({ user, profile }) {
+function MatchDetailPage({ user: _user, profile }) {
   const router = useRouter();
   const { id, live } = router.query;
   const [match, setMatch] = useState(null);
@@ -71,6 +71,7 @@ function MatchDetailPage({ user, profile }) {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
   useEffect(() => {
     if (live === 'true') setIsLive(true);
@@ -138,11 +139,6 @@ function MatchDetailPage({ user, profile }) {
   const getEventLabel = (type) => {
     const found = EVENT_TYPES.find((e) => e.value === type);
     return found ? found.label : type;
-  };
-
-  const getEventColor = (type) => {
-    const found = EVENT_TYPES.find((e) => e.value === type);
-    return found ? found.color : '#666';
   };
 
   const getPlayerName = (playerId) => {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
@@ -249,12 +250,12 @@ function EquiposPage({ user, profile }) {
               <div style={{ display: 'flex', gap: 16, alignItems: 'start' }}>
                 <div style={{ position: 'relative' }}>
                   {team.crest ? (
-                    <img
+                    <Image
                       src={team.crest}
                       alt={team.name}
+                      width={64}
+                      height={64}
                       style={{
-                        width: 64,
-                        height: 64,
                         borderRadius: 12,
                         objectFit: 'cover',
                         background: '#f0f0f0',

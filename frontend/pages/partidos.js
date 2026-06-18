@@ -4,7 +4,7 @@ import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
 
-function PartidosPage({ user, profile }) {
+function PartidosPage({ user: _user, profile }) {
   const [matches, setMatches] = useState([]);
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);

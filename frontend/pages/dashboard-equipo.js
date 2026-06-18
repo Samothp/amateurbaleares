@@ -31,7 +31,7 @@ const COLORS = [
   '#c1121f',
 ];
 
-function TeamDashboardPage({ user, profile }) {
+function TeamDashboardPage({ user: _user, profile }) {
   const [teams, setTeams] = useState([]);
   const [selectedTeam, setSelectedTeam] = useState(null);
   const [teamStats, setTeamStats] = useState(null);

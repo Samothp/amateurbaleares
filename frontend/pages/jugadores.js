@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
 
-function JugadoresPage({ user, profile }) {
+function JugadoresPage({ user: _user, profile }) {
   const [players, setPlayers] = useState([]);
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -348,12 +349,12 @@ function JugadoresPage({ user, profile }) {
               <div style={{ display: 'flex', gap: 16, alignItems: 'start' }}>
                 <div style={{ position: 'relative' }}>
                   {player.photo ? (
-                    <img
+                    <Image
                       src={player.photo}
                       alt={player.name}
+                      width={64}
+                      height={64}
                       style={{
-                        width: 64,
-                        height: 64,
                         borderRadius: '50%',
                         objectFit: 'cover',
                         background: '#f0f0f0',

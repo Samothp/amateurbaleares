@@ -5,7 +5,7 @@ import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
 import { useDebounce } from '../lib/hooks';
 
-function ScoutingPage({ user, profile }) {
+function ScoutingPage({ user: _user, profile }) {
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');

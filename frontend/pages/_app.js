@@ -11,8 +11,7 @@ class ErrorBoundary extends Component {
     return { hasError: true, error };
   }
 
-  componentDidCatch(error, errorInfo) {
-    console.error('Error Boundary caught:', error, errorInfo);
+  componentDidCatch(_error, _errorInfo) {
   }
 
   render() {
@@ -60,6 +59,7 @@ export default function App({ Component, pageProps }) {
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
           rel="stylesheet"

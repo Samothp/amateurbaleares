@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
@@ -7,7 +8,7 @@ import { Card } from '../components/Card';
 import { MessageBanner } from '../components/MessageBanner';
 import { DeleteConfirm } from '../components/DeleteConfirm';
 
-function ClubsPage({ user, profile }) {
+function ClubsPage({ user: _user, profile }) {
   const [clubs, setClubs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -141,10 +142,12 @@ function ClubsPage({ user, profile }) {
             <Card key={club.id} padding={20}>
               <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 12 }}>
                 {club.crest ? (
-                  <img
+                  <Image
                     src={club.crest}
                     alt={club.name}
-                    style={{ width: 48, height: 48, borderRadius: 8, objectFit: 'cover' }}
+                    width={48}
+                    height={48}
+                    style={{ borderRadius: 8, objectFit: 'cover' }}
                   />
                 ) : (
                   <div

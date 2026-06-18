@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
@@ -9,8 +8,7 @@ import dynamic from 'next/dynamic';
 
 const ChartsLoaded = dynamic(() => import('../lib/charts'), { ssr: false });
 
-function PlayerDashboardPage({ user, profile }) {
-  const router = useRouter();
+function PlayerDashboardPage({ user: _user, profile }) {
   const [players, setPlayers] = useState([]);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
   const [stats, setStats] = useState(null);

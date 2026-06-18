@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
-import { ROLE_LABELS } from '../lib/roles';
 
-function AdminPage({ user, profile }) {
+function AdminPage({ user: _user, profile }) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -13,7 +12,7 @@ function AdminPage({ user, profile }) {
       const supabase = getSupabase();
       if (!supabase) return;
 
-      const { data, error } = await supabase
+      const { data } = await supabase
         .from('users')
         .select('id, name, email, role, created_at')
         .order('created_at', { ascending: false });

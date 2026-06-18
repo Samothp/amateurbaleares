@@ -126,7 +126,6 @@ export function calculateTeamStats(events, players) {
 export function calculatePlayerTimeline(events) {
   if (!events || events.length === 0) return [];
 
-  const timeline = [];
   const minuteData = {};
 
   events.forEach((e) => {

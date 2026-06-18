@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useRouter } from 'next/router';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
@@ -8,7 +7,6 @@ import { Card } from '../components/Card';
 import { MessageBanner } from '../components/MessageBanner';
 
 function ProfilePage({ user, profile: initialProfile }) {
-  const router = useRouter();
   const [profile, setProfile] = useState(initialProfile);
   const [name, setName] = useState(initialProfile?.name || '');
   const [message, setMessage] = useState(null);

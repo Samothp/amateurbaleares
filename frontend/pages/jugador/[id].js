@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Image from 'next/image';
 import withAuth from '../../lib/withAuth';
 import { getSupabase } from '../../lib/supabaseClient';
 import Layout from '../../components/Layout';
@@ -16,16 +17,9 @@ import {
   PolarRadiusAxis,
   Radar,
   ResponsiveContainer,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
 } from 'recharts';
 
-function PlayerProfilePage({ user, profile }) {
+function PlayerProfilePage({ user: _user, profile }) {
   const router = useRouter();
   const { id } = router.query;
   const [player, setPlayer] = useState(null);
@@ -34,7 +28,6 @@ function PlayerProfilePage({ user, profile }) {
   const [matches, setMatches] = useState([]);
   const [stats, setStats] = useState(null);
   const [analysis, setAnalysis] = useState(null);
-  const [timeline, setTimeline] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -131,10 +124,12 @@ function PlayerProfilePage({ user, profile }) {
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 16 }}>
             {player.photo ? (
-              <img
+              <Image
                 src={player.photo}
                 alt={player.name}
-                style={{ width: 80, height: 80, borderRadius: '50%', objectFit: 'cover' }}
+                width={80}
+                height={80}
+                style={{ borderRadius: '50%', objectFit: 'cover' }}
               />
             ) : (
               <div
