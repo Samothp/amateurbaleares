@@ -96,6 +96,17 @@ function EquiposPage({ user, profile }) {
   const handleCrestUpload = async (e, teamId) => {
     const file = e.target.files[0];
     if (!file) return;
+
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+    if (!allowedTypes.includes(file.type)) {
+      setMessage('Formato no válido. Usa JPG, PNG, WebP o GIF.');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setMessage('El archivo supera los 5MB.');
+      return;
+    }
+
     const supabase = getSupabase();
     if (!supabase) return;
 

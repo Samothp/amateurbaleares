@@ -36,7 +36,11 @@ function PlayerProfilePage({ user: _user, profile }) {
       const supabase = getSupabase();
       if (!supabase) return;
 
-      const { data: playerData } = await supabase.from('players').select('*').eq('id', id).single();
+      const { data: playerData } = await supabase
+        .from('players')
+        .select('id, name, age, position, dorsal, height, weight, dominant_foot, photo, team_id, created_at')
+        .eq('id', id)
+        .single();
       if (!playerData) {
         setLoading(false);
         return;

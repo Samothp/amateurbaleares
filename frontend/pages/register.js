@@ -6,18 +6,13 @@ import { FormField } from '../components/FormField';
 import { PasswordStrength } from '../components/PasswordStrength';
 import { mapAuthError } from '../lib/auth';
 
-const ROLE_OPTIONS = [
-  { value: 'Entrenador', label: 'Entrenador' },
-  { value: 'Club', label: 'Club' },
-  { value: 'Scout', label: 'Scout' },
-];
+const DEFAULT_ROLE = 'Entrenador';
 
 export default function RegisterPage() {
   const router = useRouter();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('Entrenador');
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
@@ -36,8 +31,6 @@ export default function RegisterPage() {
       return;
     }
 
-    const roleToSave = role;
-
     const { data, error } = await supabase.auth.signUp(
       {
         email,
@@ -46,7 +39,7 @@ export default function RegisterPage() {
       {
         data: {
           full_name: name,
-          role: roleToSave,
+          role: DEFAULT_ROLE,
         },
       }
     );
@@ -63,7 +56,7 @@ export default function RegisterPage() {
         id: userId,
         name,
         email,
-        role: roleToSave,
+        role: DEFAULT_ROLE,
       });
 
       if (upsertError) {
@@ -140,6 +133,9 @@ export default function RegisterPage() {
         <div style={{ flex: 1, height: 1, background: '#ddd' }} />
       </div>
 
+      <p style={{ marginTop: 24, fontSize: 14, color: '#666' }}>
+        Tu cuenta se creará como <strong>Entrenador</strong>. Un administrador puede cambiar tu rol después.
+      </p>
       <form onSubmit={handleRegister} style={{ display: 'grid', gap: 16 }}>
         <FormField
           label="Nombre completo"
@@ -167,12 +163,6 @@ export default function RegisterPage() {
           />
           <PasswordStrength password={password} />
         </div>
-        <FormField
-          label="Rol"
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          options={ROLE_OPTIONS}
-        />
         <button type="submit" disabled={loading} style={{ padding: 12 }}>
           {loading ? 'Registrando...' : 'Registrar'}
         </button>

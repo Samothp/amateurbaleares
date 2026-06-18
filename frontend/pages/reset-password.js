@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { getSupabase } from '../lib/supabaseClient';
@@ -12,6 +12,23 @@ export default function ResetPasswordPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [tokenValid, setTokenValid] = useState(null);
+
+  useEffect(() => {
+    const supabase = getSupabase();
+    if (!supabase) {
+      setTokenValid(false);
+      return;
+    }
+
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) {
+        setTokenValid(true);
+      } else {
+        setTokenValid(false);
+      }
+    });
+  }, []);
 
   const handleReset = async (e) => {
     e.preventDefault();
@@ -46,6 +63,28 @@ export default function ResetPasswordPage() {
       setTimeout(() => router.push('/login'), 2000);
     }
   };
+
+  if (tokenValid === null) {
+    return (
+      <main style={{ padding: 24, fontFamily: 'Inter, sans-serif', maxWidth: 480, margin: '0 auto' }}>
+        <p>Verificando enlace...</p>
+      </main>
+    );
+  }
+
+  if (tokenValid === false) {
+    return (
+      <main style={{ padding: 24, fontFamily: 'Inter, sans-serif', maxWidth: 480, margin: '0 auto' }}>
+        <h1>Enlace no válido</h1>
+        <p style={{ color: '#666', marginTop: 12 }}>
+          El enlace de recuperación no es válido o ha expirado.
+        </p>
+        <p style={{ marginTop: 24 }}>
+          <Link href="/forgot-password">Solicitar nuevo enlace</Link>
+        </p>
+      </main>
+    );
+  }
 
   return (
     <main style={{ padding: 24, fontFamily: 'Inter, sans-serif', maxWidth: 480, margin: '0 auto' }}>
