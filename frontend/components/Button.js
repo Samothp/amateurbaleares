@@ -6,6 +6,7 @@ const VARIANTS = {
 };
 
 export function Button({ variant = 'primary', children, style: overrideStyle, ...props }) {
+  const { style: propStyle, ...restProps } = props;
   return (
     <button
       style={{
@@ -17,8 +18,9 @@ export function Button({ variant = 'primary', children, style: overrideStyle, ..
         fontWeight: 500,
         ...VARIANTS[variant],
         ...overrideStyle,
+        ...propStyle,
       }}
-      {...props}
+      {...restProps}
     >
       {children}
     </button>

@@ -9,7 +9,6 @@ import { SkeletonDashboard, SkeletonStyles } from '../../components/Skeleton';
 import {
   calculatePlayerStats,
   analyzeStrengthsWeaknesses,
-  calculatePlayerTimeline,
 } from '../../lib/stats';
 import {
   RadarChart,
@@ -79,7 +78,6 @@ function PlayerProfilePage({ user: _user, profile }) {
     if (events.length === 0) return;
     setStats(calculatePlayerStats(events));
     setAnalysis(analyzeStrengthsWeaknesses(events));
-    setTimeline(calculatePlayerTimeline(events));
   }, [events]);
 
   const radarData = stats

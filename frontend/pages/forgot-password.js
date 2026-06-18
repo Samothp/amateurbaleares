@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { getSupabase } from '../lib/supabaseClient';
+import { mapAuthError } from '../lib/auth';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
@@ -26,7 +27,7 @@ export default function ForgotPasswordPage() {
     setLoading(false);
 
     if (error) {
-      setMessage(error.message);
+      setMessage(mapAuthError(error));
     } else {
       setMessage('Revisa tu correo para restablecer la contraseña.');
     }

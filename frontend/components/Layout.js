@@ -24,11 +24,11 @@ export default function Layout({ children, profile }) {
   }, [router]);
 
   const handleSignOut = async () => {
+    setShowLogoutConfirm(false);
     const supabase = getSupabase();
     if (supabase) {
       await supabase.auth.signOut();
     }
-    router.push('/login');
   };
 
   return (

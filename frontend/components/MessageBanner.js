@@ -1,6 +1,6 @@
 export function MessageBanner({ message }) {
   if (!message) return null;
-  const isError = message.includes('Error');
+  const isError = message.toLowerCase().includes('error');
   return (
     <p
       style={{

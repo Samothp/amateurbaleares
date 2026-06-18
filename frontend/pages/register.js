@@ -74,8 +74,8 @@ export default function RegisterPage() {
     }
 
     setLoading(false);
-    setMessage('Registro completado. Revisa tu correo o inicia sesión.');
-    router.push('/login');
+    setMessage('Registro completado. Redirigiendo al login...');
+    setTimeout(() => router.push('/login'), 1500);
   };
 
   const handleGoogleRegister = async () => {
