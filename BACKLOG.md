@@ -183,6 +183,14 @@ Crear el MVP básico de la plataforma de estadísticas y scouting de fútbol ama
 - ✅ Archivos: `src/scraper/besoccer_scraper.py`, `src/scraper/player_importer.py`, `players_seed.json`
 - ⚠️ 13 equipos restantes requieren datos manuales (sitios usan JavaScript rendering)
 
+### Fase 10: Partidos - Jornadas y Selector de Rival ✅ COMPLETADO
+- ✅ Columna `jornada` en tabla matches (schema + SQL migration)
+- ✅ Campo rival cambiado de texto libre a selector de equipo (FK `opponent_team_id`)
+- ✅ Partidos agrupados por jornada con headers colapsables
+- ✅ Tarjetas de partido muestran estadísticas calculadas (goles, asistencias, faltas, tarjetas)
+- ✅ Formulario actualizado con campo jornada y selectores para local y rival
+- ✅ Build y tests pasan (97 tests)
+
 ---
 
 ## Ideas futuras (post-MVP)
