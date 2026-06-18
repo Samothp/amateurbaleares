@@ -8,12 +8,75 @@ import { SearchBar, filterByText } from '../components/SearchBar';
 import { Pagination, paginate } from '../components/Pagination';
 import { Toast } from '../components/Toast';
 
+const LIGAS = [
+  'Regional Preferente',
+  'Regional Primera',
+  'Regional Segunda',
+  'Regional Tercera',
+  '1ª Autonómica',
+  '2ª Autonómica',
+  '3ª Autonómica',
+  'Primera División',
+  'Segunda División',
+  'Tercera División',
+  'Interinsular',
+  'Copa Federación',
+];
+
+const CIUDADES = [
+  'Alaior',
+  'Alcúdia',
+  'Algaida',
+  'Andratx',
+  'Artà',
+  'Banyalbufar',
+  'Binissalem',
+  'Bunyola',
+  'Calvià',
+  'Campos',
+  'Capdepera',
+  'Ciutadella',
+  'Consell',
+  'Deià',
+  'Eivissa',
+  'Es Castell',
+  'Es Mercadal',
+  "Es Pont d'Inca",
+  'Esporles',
+  'Felanitx',
+  'Ferreries',
+  'Inca',
+  'Llucmajor',
+  'Mahon',
+  'Manacor',
+  'Marratxí',
+  'Montuïri',
+  'Muro',
+  'Palma',
+  'Pollença',
+  'Porreres',
+  'Sa Pobla',
+  'Sant Antoni de Portmany',
+  'Sant Joan de Labritja',
+  'Sant Lluís',
+  'Santa Eugènia',
+  'Santa Eulària des Riu',
+  'Santa María del Camí',
+  'Santanyí',
+  'Sencelles',
+  'Ses Salines',
+  'Sineu',
+  'Sóller',
+  'Son Servera',
+  'Valldemossa',
+].sort();
+
 function EquiposPage({ user, profile }) {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingTeam, setEditingTeam] = useState(null);
-  const [form, setForm] = useState({ name: '', category: '' });
+  const [form, setForm] = useState({ name: '', category: '', liga: '', ciudad: '' });
   const [toast, setToast] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [search, setSearch] = useState('');
@@ -25,7 +88,7 @@ function EquiposPage({ user, profile }) {
     if (!supabase) return;
     const { data } = await supabase
       .from('teams')
-      .select('id, name, category, crest, coach_id, created_at')
+      .select('id, name, category, liga, ciudad, crest, coach_id, created_at')
       .order('created_at', { ascending: false });
     if (data) setTeams(data);
     setLoading(false);
@@ -36,7 +99,7 @@ function EquiposPage({ user, profile }) {
   }, []);
 
   const resetForm = () => {
-    setForm({ name: '', category: '' });
+    setForm({ name: '', category: '', liga: '', ciudad: '' });
     setEditingTeam(null);
     setShowForm(false);
   };
@@ -46,6 +109,8 @@ function EquiposPage({ user, profile }) {
     setForm({
       name: team.name || '',
       category: team.category || '',
+      liga: team.liga || '',
+      ciudad: team.ciudad || '',
     });
     setShowForm(true);
   };
@@ -59,7 +124,12 @@ function EquiposPage({ user, profile }) {
     if (editingTeam) {
       const { error } = await supabase
         .from('teams')
-        .update({ name: form.name, category: form.category })
+        .update({
+          name: form.name,
+          category: form.category,
+          liga: form.liga || null,
+          ciudad: form.ciudad || null,
+        })
         .eq('id', editingTeam.id);
       if (error) {
         setToast('Error al actualizar: ' + error.message);
@@ -74,6 +144,8 @@ function EquiposPage({ user, profile }) {
         .insert({
           name: form.name,
           category: form.category,
+          liga: form.liga || null,
+          ciudad: form.ciudad || null,
           coach_id: user.id,
         })
         .select();
@@ -150,7 +222,7 @@ function EquiposPage({ user, profile }) {
   const canEdit =
     profile?.role === 'Entrenador' || profile?.role === 'Club' || profile?.role === 'Admin';
 
-  const filtered = filterByText(teams, search, ['name', 'category']);
+  const filtered = filterByText(teams, search, ['name', 'category', 'liga', 'ciudad']);
   const paged = paginate(filtered, page, PAGE_SIZE);
 
   const handleSearchChange = (val) => {
@@ -224,6 +296,30 @@ function EquiposPage({ user, profile }) {
               onChange={(e) => setForm({ ...form, category: e.target.value })}
               style={{ padding: 10, borderRadius: 8, border: '1px solid #ddd' }}
             />
+            <select
+              value={form.liga}
+              onChange={(e) => setForm({ ...form, liga: e.target.value })}
+              style={{ padding: 10, borderRadius: 8, border: '1px solid #ddd', fontSize: 14 }}
+            >
+              <option value="">Seleccionar liga...</option>
+              {LIGAS.map((l) => (
+                <option key={l} value={l}>
+                  {l}
+                </option>
+              ))}
+            </select>
+            <select
+              value={form.ciudad}
+              onChange={(e) => setForm({ ...form, ciudad: e.target.value })}
+              style={{ padding: 10, borderRadius: 8, border: '1px solid #ddd', fontSize: 14 }}
+            >
+              <option value="">Seleccionar ciudad...</option>
+              {CIUDADES.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
             <button
               type="submit"
               style={{
@@ -343,6 +439,14 @@ function EquiposPage({ user, profile }) {
                     <p style={{ color: '#666', fontSize: 14 }}>
                       {team.category || 'Sin categoría'}
                     </p>
+                    {team.liga && (
+                      <p style={{ color: '#666', fontSize: 13, marginTop: 2 }}>Liga: {team.liga}</p>
+                    )}
+                    {team.ciudad && (
+                      <p style={{ color: '#666', fontSize: 13, marginTop: 2 }}>
+                        Ciudad: {team.ciudad}
+                      </p>
+                    )}
                     <p style={{ color: '#999', fontSize: 12, marginTop: 4 }}>
                       Creado: {new Date(team.created_at).toLocaleDateString('es-ES')}
                     </p>
