@@ -83,10 +83,33 @@ function TeamDashboardPage({ user: _user, profile }) {
 
        const allMatchesMap = new Map();
        [...(homeRes.data || []), ...(awayRes.data || [])].forEach((m) => allMatchesMap.set(m.id, m));
-       const teamMatches = [...allMatchesMap.values()].map((m) => ({
-         ...m,
-         isHome: m.team_id === selectedTeam.id,
-       })).sort(
+       
+       // Fetch home team names for away matches
+       const awayMatches = awayRes.data || [];
+       const homeTeamIds = [...new Set(awayMatches.map((m) => m.team_id))];
+       
+       let homeTeamNames = {};
+       if (homeTeamIds.length > 0) {
+         const { data: homeTeams } = await supabase
+           .from('teams')
+           .select('id, name')
+           .in('id', homeTeamIds);
+         if (homeTeams) {
+           homeTeams.forEach((t) => {
+             homeTeamNames[t.id] = t.name;
+           });
+         }
+       }
+       
+       const teamMatches = [...allMatchesMap.values()].map((m) => {
+         const isHome = m.team_id === selectedTeam.id;
+         return {
+           ...m,
+           isHome,
+           homeTeamName: isHome ? selectedTeam.name : homeTeamNames[m.team_id] || 'Unknown',
+           awayTeamName: isHome ? m.opponent : selectedTeam.name,
+         };
+       }).sort(
          (a, b) => new Date(b.date) - new Date(a.date),
        );
 
@@ -256,9 +279,13 @@ function TeamDashboardPage({ user: _user, profile }) {
                       dataKey="value"
                       label={({ name, value }) => `${name}: ${value}`}
                     >
-                      <Cell fill="#2d6a4f" />
-                      <Cell fill="#e9c46a" />
-                      <Cell fill="#c1121f" />
+                      {[
+                        { name: 'Ganados', value: teamStats.won, fill: '#2d6a4f' },
+                        { name: 'Empatados', value: teamStats.drawn, fill: '#e9c46a' },
+                        { name: 'Perdidos', value: teamStats.lost, fill: '#c1121f' },
+                      ].map((entry, index) => (
+                        <Cell key={index} fill={entry.fill} />
+                      ))}
                     </Pie>
                     <Tooltip />
                     <Legend />
@@ -442,7 +469,7 @@ function TeamDashboardPage({ user: _user, profile }) {
                   >
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <span style={{ fontSize: 13, color: '#666' }}>
-                        {m.isHome ? selectedTeam.name : m.opponent}
+                        {m.homeTeamName}
                       </span>
                     </div>
                     <div style={{ textAlign: 'center', minWidth: '60px' }}>
@@ -450,7 +477,7 @@ function TeamDashboardPage({ user: _user, profile }) {
                     </div>
                     <div style={{ flex: 1, minWidth: 0, textAlign: 'right' }}>
                       <span style={{ fontSize: 13, color: '#666' }}>
-                        {m.isHome ? m.opponent : selectedTeam.name}
+                        {m.awayTeamName}
                       </span>
                     </div>
                     <span style={{ color: '#999', fontSize: 12, whiteSpace: 'nowrap' }}>
