@@ -8,6 +8,14 @@ venv/
 ENV/
 env/
 *.env
+.env
+
+# Scraper output
+clubs.json
+matches.json
+debug_club.html
+debug_parser.py
+test_scraper.py
 
 # VS Code
 .vscode/

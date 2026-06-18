@@ -7,3 +7,4 @@ requires-python = ">=3.10"
 
 [project.scripts]
 amateurbaleares = "src.app:main"
+ffib-scraper = "src.scraper.ffib_cli:main"
