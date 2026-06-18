@@ -158,6 +158,25 @@ function PartidosPage({ user: _user, profile }) {
   const canEdit =
     profile?.role === 'Entrenador' || profile?.role === 'Club' || profile?.role === 'Admin';
 
+  const getMatchStatus = (match) => {
+    if (!match.date) return match.result ? 'finalizado' : 'sin-fecha';
+    const now = new Date();
+    const matchDate = new Date(match.date);
+    const matchDay = new Date(matchDate.getFullYear(), matchDate.getMonth(), matchDate.getDate());
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    if (match.result) return 'finalizado';
+    if (matchDay.getTime() === today.getTime()) return 'en-vivo';
+    if (matchDay < today) return 'finalizado';
+    return 'proximo';
+  };
+
+  const statusLabel = {
+    'en-vivo': { text: 'En vivo', color: '#2d6a4f', bg: '#d4edda' },
+    'finalizado': { text: 'Finalizado', color: '#666', bg: '#f0f0f0' },
+    'proximo': { text: 'Próximo', color: '#1a1a2e', bg: '#e8eaf6' },
+    'sin-fecha': { text: 'Sin fecha', color: '#999', bg: '#f5f5f5' },
+  };
+
   const filtered = filterByText(matches, search, ['opponent', 'result']);
   const paged = paginate(filtered, page, PAGE_SIZE);
 
@@ -400,6 +419,25 @@ function PartidosPage({ user: _user, profile }) {
                         <p style={{ fontSize: 14, color: '#999' }}>{getTeamName(match.team_id)}</p>
                         <p style={{ fontSize: 18, fontWeight: 600 }}>vs {match.opponent}</p>
                       </div>
+                      {(() => {
+                        const status = getMatchStatus(match);
+                        const info = statusLabel[status];
+                        return (
+                          <span
+                            style={{
+                              fontSize: 11,
+                              fontWeight: 600,
+                              color: info.color,
+                              background: info.bg,
+                              padding: '3px 10px',
+                              borderRadius: 12,
+                              whiteSpace: 'nowrap',
+                            }}
+                          >
+                            {info.text}
+                          </span>
+                        );
+                      })()}
                     </div>
                   </Link>
                   <div style={{ display: 'flex', gap: 8 }}>
@@ -433,38 +471,38 @@ function PartidosPage({ user: _user, profile }) {
                     >
                       Ver detalle
                     </Link>
+                    {canEdit && getMatchStatus(match) === 'en-vivo' && (
+                      <Link
+                        href={`/partidos/${match.id}?live=true`}
+                        style={{
+                          padding: '8px 16px',
+                          background: '#2d6a4f',
+                          color: '#fff',
+                          border: 'none',
+                          borderRadius: 6,
+                          cursor: 'pointer',
+                          fontSize: 13,
+                          textDecoration: 'none',
+                        }}
+                      >
+                        En vivo
+                      </Link>
+                    )}
                     {canEdit && (
-                      <>
-                        <Link
-                          href={`/partidos/${match.id}?live=true`}
-                          style={{
-                            padding: '8px 16px',
-                            background: '#2d6a4f',
-                            color: '#fff',
-                            border: 'none',
-                            borderRadius: 6,
-                            cursor: 'pointer',
-                            fontSize: 13,
-                            textDecoration: 'none',
-                          }}
-                        >
-                          En vivo
-                        </Link>
-                        <button
-                          onClick={() => setDeleteConfirm(match.id)}
-                          style={{
-                            padding: '8px 16px',
-                            background: '#ffe0e0',
-                            color: 'crimson',
-                            border: 'none',
-                            borderRadius: 6,
-                            cursor: 'pointer',
-                            fontSize: 13,
-                          }}
-                        >
-                          Eliminar
-                        </button>
-                      </>
+                      <button
+                        onClick={() => setDeleteConfirm(match.id)}
+                        style={{
+                          padding: '8px 16px',
+                          background: '#ffe0e0',
+                          color: 'crimson',
+                          border: 'none',
+                          borderRadius: 6,
+                          cursor: 'pointer',
+                          fontSize: 13,
+                        }}
+                      >
+                        Eliminar
+                      </button>
                     )}
                   </div>
                 </div>
