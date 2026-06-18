@@ -32,4 +32,34 @@ describe('roles.js', () => {
       expect(items.some((item) => item.href === '/dashboard')).toBe(true);
     });
   });
+
+  it('NAV_ITEMS includes Mi Perfil for all roles', () => {
+    Object.values(NAV_ITEMS).forEach((items) => {
+      expect(items.some((item) => item.href === '/perfil')).toBe(true);
+    });
+  });
+
+  it('NAV_ITEMS for Entrenador includes Mis Equipos', () => {
+    expect(NAV_ITEMS.Entrenador.some((i) => i.href === '/equipos')).toBe(true);
+  });
+
+  it('NAV_ITEMS for Scout includes Scouting', () => {
+    expect(NAV_ITEMS.Scout.some((i) => i.href === '/scouting')).toBe(true);
+  });
+
+  it('NAV_ITEMS for Admin includes Usuarios', () => {
+    expect(NAV_ITEMS.Admin.some((i) => i.href === '/admin')).toBe(true);
+  });
+
+  it('NAV_ITEMS for Club includes Mi Club', () => {
+    expect(NAV_ITEMS.Club.some((i) => i.href === '/clubs')).toBe(true);
+  });
+
+  it('isRole rejects empty string', () => {
+    expect(isRole('')).toBe(false);
+  });
+
+  it('isRole rejects null', () => {
+    expect(isRole(null)).toBe(false);
+  });
 });

@@ -4,6 +4,8 @@ import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
 import { SkeletonList, SkeletonStyles } from '../components/Skeleton';
+import { SearchBar, filterByText } from '../components/SearchBar';
+import { Pagination, paginate } from '../components/Pagination';
 
 function EquiposPage({ user, profile }) {
   const [teams, setTeams] = useState([]);
@@ -13,6 +15,9 @@ function EquiposPage({ user, profile }) {
   const [form, setForm] = useState({ name: '', category: '' });
   const [message, setMessage] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 12;
 
   async function fetchTeams() {
     const supabase = getSupabase();
@@ -125,6 +130,14 @@ function EquiposPage({ user, profile }) {
   const canEdit =
     profile?.role === 'Entrenador' || profile?.role === 'Club' || profile?.role === 'Admin';
 
+  const filtered = filterByText(teams, search, ['name', 'category']);
+  const paged = paginate(filtered, page, PAGE_SIZE);
+
+  const handleSearchChange = (val) => {
+    setSearch(val);
+    setPage(1);
+  };
+
   return (
     <Layout profile={profile}>
       <div
@@ -133,27 +146,33 @@ function EquiposPage({ user, profile }) {
           justifyContent: 'space-between',
           alignItems: 'center',
           marginBottom: 24,
+          flexWrap: 'wrap',
+          gap: 12,
         }}
       >
         <h1 style={{ fontSize: 24 }}>Mis Equipos</h1>
-        {canEdit && (
-          <button
-            onClick={() => {
-              resetForm();
-              setShowForm(!showForm);
-            }}
-            style={{
-              padding: '10px 20px',
-              background: '#1a1a2e',
-              color: '#fff',
-              border: 'none',
-              borderRadius: 8,
-              cursor: 'pointer',
-            }}
-          >
-            {showForm ? 'Cancelar' : '+ Nuevo Equipo'}
-          </button>
-        )}
+        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+          <SearchBar value={search} onChange={handleSearchChange} placeholder="Buscar equipo..." />
+          {canEdit && (
+            <button
+              onClick={() => {
+                resetForm();
+                setShowForm(!showForm);
+              }}
+              style={{
+                padding: '10px 20px',
+                background: '#1a1a2e',
+                color: '#fff',
+                border: 'none',
+                borderRadius: 8,
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {showForm ? 'Cancelar' : '+ Nuevo Equipo'}
+            </button>
+          )}
+        </div>
       </div>
 
       {message && (
@@ -220,7 +239,7 @@ function EquiposPage({ user, profile }) {
           <SkeletonStyles />
           <SkeletonList count={4} />
         </>
-      ) : teams.length === 0 ? (
+      ) : filtered.length === 0 ? (
         <div
           style={{
             background: '#fff',
@@ -230,9 +249,10 @@ function EquiposPage({ user, profile }) {
             boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
           }}
         >
-          <p style={{ color: '#666' }}>No tienes equipos creados aún.</p>
+          <p style={{ color: '#666' }}>{search ? 'No se encontraron equipos.' : 'No tienes equipos creados aún.'}</p>
         </div>
       ) : (
+        <>
         <div
           style={{
             display: 'grid',
@@ -240,7 +260,7 @@ function EquiposPage({ user, profile }) {
             gap: 16,
           }}
         >
-          {teams.map((team) => (
+          {paged.map((team) => (
             <div
               key={team.id}
               style={{
@@ -406,6 +426,13 @@ function EquiposPage({ user, profile }) {
             </div>
           ))}
         </div>
+        <Pagination
+          currentPage={page}
+          totalItems={filtered.length}
+          pageSize={PAGE_SIZE}
+          onPageChange={setPage}
+        />
+        </>
       )}
     </Layout>
   );
