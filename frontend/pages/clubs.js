@@ -8,6 +8,8 @@ import { SkeletonList, SkeletonStyles } from '../components/Skeleton';
 import { Card } from '../components/Card';
 import { MessageBanner } from '../components/MessageBanner';
 import { DeleteConfirm } from '../components/DeleteConfirm';
+import { SearchBar, filterByText } from '../components/SearchBar';
+import { Pagination, paginate } from '../components/Pagination';
 
 function ClubsPage({ user: _user, profile }) {
   const [clubs, setClubs] = useState([]);
@@ -17,6 +19,9 @@ function ClubsPage({ user: _user, profile }) {
   const [form, setForm] = useState({ name: '', city: '' });
   const [message, setMessage] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 12;
 
   async function fetchClubs() {
     const supabase = getSupabase();
@@ -76,6 +81,14 @@ function ClubsPage({ user: _user, profile }) {
 
   const canEdit = profile?.role === 'Admin' || profile?.role === 'Club';
 
+  const filtered = filterByText(clubs, search, ['name', 'city']);
+  const paged = paginate(filtered, page, PAGE_SIZE);
+
+  const handleSearchChange = (val) => {
+    setSearch(val);
+    setPage(1);
+  };
+
   return (
     <Layout profile={profile}>
       <div
@@ -84,19 +97,27 @@ function ClubsPage({ user: _user, profile }) {
           justifyContent: 'space-between',
           alignItems: 'center',
           marginBottom: 24,
+          flexWrap: 'wrap',
+          gap: 12,
         }}
       >
         <h1 style={{ fontSize: 24 }}>Clubs</h1>
-        {canEdit && (
-          <Button
-            onClick={() => {
-              resetForm();
-              setShowForm(!showForm);
-            }}
-          >
-            {showForm ? 'Cancelar' : '+ Nuevo Club'}
-          </Button>
-        )}
+        <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+          <SearchBar value={search} onChange={handleSearchChange} placeholder="Buscar club..." />
+          {canEdit && (
+            <Button
+              onClick={() => {
+                if (showForm) {
+                  resetForm();
+                } else {
+                  setShowForm(true);
+                }
+              }}
+            >
+              {showForm ? 'Cancelar' : '+ Nuevo Club'}
+            </Button>
+          )}
+        </div>
       </div>
 
       <MessageBanner message={message} />
@@ -130,11 +151,12 @@ function ClubsPage({ user: _user, profile }) {
           <SkeletonStyles />
           <SkeletonList count={3} />
         </>
-      ) : clubs.length === 0 ? (
+      ) : filtered.length === 0 ? (
         <Card padding={48} style={{ textAlign: 'center' }}>
-          <p style={{ color: '#666' }}>No hay clubs registrados.</p>
+          <p style={{ color: '#666' }}>{search ? 'No se encontraron clubs.' : 'No hay clubs registrados.'}</p>
         </Card>
       ) : (
+        <>
         <div
           style={{
             display: 'grid',
@@ -142,7 +164,7 @@ function ClubsPage({ user: _user, profile }) {
             gap: 16,
           }}
         >
-          {clubs.map((club) => (
+          {paged.map((club) => (
             <Card key={club.id} padding={20}>
               <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 12 }}>
                 {club.crest ? (
@@ -212,6 +234,13 @@ function ClubsPage({ user: _user, profile }) {
             </Card>
           ))}
         </div>
+        <Pagination
+          currentPage={page}
+          totalItems={filtered.length}
+          pageSize={PAGE_SIZE}
+          onPageChange={setPage}
+        />
+        </>
       )}
     </Layout>
   );

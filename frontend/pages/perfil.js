@@ -88,7 +88,7 @@ function ProfilePage({ user, profile: initialProfile }) {
 
       <MessageBanner message={message} />
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, maxWidth: 700 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24, maxWidth: 700 }}>
         <Card padding={24}>
           <h2 style={{ fontSize: 18, marginBottom: 16 }}>Datos personales</h2>
           <form onSubmit={handleUpdate} style={{ display: 'grid', gap: 12 }}>

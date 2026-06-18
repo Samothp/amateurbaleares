@@ -4,6 +4,8 @@ import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
 import { MessageBanner } from '../components/MessageBanner';
 import { SkeletonList, SkeletonStyles } from '../components/Skeleton';
+import { SearchBar, filterByText } from '../components/SearchBar';
+import { Pagination, paginate } from '../components/Pagination';
 
 const ROLE_OPTIONS = ['Entrenador', 'Club', 'Scout', 'Admin'];
 
@@ -12,6 +14,9 @@ function AdminPage({ user: _user, profile }) {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState(null);
   const [confirmRole, setConfirmRole] = useState(null);
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 20;
 
   useEffect(() => {
     async function fetchUsers() {
@@ -55,10 +60,23 @@ function AdminPage({ user: _user, profile }) {
     }
   };
 
+  const filtered = filterByText(users, search, ['name', 'email', 'role']);
+  const paged = paginate(filtered, page, PAGE_SIZE);
+
+  const handleSearchChange = (val) => {
+    setSearch(val);
+    setPage(1);
+  };
+
   return (
     <Layout profile={profile}>
-      <h1 style={{ fontSize: 24, marginBottom: 8 }}>Administración de Usuarios</h1>
-      <p style={{ color: '#666', marginBottom: 24 }}>Gestiona los usuarios de la plataforma.</p>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24, flexWrap: 'wrap', gap: 12 }}>
+        <div>
+          <h1 style={{ fontSize: 24, marginBottom: 4 }}>Administración de Usuarios</h1>
+          <p style={{ color: '#666', fontSize: 14 }}>{filtered.length} usuario{filtered.length !== 1 ? 's' : ''}</p>
+        </div>
+        <SearchBar value={search} onChange={handleSearchChange} placeholder="Buscar usuario..." />
+      </div>
 
       <MessageBanner message={message} />
 
@@ -128,7 +146,12 @@ function AdminPage({ user: _user, profile }) {
           <SkeletonStyles />
           <SkeletonList count={5} />
         </>
+      ) : filtered.length === 0 ? (
+        <div style={{ background: '#fff', padding: 48, borderRadius: 12, textAlign: 'center', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+          <p style={{ color: '#666' }}>{search ? 'No se encontraron usuarios.' : 'No hay usuarios registrados.'}</p>
+        </div>
       ) : (
+        <>
         <div
           style={{
             background: '#fff',
@@ -147,7 +170,7 @@ function AdminPage({ user: _user, profile }) {
               </tr>
             </thead>
             <tbody>
-              {users.map((u) => (
+              {paged.map((u) => (
                 <tr key={u.id} style={{ borderBottom: '1px solid #f5f5f5' }}>
                   <td style={{ padding: '12px 16px' }}>{u.name || 'Sin nombre'}</td>
                   <td style={{ padding: '12px 16px', color: '#666' }}>{u.email}</td>
@@ -177,6 +200,13 @@ function AdminPage({ user: _user, profile }) {
             </tbody>
           </table>
         </div>
+        <Pagination
+          currentPage={page}
+          totalItems={filtered.length}
+          pageSize={PAGE_SIZE}
+          onPageChange={setPage}
+        />
+        </>
       )}
     </Layout>
   );

@@ -12,6 +12,7 @@ function PartidosPage({ user: _user, profile }) {
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [editingMatch, setEditingMatch] = useState(null);
   const [form, setForm] = useState({ team_id: '', opponent: '', date: '', result: '' });
   const [message, setMessage] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
@@ -46,21 +47,57 @@ function PartidosPage({ user: _user, profile }) {
     const supabase = getSupabase();
     if (!supabase) return;
 
-    const { error } = await supabase.from('matches').insert({
-      team_id: form.team_id || null,
-      opponent: form.opponent,
-      date: form.date || null,
-      result: form.result || null,
-    });
+    if (editingMatch) {
+      const { error } = await supabase
+        .from('matches')
+        .update({
+          team_id: form.team_id || null,
+          opponent: form.opponent,
+          date: form.date || null,
+          result: form.result || null,
+        })
+        .eq('id', editingMatch.id);
 
-    if (error) {
-      setMessage('Error al crear partido: ' + error.message);
+      if (error) {
+        setMessage('Error al actualizar: ' + error.message);
+      } else {
+        setMessage('Partido actualizado correctamente');
+        resetForm();
+        fetchData();
+      }
     } else {
-      setMessage('Partido creado correctamente');
-      setForm({ team_id: '', opponent: '', date: '', result: '' });
-      setShowForm(false);
-      fetchData();
+      const { error } = await supabase.from('matches').insert({
+        team_id: form.team_id || null,
+        opponent: form.opponent,
+        date: form.date || null,
+        result: form.result || null,
+      });
+
+      if (error) {
+        setMessage('Error al crear partido: ' + error.message);
+      } else {
+        setMessage('Partido creado correctamente');
+        resetForm();
+        fetchData();
+      }
     }
+  };
+
+  const resetForm = () => {
+    setForm({ team_id: '', opponent: '', date: '', result: '' });
+    setEditingMatch(null);
+    setShowForm(false);
+  };
+
+  const handleEdit = (match) => {
+    setEditingMatch(match);
+    setForm({
+      team_id: match.team_id || '',
+      opponent: match.opponent || '',
+      date: match.date ? match.date.slice(0, 16) : '',
+      result: match.result || '',
+    });
+    setShowForm(true);
   };
 
   const handleDelete = async (matchId) => {
@@ -120,7 +157,13 @@ function PartidosPage({ user: _user, profile }) {
           <SearchBar value={search} onChange={handleSearchChange} placeholder="Buscar partido..." />
           {canEdit && (
             <button
-              onClick={() => setShowForm(!showForm)}
+              onClick={() => {
+                if (showForm) {
+                  resetForm();
+                } else {
+                  setShowForm(true);
+                }
+              }}
               style={{
                 padding: '10px 20px',
                 background: '#1a1a2e',
@@ -162,7 +205,7 @@ function PartidosPage({ user: _user, profile }) {
             boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
           }}
         >
-          <h3 style={{ marginBottom: 16 }}>Crear Partido</h3>
+          <h3 style={{ marginBottom: 16 }}>{editingMatch ? 'Editar Partido' : 'Crear Partido'}</h3>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <select
               value={form.team_id}
@@ -213,7 +256,7 @@ function PartidosPage({ user: _user, profile }) {
               width: '100%',
             }}
           >
-            Crear Partido
+            {editingMatch ? 'Guardar cambios' : 'Crear Partido'}
           </button>
         </form>
       )}
@@ -278,6 +321,21 @@ function PartidosPage({ user: _user, profile }) {
                   </div>
                 </Link>
                 <div style={{ display: 'flex', gap: 8 }}>
+                  {canEdit && (
+                    <button
+                      onClick={() => handleEdit(match)}
+                      style={{
+                        padding: '8px 16px',
+                        background: '#f0f0f0',
+                        border: 'none',
+                        borderRadius: 6,
+                        cursor: 'pointer',
+                        fontSize: 13,
+                      }}
+                    >
+                      Editar
+                    </button>
+                  )}
                   <Link
                     href={`/partidos/${match.id}`}
                     style={{
