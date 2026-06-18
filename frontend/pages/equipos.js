@@ -94,10 +94,16 @@ function EquiposPage({ user, profile }) {
 
     if (profile?.role === 'Entrenador') {
       // For Entrenador, fetch the team where they are the coach
-      const { data } = await supabase
+      console.log('Fetching teams for Entrenador with user.id:', user.id);
+      const { data, error } = await supabase
         .from('teams')
         .select('id, name, category, liga, ciudad, crest, coach_id, created_at')
         .eq('coach_id', user.id);
+      console.log('Query result:', { data, error });
+      if (error) {
+        console.error('Error fetching teams:', error);
+        setToast('Error al cargar equipos: ' + error.message);
+      }
       if (data) setTeams(data);
     } else {
       // For other roles, fetch all teams
