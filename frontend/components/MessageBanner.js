@@ -3,6 +3,7 @@ export function MessageBanner({ message }) {
   const isError = message.toLowerCase().includes('error');
   return (
     <p
+      role="alert"
       style={{
         padding: 12,
         borderRadius: 8,

@@ -7,6 +7,7 @@ export function SearchBar({ value, onChange, placeholder = 'Buscar...' }) {
   return (
     <div style={{ position: 'relative', maxWidth: 400 }}>
       <span
+        aria-hidden="true"
         style={{
           position: 'absolute',
           left: 12,
@@ -24,26 +25,21 @@ export function SearchBar({ value, onChange, placeholder = 'Buscar...' }) {
         value={value}
         onChange={handleChange}
         placeholder={placeholder}
+        aria-label={placeholder}
         style={{
           width: '100%',
-          padding: '10px 12px 10px 36px',
+          padding: '10px 36px 10px 36px',
           borderRadius: 8,
           border: '1px solid #ddd',
           fontSize: 14,
-          outline: 'none',
-          transition: 'border-color 0.2s',
+          transition: 'border-color 0.2s, box-shadow 0.2s',
           boxSizing: 'border-box',
-        }}
-        onFocus={(e) => {
-          e.target.style.borderColor = '#1a1a2e';
-        }}
-        onBlur={(e) => {
-          e.target.style.borderColor = '#ddd';
         }}
       />
       {value && (
         <button
           onClick={() => onChange('')}
+          aria-label="Borrar búsqueda"
           style={{
             position: 'absolute',
             right: 8,
@@ -57,7 +53,7 @@ export function SearchBar({ value, onChange, placeholder = 'Buscar...' }) {
             padding: '2px 4px',
           }}
         >
-          x
+          ×
         </button>
       )}
     </div>

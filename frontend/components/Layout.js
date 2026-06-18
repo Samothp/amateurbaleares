@@ -51,6 +51,9 @@ export default function Layout({ children, profile }) {
 
       {showLogoutConfirm && (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="logout-title"
           style={{
             position: 'fixed',
             inset: 0,
@@ -73,7 +76,7 @@ export default function Layout({ children, profile }) {
               boxShadow: '0 4px 24px rgba(0,0,0,0.15)',
             }}
           >
-            <h3 style={{ fontSize: 16, marginBottom: 8 }}>¿Cerrar sesión?</h3>
+            <h3 id="logout-title" style={{ fontSize: 16, marginBottom: 8 }}>¿Cerrar sesión?</h3>
             <p style={{ fontSize: 14, color: '#666', marginBottom: 20 }}>
               Se cerrará tu sesión actual.
             </p>
@@ -128,7 +131,7 @@ export default function Layout({ children, profile }) {
         }}
       >
         <h2 style={{ fontSize: 18, marginBottom: 32, paddingLeft: 8 }}>AmateurBaleares</h2>
-        <nav style={{ flex: 1 }}>
+        <nav aria-label="Menú principal" style={{ flex: 1 }}>
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -192,6 +195,8 @@ export default function Layout({ children, profile }) {
         >
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
+            aria-label={sidebarOpen ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={sidebarOpen}
             style={{
               background: 'none',
               border: 'none',

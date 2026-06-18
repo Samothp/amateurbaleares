@@ -26,16 +26,7 @@ export function Pagination({ currentPage, totalItems, pageSize, onPageChange }) 
   };
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 20,
-        flexWrap: 'wrap',
-        gap: 8,
-      }}
-    >
+    <nav aria-label="Paginación" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 20, flexWrap: 'wrap', gap: 8 }}>
       <span style={{ fontSize: 13, color: '#666' }}>
         Mostrando {start}-{end} de {totalItems}
       </span>
@@ -43,6 +34,7 @@ export function Pagination({ currentPage, totalItems, pageSize, onPageChange }) 
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
+          aria-label="Página anterior"
           style={{
             ...btnBase,
             opacity: currentPage === 1 ? 0.4 : 1,
@@ -60,6 +52,8 @@ export function Pagination({ currentPage, totalItems, pageSize, onPageChange }) 
             <button
               key={page}
               onClick={() => onPageChange(page)}
+              aria-label={`Página ${page}`}
+              aria-current={page === currentPage ? 'page' : undefined}
               style={{
                 ...btnBase,
                 background: page === currentPage ? '#1a1a2e' : '#fff',
@@ -75,6 +69,7 @@ export function Pagination({ currentPage, totalItems, pageSize, onPageChange }) 
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
+          aria-label="Página siguiente"
           style={{
             ...btnBase,
             opacity: currentPage === totalPages ? 0.4 : 1,
@@ -84,7 +79,7 @@ export function Pagination({ currentPage, totalItems, pageSize, onPageChange }) 
           &gt;
         </button>
       </div>
-    </div>
+    </nav>
   );
 }
 

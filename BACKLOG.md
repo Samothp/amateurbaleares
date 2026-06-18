@@ -116,6 +116,21 @@ Crear el MVP básico de la plataforma de estadísticas y scouting de fútbol ama
 - ✅ GitHub Actions CI: lint, format, test, build en push/PR a master
 - ✅ Scripts npm: lint, format, format:check, test, test:coverage
 
+### Fase 1-3: Bugs, Seguridad, UX
+- ✅ 6 bugs críticos corregidos (setTimeline, Button spread, doble navegación, registro redirect, MessageBanner case-sensitive, forgot-password errors)
+- ✅ 6 mejoras de seguridad (Admin solo por admin, confirmación cambio rol, select explícito jugador/[id], validación token reset, validación uploads MIME+5MB)
+- ✅ 10 mejoras UX (dynamic import dashboard-equipo, landing page real, edición partidos, búsqueda+paginación, hook useMessage, perfil responsive, admin error handling)
+
+### Fase 4: Accesibilidad ✅ COMPLETADO
+- ✅ Focus ring global (`_app.js`) para inputs, selects y botones con `:focus-visible`
+- ✅ FormField: focus ring con box-shadow (2px → 3px via global)
+- ✅ SearchBar: `aria-label` en input y botón borrar
+- ✅ Pagination: `aria-label` en cada botón, `aria-current="page"` en página activa, `<nav aria-label="Paginación">`
+- ✅ Layout: `role="dialog"`, `aria-modal`, `aria-labelledby` en modal logout; `aria-label` + `aria-expanded` en hamburger; `<nav aria-label="Menú principal">`
+- ✅ MessageBanner: `role="alert"` para anuncios dinámicos
+- ✅ PasswordStrength: `role="progressbar"` con `aria-valuenow/min/max`
+- ✅ Skeleton: `aria-hidden="true"` en shimmer; `aria-busy="true"` + `aria-label="Cargando..."` en SkeletonCard
+
 ---
 
 ## Ideas futuras (post-MVP)

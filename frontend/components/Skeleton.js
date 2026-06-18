@@ -1,6 +1,7 @@
 export function Skeleton({ width = '100%', height = 16, borderRadius = 4, style = {} }) {
   return (
     <div
+      aria-hidden="true"
       style={{
         width,
         height,
@@ -17,6 +18,8 @@ export function Skeleton({ width = '100%', height = 16, borderRadius = 4, style 
 export function SkeletonCard({ lines = 3, height = 16, gap = 10, style = {} }) {
   return (
     <div
+      aria-busy="true"
+      aria-label="Cargando..."
       style={{
         background: '#fff',
         padding: 20,

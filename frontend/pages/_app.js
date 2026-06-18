@@ -65,6 +65,19 @@ export default function App({ Component, pageProps }) {
           rel="stylesheet"
         />
         <title>AmateurBaleares</title>
+        <style>{`
+          * { box-sizing: border-box; }
+          input:focus, select:focus, button:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26, 26, 46, 0.2);
+            border-color: #1a1a2e;
+          }
+          button:focus-visible {
+            outline: 2px solid #1a1a2e;
+            outline-offset: 2px;
+            box-shadow: none;
+          }
+        `}</style>
       </Head>
       <ErrorBoundary>
         <Component {...pageProps} />

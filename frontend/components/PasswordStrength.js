@@ -7,7 +7,14 @@ export function PasswordStrength({ password }) {
 
   return (
     <div style={{ marginTop: 6 }}>
-      <div style={{ display: 'flex', gap: 4 }}>
+      <div
+        role="progressbar"
+        aria-valuenow={score}
+        aria-valuemin={0}
+        aria-valuemax={4}
+        aria-label={`Seguridad de la contraseña: ${label}`}
+        style={{ display: 'flex', gap: 4 }}
+      >
         {[0, 1, 2, 3].map((i) => (
           <div
             key={i}
