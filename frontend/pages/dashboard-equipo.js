@@ -269,22 +269,23 @@ function TeamDashboardPage({ user: _user, profile }) {
                   <PieChart>
                     <Pie
                       data={[
-                        { name: 'Ganados', value: teamStats.won },
-                        { name: 'Empatados', value: teamStats.drawn },
-                        { name: 'Perdidos', value: teamStats.lost },
+                        { name: 'Ganados', value: teamStats.won, fill: '#2d6a4f' },
+                        { name: 'Empatados', value: teamStats.drawn, fill: '#e9c46a' },
+                        { name: 'Perdidos', value: teamStats.lost, fill: '#c1121f' },
                       ]}
                       cx="50%"
                       cy="50%"
                       outerRadius={90}
                       dataKey="value"
                       label={({ name, value }) => `${name}: ${value}`}
+                      fill="#8884d8"
                     >
                       {[
                         { name: 'Ganados', value: teamStats.won, fill: '#2d6a4f' },
                         { name: 'Empatados', value: teamStats.drawn, fill: '#e9c46a' },
                         { name: 'Perdidos', value: teamStats.lost, fill: '#c1121f' },
                       ].map((entry, index) => (
-                        <Cell key={index} fill={entry.fill} />
+                        <Cell key={`cell-${index}`} fill={entry.fill} />
                       ))}
                     </Pie>
                     <Tooltip />
