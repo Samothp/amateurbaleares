@@ -15,7 +15,7 @@ export const ROLE_LABELS = {
 export const NAV_ITEMS = {
   Entrenador: [
     { label: 'Dashboard', href: '/dashboard' },
-    { label: 'Mis Equipos', href: '/equipos' },
+    { label: 'Mi Equipo', href: '/equipos' },
     { label: 'Jugadores', href: '/jugadores' },
     { label: 'Partidos', href: '/partidos' },
     { label: 'Dash. Jugador', href: '/dashboard-jugador' },

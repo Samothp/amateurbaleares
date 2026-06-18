@@ -113,6 +113,12 @@ function ProfilePage({ user, profile: initialProfile }) {
       .update({ coach_id: null })
       .eq('coach_id', user.id);
 
+    if (clearError) {
+      setMessage('Error al limpiar asignación anterior: ' + clearError.message);
+      setLoading(false);
+      return;
+    }
+
     if (teamId) {
       const { error } = await supabase
         .from('teams')
@@ -126,14 +132,27 @@ function ProfilePage({ user, profile: initialProfile }) {
       }
     }
 
-    const { data: teamData } = await supabase
-      .from('teams')
-      .select('id, name, category, liga, ciudad')
-      .eq('coach_id', user.id)
-      .single();
+    if (teamId) {
+      const { data: teamData, error: fetchError } = await supabase
+        .from('teams')
+        .select('id, name, category, liga, ciudad')
+        .eq('id', teamId)
+        .single();
 
-    setProfile({ ...profile, team: teamData || null });
-    setMessage(teamId ? 'Equipo asignado correctamente' : 'Equipo desasignado');
+      if (fetchError) {
+        setMessage('Error al verificar asignación: ' + fetchError.message);
+        setLoading(false);
+        return;
+      }
+
+      setProfile({ ...profile, team: teamData || null });
+      setMessage('Equipo asignado correctamente');
+    } else {
+      setProfile({ ...profile, team: null });
+      setMessage('Equipo desasignado');
+    }
+
+    setSelectedTeamId(teamId);
     setLoading(false);
   };
 

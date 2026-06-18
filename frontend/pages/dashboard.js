@@ -12,13 +12,18 @@ function DashboardPage({ user, profile }) {
   const [recentMatches, setRecentMatches] = useState([]);
   const [upcomingMatches, setUpcomingMatches] = useState([]);
   const [teamStats, setTeamStats] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchDashboard() {
       const supabase = getSupabase();
-      if (!supabase) return;
+      if (!supabase) {
+        setLoading(false);
+        return;
+      }
 
-      if (profile?.role === 'Entrenador' && profile?.team) {
+      // Si es Entrenador y tiene equipo asignado, mostrar solo ese
+      if (profile?.role === 'Entrenador' && profile?.team?.id) {
         const [teamRes, playersRes, matchesRes] = await Promise.all([
           supabase.from('teams').select('id, name, category').eq('id', profile.team.id).single(),
           supabase.from('players').select('id', { count: 'exact', head: true }).eq('team_id', profile.team.id),
@@ -51,6 +56,7 @@ function DashboardPage({ user, profile }) {
         return;
       }
 
+      // Si no es Entrenador o no tiene equipo asignado, mostrar datos generales (Admin view)
       const [teamsRes, playersRes, matchesRes, allTeamsRes] = await Promise.all([
         supabase.from('teams').select('id', { count: 'exact', head: true }),
         supabase.from('players').select('id', { count: 'exact', head: true }),
@@ -130,6 +136,8 @@ function DashboardPage({ user, profile }) {
 
         setTeamStats(statsMap);
       }
+
+      setLoading(false);
     }
     fetchDashboard();
   }, [profile]);
