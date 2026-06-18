@@ -3,7 +3,7 @@ import Image from 'next/image';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
-import { SkeletonList, SkeletonStyles } from '../components/Skeleton';
+import { SkeletonList } from '../components/Skeleton';
 import { SearchBar, filterByText } from '../components/SearchBar';
 import { Pagination, paginate } from '../components/Pagination';
 
@@ -347,7 +347,6 @@ function JugadoresPage({ user: _user, profile }) {
 
       {loading ? (
         <>
-          <SkeletonStyles />
           <SkeletonList count={4} />
         </>
       ) : filtered.length === 0 ? (

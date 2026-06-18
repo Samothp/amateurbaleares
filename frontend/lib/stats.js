@@ -16,20 +16,24 @@ export function calculatePlayerStats(events) {
     };
   }
 
-  const count = (type) => events.filter((e) => e.event_type === type).length;
+  const counts = {};
+  for (let i = 0; i < events.length; i++) {
+    const t = events[i].event_type;
+    counts[t] = (counts[t] || 0) + 1;
+  }
 
   return {
-    goals: count('gol'),
-    assists: count('asistencia'),
-    shots: count('tiro'),
-    keyPasses: count('pase_clave'),
-    losses: count('perdida'),
-    recoveries: count('recuperacion'),
-    fouls: count('falta'),
-    yellowCards: count('tarjeta_amarilla'),
-    redCards: count('tarjeta_roja'),
-    saves: count('parada'),
-    clearances: count('despeje'),
+    goals: counts.gol || 0,
+    assists: counts.asistencia || 0,
+    shots: counts.tiro || 0,
+    keyPasses: counts.pase_clave || 0,
+    losses: counts.perdida || 0,
+    recoveries: counts.recuperacion || 0,
+    fouls: counts.falta || 0,
+    yellowCards: counts.tarjeta_amarilla || 0,
+    redCards: counts.tarjeta_roja || 0,
+    saves: counts.parada || 0,
+    clearances: counts.despeje || 0,
     totalEvents: events.length,
   };
 }
@@ -49,22 +53,25 @@ export function calculateTeamStats(events, players) {
 
   if (!events || events.length === 0) return stats;
 
-  const count = (type) => events.filter((e) => e.event_type === type).length;
-  stats.totalGoals = count('gol');
-  stats.totalAssists = count('asistencia');
-  stats.totalShots = count('tiro');
-  stats.totalYellowCards = count('tarjeta_amarilla');
-  stats.totalRedCards = count('tarjeta_roja');
-
+  const counts = {};
   const playerEventCounts = {};
-  events.forEach((e) => {
-    if (!e.player_id) return;
-    if (!playerEventCounts[e.player_id]) {
-      playerEventCounts[e.player_id] = { goals: 0, assists: 0 };
+  for (let i = 0; i < events.length; i++) {
+    const e = events[i];
+    counts[e.event_type] = (counts[e.event_type] || 0) + 1;
+    if (e.player_id) {
+      if (!playerEventCounts[e.player_id]) {
+        playerEventCounts[e.player_id] = { goals: 0, assists: 0 };
+      }
+      if (e.event_type === 'gol') playerEventCounts[e.player_id].goals++;
+      if (e.event_type === 'asistencia') playerEventCounts[e.player_id].assists++;
     }
-    if (e.event_type === 'gol') playerEventCounts[e.player_id].goals++;
-    if (e.event_type === 'asistencia') playerEventCounts[e.player_id].assists++;
-  });
+  }
+
+  stats.totalGoals = counts.gol || 0;
+  stats.totalAssists = counts.asistencia || 0;
+  stats.totalShots = counts.tiro || 0;
+  stats.totalYellowCards = counts.tarjeta_amarilla || 0;
+  stats.totalRedCards = counts.tarjeta_roja || 0;
 
   const getPlayerName = (id) => {
     const p = players.find((pl) => pl.id === id);
@@ -100,7 +107,7 @@ export function calculateTeamStats(events, players) {
   stats.eventsByType = Object.entries(typeLabels)
     .map(([type, label]) => ({
       name: label,
-      value: count(type),
+      value: counts[type] || 0,
     }))
     .filter((e) => e.value > 0);
 

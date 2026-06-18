@@ -3,7 +3,7 @@ import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
 import { MessageBanner } from '../components/MessageBanner';
-import { SkeletonList, SkeletonStyles } from '../components/Skeleton';
+import { SkeletonList } from '../components/Skeleton';
 import { SearchBar, filterByText } from '../components/SearchBar';
 import { Pagination, paginate } from '../components/Pagination';
 
@@ -143,7 +143,6 @@ function AdminPage({ user: _user, profile }) {
 
       {loading ? (
         <>
-          <SkeletonStyles />
           <SkeletonList count={5} />
         </>
       ) : filtered.length === 0 ? (

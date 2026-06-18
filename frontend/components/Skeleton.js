@@ -63,14 +63,3 @@ export function SkeletonDashboard() {
     </div>
   );
 }
-
-export function SkeletonStyles() {
-  return (
-    <style>{`
-      @keyframes skeleton-shimmer {
-        0% { background-position: 200% 0; }
-        100% { background-position: -200% 0; }
-      }
-    `}</style>
-  );
-}

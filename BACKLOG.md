@@ -131,6 +131,14 @@ Crear el MVP básico de la plataforma de estadísticas y scouting de fútbol ama
 - ✅ PasswordStrength: `role="progressbar"` con `aria-valuenow/min/max`
 - ✅ Skeleton: `aria-hidden="true"` en shimmer; `aria-busy="true"` + `aria-label="Cargando..."` en SkeletonCard
 
+### Fase 5: Performance ✅ COMPLETADO
+- ✅ `charts.js`: Punto de entrada único para todos los componentes Recharts (dynamic imports consolidados)
+- ✅ `dashboard-equipo.js`: Importa desde `charts.js` en lugar de recharts directamente (eliminados 11 dynamic imports individuales)
+- ✅ `jugador/[id].js`: Convertido de import estático de recharts a dynamic import → **96.8 kB → 2.69 kB** First Load JS
+- ✅ `stats.js`: `calculatePlayerStats` y `calculateTeamStats` optimizados con un solo loop en lugar de N filters
+- ✅ Skeleton keyframes movidos a CSS global en `_app.js` (eliminado `<SkeletonStyles />` de 10 páginas)
+- ✅ `GoogleLogo.js`: Componente compartido para el logo SVG de Google (usado en login y register)
+
 ---
 
 ## Ideas futuras (post-MVP)

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import withAuth from '../../lib/withAuth';
 import { getSupabase } from '../../lib/supabaseClient';
 import Layout from '../../components/Layout';
-import { SkeletonCard, SkeletonStyles } from '../../components/Skeleton';
+import { SkeletonCard } from '../../components/Skeleton';
 
 const EVENT_TYPES = [
   { value: 'gol', label: '⚽ Gol', color: '#2d6a4f' },
@@ -164,7 +164,6 @@ function MatchDetailPage({ user: _user, profile }) {
   if (loading)
     return (
       <Layout profile={profile}>
-        <SkeletonStyles />
         <SkeletonCard lines={5} height={18} />
       </Layout>
     );

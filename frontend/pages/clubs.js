@@ -4,7 +4,7 @@ import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
 import { Button } from '../components/Button';
-import { SkeletonList, SkeletonStyles } from '../components/Skeleton';
+import { SkeletonList } from '../components/Skeleton';
 import { Card } from '../components/Card';
 import { MessageBanner } from '../components/MessageBanner';
 import { DeleteConfirm } from '../components/DeleteConfirm';
@@ -148,7 +148,6 @@ function ClubsPage({ user: _user, profile }) {
 
       {loading ? (
         <>
-          <SkeletonStyles />
           <SkeletonList count={3} />
         </>
       ) : filtered.length === 0 ? (

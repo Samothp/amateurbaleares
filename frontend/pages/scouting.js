@@ -4,7 +4,7 @@ import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
 import { useDebounce } from '../lib/hooks';
-import { SkeletonList, SkeletonStyles } from '../components/Skeleton';
+import { SkeletonList } from '../components/Skeleton';
 
 function ScoutingPage({ user: _user, profile }) {
   const [players, setPlayers] = useState([]);
@@ -58,7 +58,6 @@ function ScoutingPage({ user: _user, profile }) {
 
       {loading ? (
         <>
-          <SkeletonStyles />
           <SkeletonList count={4} />
         </>
       ) : players.length === 0 ? (

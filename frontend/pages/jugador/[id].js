@@ -2,22 +2,22 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import withAuth from '../../lib/withAuth';
 import { getSupabase } from '../../lib/supabaseClient';
 import Layout from '../../components/Layout';
-import { SkeletonDashboard, SkeletonStyles } from '../../components/Skeleton';
+import { SkeletonDashboard } from '../../components/Skeleton';
 import {
   calculatePlayerStats,
   analyzeStrengthsWeaknesses,
 } from '../../lib/stats';
-import {
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  Radar,
-  ResponsiveContainer,
-} from 'recharts';
+
+const DynamicRadarChart = dynamic(() => import('../../lib/charts').then((m) => m.DynamicRadarChart), { ssr: false });
+const DynamicPolarGrid = dynamic(() => import('../../lib/charts').then((m) => m.PolarGrid), { ssr: false });
+const DynamicPolarAngleAxis = dynamic(() => import('../../lib/charts').then((m) => m.PolarAngleAxis), { ssr: false });
+const DynamicPolarRadiusAxis = dynamic(() => import('../../lib/charts').then((m) => m.PolarRadiusAxis), { ssr: false });
+const DynamicRadar = dynamic(() => import('../../lib/charts').then((m) => m.DynamicRadar), { ssr: false });
+const DynamicResponsiveContainer = dynamic(() => import('../../lib/charts').then((m) => m.ResponsiveContainer), { ssr: false });
 
 function PlayerProfilePage({ user: _user, profile }) {
   const router = useRouter();
@@ -98,7 +98,6 @@ function PlayerProfilePage({ user: _user, profile }) {
   if (loading)
     return (
       <Layout profile={profile}>
-        <SkeletonStyles />
         <SkeletonDashboard />
       </Layout>
     );
@@ -258,20 +257,20 @@ function PlayerProfilePage({ user: _user, profile }) {
               }}
             >
               <h3 style={{ fontSize: 16, marginBottom: 16 }}>Rendimiento</h3>
-              <ResponsiveContainer width="100%" height={280}>
-                <RadarChart data={radarData}>
-                  <PolarGrid />
-                  <PolarAngleAxis dataKey="stat" />
-                  <PolarRadiusAxis />
-                  <Radar
+              <DynamicResponsiveContainer width="100%" height={280}>
+                <DynamicRadarChart data={radarData}>
+                  <DynamicPolarGrid />
+                  <DynamicPolarAngleAxis dataKey="stat" />
+                  <DynamicPolarRadiusAxis />
+                  <DynamicRadar
                     name="Jugador"
                     dataKey="A"
                     stroke="#2d6a4f"
                     fill="#2d6a4f"
                     fillOpacity={0.3}
                   />
-                </RadarChart>
-              </ResponsiveContainer>
+                </DynamicRadarChart>
+              </DynamicResponsiveContainer>
             </div>
           )}
         </div>

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
-import { SkeletonList, SkeletonStyles } from '../components/Skeleton';
+import { SkeletonList } from '../components/Skeleton';
 import { SearchBar, filterByText } from '../components/SearchBar';
 import { Pagination, paginate } from '../components/Pagination';
 
@@ -263,7 +263,6 @@ function PartidosPage({ user: _user, profile }) {
 
       {loading ? (
         <>
-          <SkeletonStyles />
           <SkeletonList count={3} />
         </>
       ) : filtered.length === 0 ? (

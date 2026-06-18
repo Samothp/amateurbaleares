@@ -77,6 +77,10 @@ export default function App({ Component, pageProps }) {
             outline-offset: 2px;
             box-shadow: none;
           }
+          @keyframes skeleton-shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+          }
         `}</style>
       </Head>
       <ErrorBoundary>

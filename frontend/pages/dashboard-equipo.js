@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react';
-import dynamic from 'next/dynamic';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
 import { calculateTeamStats } from '../lib/stats';
-import { SkeletonDashboard, SkeletonStyles } from '../components/Skeleton';
-
-const BarChart = dynamic(() => import('recharts').then((mod) => mod.BarChart), { ssr: false });
-const Bar = dynamic(() => import('recharts').then((mod) => mod.Bar), { ssr: false });
-const XAxis = dynamic(() => import('recharts').then((mod) => mod.XAxis), { ssr: false });
-const YAxis = dynamic(() => import('recharts').then((mod) => mod.YAxis), { ssr: false });
-const CartesianGrid = dynamic(() => import('recharts').then((mod) => mod.CartesianGrid), { ssr: false });
-const Tooltip = dynamic(() => import('recharts').then((mod) => mod.Tooltip), { ssr: false });
-const ResponsiveContainer = dynamic(() => import('recharts').then((mod) => mod.ResponsiveContainer), { ssr: false });
-const PieChart = dynamic(() => import('recharts').then((mod) => mod.PieChart), { ssr: false });
-const Pie = dynamic(() => import('recharts').then((mod) => mod.Pie), { ssr: false });
-const Cell = dynamic(() => import('recharts').then((mod) => mod.Cell), { ssr: false });
-const Legend = dynamic(() => import('recharts').then((mod) => mod.Legend), { ssr: false });
+import { SkeletonDashboard } from '../components/Skeleton';
+import {
+  DynamicBarChart as BarChart,
+  DynamicBar as Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  DynamicPieChart as PieChart,
+  DynamicPie as Pie,
+  Cell,
+  Legend,
+} from '../lib/charts';
 
 const COLORS = [
   '#2d6a4f',
@@ -149,7 +149,6 @@ function TeamDashboardPage({ user: _user, profile }) {
 
       {loading && (
         <>
-          <SkeletonStyles />
           <SkeletonDashboard />
         </>
       )}
