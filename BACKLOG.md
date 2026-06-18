@@ -165,6 +165,14 @@ Crear el MVP básico de la plataforma de estadísticas y scouting de fútbol ama
 - ✅ Mobile: CSS `.mobile-fullscreen-form` para forms a pantalla completa en móvil
 - ✅ Toast integrado en: equipos, jugadores, partidos, clubs, admin (reemplaza mensajes estáticos)
 
+### Fase 8b: Dashboard Rediseñado ✅ COMPLETADO
+- ✅ Eliminada tarjeta Email/Rol redundante
+- ✅ Sección "Últimos resultados" con 3 partidos recientes (resultado + fecha)
+- ✅ Sección "Próximos partidos" con 3 partidos programados
+- ✅ Tarjetas "Mis Equipos" con conteo de jugadores y W/D/L
+- ✅ Quick actions con iconos, descripción y estilo contextual por rol
+- ✅ Build y tests pasan (97 tests)
+
 ---
 
 ### Fase 9: Importación de datos de jugadores ✅ COMPLETADO
