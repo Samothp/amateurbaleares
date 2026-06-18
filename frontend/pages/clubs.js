@@ -4,6 +4,7 @@ import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
 import { Button } from '../components/Button';
+import { SkeletonList, SkeletonStyles } from '../components/Skeleton';
 import { Card } from '../components/Card';
 import { MessageBanner } from '../components/MessageBanner';
 import { DeleteConfirm } from '../components/DeleteConfirm';
@@ -125,7 +126,10 @@ function ClubsPage({ user: _user, profile }) {
       )}
 
       {loading ? (
-        <p>Cargando clubs...</p>
+        <>
+          <SkeletonStyles />
+          <SkeletonList count={3} />
+        </>
       ) : clubs.length === 0 ? (
         <Card padding={48} style={{ textAlign: 'center' }}>
           <p style={{ color: '#666' }}>No hay clubs registrados.</p>

@@ -3,6 +3,7 @@ import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
 import { StatCard } from '../components/StatCard';
+import { SkeletonDashboard, SkeletonStyles } from '../components/Skeleton';
 import { calculatePlayerStats, calculatePlayerTimeline } from '../lib/stats';
 import dynamic from 'next/dynamic';
 
@@ -94,7 +95,12 @@ function PlayerDashboardPage({ user: _user, profile }) {
         </select>
       </div>
 
-      {loading && <p>Cargando...</p>}
+      {loading && (
+        <>
+          <SkeletonStyles />
+          <SkeletonDashboard />
+        </>
+      )}
 
       {!loading && !selectedPlayer && (
         <div

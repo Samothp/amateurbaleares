@@ -3,6 +3,7 @@ import Image from 'next/image';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
+import { SkeletonList, SkeletonStyles } from '../components/Skeleton';
 
 function EquiposPage({ user, profile }) {
   const [teams, setTeams] = useState([]);
@@ -215,7 +216,10 @@ function EquiposPage({ user, profile }) {
       )}
 
       {loading ? (
-        <p>Cargando equipos...</p>
+        <>
+          <SkeletonStyles />
+          <SkeletonList count={4} />
+        </>
       ) : teams.length === 0 ? (
         <div
           style={{

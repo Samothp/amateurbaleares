@@ -3,6 +3,7 @@ import Image from 'next/image';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
+import { SkeletonList, SkeletonStyles } from '../components/Skeleton';
 
 function JugadoresPage({ user: _user, profile }) {
   const [players, setPlayers] = useState([]);
@@ -315,7 +316,10 @@ function JugadoresPage({ user: _user, profile }) {
       )}
 
       {loading ? (
-        <p>Cargando jugadores...</p>
+        <>
+          <SkeletonStyles />
+          <SkeletonList count={4} />
+        </>
       ) : players.length === 0 ? (
         <div
           style={{

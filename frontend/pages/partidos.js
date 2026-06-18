@@ -3,6 +3,7 @@ import Link from 'next/link';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
+import { SkeletonList, SkeletonStyles } from '../components/Skeleton';
 
 function PartidosPage({ user: _user, profile }) {
   const [matches, setMatches] = useState([]);
@@ -199,7 +200,10 @@ function PartidosPage({ user: _user, profile }) {
       )}
 
       {loading ? (
-        <p>Cargando partidos...</p>
+        <>
+          <SkeletonStyles />
+          <SkeletonList count={3} />
+        </>
       ) : matches.length === 0 ? (
         <div
           style={{

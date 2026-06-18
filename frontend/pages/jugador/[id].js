@@ -5,6 +5,7 @@ import Image from 'next/image';
 import withAuth from '../../lib/withAuth';
 import { getSupabase } from '../../lib/supabaseClient';
 import Layout from '../../components/Layout';
+import { SkeletonDashboard, SkeletonStyles } from '../../components/Skeleton';
 import {
   calculatePlayerStats,
   analyzeStrengthsWeaknesses,
@@ -95,7 +96,8 @@ function PlayerProfilePage({ user: _user, profile }) {
   if (loading)
     return (
       <Layout profile={profile}>
-        <p>Cargando perfil...</p>
+        <SkeletonStyles />
+        <SkeletonDashboard />
       </Layout>
     );
   if (!player)

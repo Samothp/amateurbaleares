@@ -3,6 +3,7 @@ import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
 import { calculateTeamStats } from '../lib/stats';
+import { SkeletonDashboard, SkeletonStyles } from '../components/Skeleton';
 import {
   BarChart,
   Bar,
@@ -146,7 +147,12 @@ function TeamDashboardPage({ user: _user, profile }) {
         </select>
       </div>
 
-      {loading && <p>Cargando...</p>}
+      {loading && (
+        <>
+          <SkeletonStyles />
+          <SkeletonDashboard />
+        </>
+      )}
 
       {!loading && !selectedTeam && (
         <div

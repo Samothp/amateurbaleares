@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
+import { SkeletonList, SkeletonStyles } from '../components/Skeleton';
 
 function AdminPage({ user: _user, profile }) {
   const [users, setUsers] = useState([]);
@@ -40,7 +41,10 @@ function AdminPage({ user: _user, profile }) {
       <p style={{ color: '#666', marginBottom: 24 }}>Gestiona los usuarios de la plataforma.</p>
 
       {loading ? (
-        <p>Cargando usuarios...</p>
+        <>
+          <SkeletonStyles />
+          <SkeletonList count={5} />
+        </>
       ) : (
         <div
           style={{
