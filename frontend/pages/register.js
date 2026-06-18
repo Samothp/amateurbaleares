@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { getSupabase } from '../lib/supabaseClient';
+import { FormField } from '../components/FormField';
 
 const ROLE_OPTIONS = [
   { value: 'Entrenador', label: 'Entrenador' },
@@ -79,51 +80,35 @@ export default function RegisterPage() {
       <h1>Registro</h1>
       <p>Regístrate con tu rol para comenzar a usar la plataforma.</p>
       <form onSubmit={handleRegister} style={{ display: 'grid', gap: 16, marginTop: 24 }}>
-        <label>
-          Nombre completo
-          <input
-            type="text"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            required
-            style={{ width: '100%', padding: 10, marginTop: 8 }}
-          />
-        </label>
-        <label>
-          Email
-          <input
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            required
-            style={{ width: '100%', padding: 10, marginTop: 8 }}
-          />
-        </label>
-        <label>
-          Contraseña
-          <input
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            required
-            minLength={6}
-            style={{ width: '100%', padding: 10, marginTop: 8 }}
-          />
-        </label>
-        <label>
-          Rol
-          <select
-            value={role}
-            onChange={(event) => setRole(event.target.value)}
-            style={{ width: '100%', padding: 10, marginTop: 8 }}
-          >
-            {ROLE_OPTIONS.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </label>
+        <FormField
+          label="Nombre completo"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          minLength={2}
+        />
+        <FormField
+          label="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <FormField
+          label="Contraseña"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          minLength={6}
+          placeholder="Mínimo 6 caracteres"
+        />
+        <FormField
+          label="Rol"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          options={ROLE_OPTIONS}
+        />
         <button type="submit" disabled={loading} style={{ padding: 12 }}>
           {loading ? 'Registrando...' : 'Registrar'}
         </button>

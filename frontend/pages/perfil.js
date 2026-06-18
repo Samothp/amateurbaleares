@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { MessageBanner } from '../components/MessageBanner';
+import { FormField } from '../components/FormField';
 
 function ProfilePage({ user, profile: initialProfile }) {
   const [profile, setProfile] = useState(initialProfile);
@@ -91,54 +92,24 @@ function ProfilePage({ user, profile: initialProfile }) {
         <Card padding={24}>
           <h2 style={{ fontSize: 18, marginBottom: 16 }}>Datos personales</h2>
           <form onSubmit={handleUpdate} style={{ display: 'grid', gap: 12 }}>
-            <label style={{ fontSize: 14 }}>
-              <span style={{ display: 'block', marginBottom: 4, color: '#666' }}>Nombre</span>
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                style={{
-                  width: '100%',
-                  padding: 10,
-                  borderRadius: 8,
-                  border: '1px solid #ddd',
-                  fontSize: 14,
-                }}
-              />
-            </label>
-            <label style={{ fontSize: 14 }}>
-              <span style={{ display: 'block', marginBottom: 4, color: '#666' }}>Email</span>
-              <input
-                type="email"
-                value={user?.email || ''}
-                disabled
-                style={{
-                  width: '100%',
-                  padding: 10,
-                  borderRadius: 8,
-                  border: '1px solid #ddd',
-                  fontSize: 14,
-                  background: '#f5f5f5',
-                }}
-              />
-            </label>
-            <label style={{ fontSize: 14 }}>
-              <span style={{ display: 'block', marginBottom: 4, color: '#666' }}>Rol</span>
-              <input
-                type="text"
-                value={profile?.role || ''}
-                disabled
-                style={{
-                  width: '100%',
-                  padding: 10,
-                  borderRadius: 8,
-                  border: '1px solid #ddd',
-                  fontSize: 14,
-                  background: '#f5f5f5',
-                }}
-              />
-            </label>
+            <FormField
+              label="Nombre"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              minLength={2}
+            />
+            <FormField
+              label="Email"
+              type="email"
+              value={user?.email || ''}
+              disabled
+            />
+            <FormField
+              label="Rol"
+              value={profile?.role || ''}
+              disabled
+            />
             <Button type="submit" disabled={loading} style={{ marginTop: 8 }}>
               {loading ? 'Guardando...' : 'Guardar cambios'}
             </Button>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { getSupabase } from '../lib/supabaseClient';
+import { FormField } from '../components/FormField';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -55,26 +56,20 @@ export default function LoginPage() {
       <h1>Login</h1>
       <p>Accede con tu cuenta para continuar.</p>
       <form onSubmit={handleLogin} style={{ display: 'grid', gap: 16, marginTop: 24 }}>
-        <label>
-          Email
-          <input
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            required
-            style={{ width: '100%', padding: 10, marginTop: 8 }}
-          />
-        </label>
-        <label>
-          Contraseña
-          <input
-            type="password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            required
-            style={{ width: '100%', padding: 10, marginTop: 8 }}
-          />
-        </label>
+        <FormField
+          label="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <FormField
+          label="Contraseña"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
         <button type="submit" disabled={loading} style={{ padding: 12 }}>
           {loading ? 'Accediendo...' : 'Acceder'}
         </button>
