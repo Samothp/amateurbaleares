@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import withAuth from '../lib/withAuth';
 import { getSupabase } from '../lib/supabaseClient';
 import Layout from '../components/Layout';
@@ -97,7 +96,7 @@ function EquiposPage({ user, profile }) {
       console.log('Fetching teams for Entrenador with user.id:', user.id);
       const { data, error } = await supabase
         .from('teams')
-        .select('id, name, category, liga, ciudad, crest, coach_id, created_at')
+        .select('id, name, category, liga, ciudad, coach_id, created_at')
         .eq('coach_id', user.id);
       console.log('Query result:', { data, error });
       if (error) {
@@ -109,7 +108,7 @@ function EquiposPage({ user, profile }) {
       // For other roles, fetch all teams
       const { data } = await supabase
         .from('teams')
-        .select('id, name, category, liga, ciudad, crest, coach_id, created_at')
+        .select('id, name, category, liga, ciudad, coach_id, created_at')
         .order('created_at', { ascending: false });
       if (data) setTeams(data);
     }
@@ -196,7 +195,10 @@ function EquiposPage({ user, profile }) {
     }
   };
 
-  const handleCrestUpload = async (e, teamId) => {
+   const handleCrestUpload = async (e, teamId) => {
+    // Crest upload feature disabled - column doesn't exist
+    setToast('Función de escudo no disponible');
+    /*
     const file = e.target.files[0];
     if (!file) return;
 
@@ -239,6 +241,7 @@ function EquiposPage({ user, profile }) {
       setToast('Escudo actualizado');
       fetchTeams();
     }
+    */
   };
 
   const canEdit = profile?.role === 'Admin';
@@ -400,62 +403,21 @@ function EquiposPage({ user, profile }) {
               >
                 <div style={{ display: 'flex', gap: 16, alignItems: 'start' }}>
                   <div style={{ position: 'relative' }}>
-                    {team.crest ? (
-                      <Image
-                        src={team.crest}
-                        alt={team.name}
-                        width={64}
-                        height={64}
-                        style={{
-                          borderRadius: 12,
-                          objectFit: 'cover',
-                          background: '#f0f0f0',
-                        }}
-                      />
-                    ) : (
-                      <div
-                        style={{
-                          width: 64,
-                          height: 64,
-                          borderRadius: 12,
-                          background: '#f0f0f0',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          fontSize: 24,
-                          color: '#ccc',
-                        }}
-                      >
-                        ⚽
-                      </div>
-                    )}
-                    {canEdit && (
-                      <label
-                        style={{
-                          position: 'absolute',
-                          bottom: -4,
-                          right: -4,
-                          background: '#1a1a2e',
-                          color: '#fff',
-                          borderRadius: '50%',
-                          width: 24,
-                          height: 24,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          cursor: 'pointer',
-                          fontSize: 12,
-                        }}
-                      >
-                        📷
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => handleCrestUpload(e, team.id)}
-                          style={{ display: 'none' }}
-                        />
-                      </label>
-                    )}
+                    <div
+                      style={{
+                        width: 64,
+                        height: 64,
+                        borderRadius: 12,
+                        background: '#f0f0f0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: 24,
+                        color: '#ccc',
+                      }}
+                    >
+                      ⚽
+                    </div>
                   </div>
                   <div style={{ flex: 1 }}>
                     <h3 style={{ marginBottom: 4 }}>{team.name}</h3>
