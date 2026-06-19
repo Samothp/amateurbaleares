@@ -205,6 +205,20 @@ Crear el MVP básico de la plataforma de estadísticas y scouting de fútbol ama
 - ✅ GitHub Actions: CI workflow pasa lint, format, test, build
 - ✅ Build y tests pasan (97 tests)
 
+### Fase 12: Sistema de Roles con Aprobación Admin ✅ COMPLETADO
+- ✅ Nuevos roles: Aficionado (Free), Club, Entrenador, Ojeador, Jugador, Admin
+- ✅ Registro con selector de rol solicitado + campos extra según rol
+- ✅ Aficionado (default): Acceso limitado a secciones públicas (ranking, comparativa, scouting)
+- ✅ Solicitudes de rol pasan a estado "pending" hasta aprobación Admin
+- ✅ Panel Admin con solicitudes pendientes (aprobar/rechazar)
+- ✅ Eliminada funcionalidad "Crear Equipo" (equipos ya en BD)
+- ✅ Dashboard con vista específica para Aficionado
+- ✅ RLS policies actualizadas (crear equipos solo Admin)
+- ✅ `RoleRequestForm` componente reutilizable
+- ✅ `PLAN_ROLE_APPROVAL.md` con documentación del sistema
+- ✅ Vercel Analytics + Speed Insights activados
+- ✅ Build y tests pasan (104 tests)
+
 ---
 
 ## Ideas futuras (post-MVP)
