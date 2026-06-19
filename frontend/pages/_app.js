@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import Head from 'next/head';
+import { Analytics } from '@vercel/analytics/next';
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -101,6 +102,7 @@ export default function App({ Component, pageProps }) {
       <ErrorBoundary>
         <Component {...pageProps} />
       </ErrorBoundary>
+      <Analytics />
     </>
   );
 }
