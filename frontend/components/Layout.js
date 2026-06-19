@@ -18,7 +18,7 @@ export default function Layout({ children, profile }) {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event) => {
       if (event === 'SIGNED_OUT') {
-        router.replace('/login');
+        router.replace('/');
       }
     });
 
