@@ -21,15 +21,30 @@ const EXTRA_FIELDS = {
   ],
   Club: [
     { name: 'club_name', label: 'Nombre del club', type: 'text', placeholder: 'Ej: RCD Mallorca' },
-    { name: 'position_in_club', label: 'Cargo', type: 'text', placeholder: 'Ej: Presidente, Director Deportivo' },
+    {
+      name: 'position_in_club',
+      label: 'Cargo',
+      type: 'text',
+      placeholder: 'Ej: Presidente, Director Deportivo',
+    },
   ],
   Ojeador: [
     { name: 'scout_zone', label: 'Zona de scouting', type: 'text', placeholder: 'Ej: Mallorca' },
   ],
   Jugador: [
-    { name: 'position', label: 'Posición', type: 'select', options: ['Portero', 'Defensa', 'Centrocampista', 'Delantero', 'Otro'] },
+    {
+      name: 'position',
+      label: 'Posición',
+      type: 'select',
+      options: ['Portero', 'Defensa', 'Centrocampista', 'Delantero', 'Otro'],
+    },
     { name: 'birth_year', label: 'Año de nacimiento', type: 'number', placeholder: 'Ej: 1995' },
-    { name: 'dominant_foot', label: 'Pie dominante', type: 'select', options: ['Derecho', 'Izquierdo', 'Ambidiestro'] },
+    {
+      name: 'dominant_foot',
+      label: 'Pie dominante',
+      type: 'select',
+      options: ['Derecho', 'Izquierdo', 'Ambidiestro'],
+    },
   ],
   Aficionado: [],
   Admin: [],
@@ -177,38 +192,87 @@ export default function RegisterPage() {
       </div>
 
       <form onSubmit={handleRegister} style={{ display: 'grid', gap: 16 }}>
-        <FormField label="Nombre completo" value={name} onChange={(e) => setName(e.target.value)} required minLength={2} />
-        <FormField label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <FormField
+          label="Nombre completo"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          minLength={2}
+        />
+        <FormField
+          label="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
         <div>
-          <FormField label="Contraseña" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} placeholder="Mínimo 6 caracteres" />
+          <FormField
+            label="Contraseña"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            minLength={6}
+            placeholder="Mínimo 6 caracteres"
+          />
           <PasswordStrength password={password} />
         </div>
         <div>
-          <label style={{ fontSize: 13, color: '#666', display: 'block', marginBottom: 4 }}>Rol solicitado</label>
+          <label style={{ fontSize: 13, color: '#666', display: 'block', marginBottom: 4 }}>
+            Rol solicitado
+          </label>
           <select
             value={requestedRole}
-            onChange={(e) => { setRequestedRole(e.target.value); setExtraFields({}); }}
-            style={{ width: '100%', padding: 10, borderRadius: 8, border: '1px solid #ddd', fontSize: 14 }}
+            onChange={(e) => {
+              setRequestedRole(e.target.value);
+              setExtraFields({});
+            }}
+            style={{
+              width: '100%',
+              padding: 10,
+              borderRadius: 8,
+              border: '1px solid #ddd',
+              fontSize: 14,
+            }}
           >
             {ROLE_OPTIONS.map((r) => (
-              <option key={r.value} value={r.value}>{r.label}</option>
+              <option key={r.value} value={r.value}>
+                {r.label}
+              </option>
             ))}
           </select>
-          <p style={{ fontSize: 12, color: '#999', marginTop: 4 }}>{ROLE_OPTIONS.find(r => r.value === requestedRole)?.description}</p>
+          <p style={{ fontSize: 12, color: '#999', marginTop: 4 }}>
+            {ROLE_OPTIONS.find((r) => r.value === requestedRole)?.description}
+          </p>
         </div>
 
-        {roleFields.map(field => {
+        {roleFields.map((field) => {
           if (field.type === 'select') {
             return (
               <div key={field.name}>
-                <label style={{ fontSize: 13, color: '#666', display: 'block', marginBottom: 4 }}>{field.label}</label>
+                <label style={{ fontSize: 13, color: '#666', display: 'block', marginBottom: 4 }}>
+                  {field.label}
+                </label>
                 <select
                   value={extraFields[field.name] || ''}
-                  onChange={(e) => setExtraFields(prev => ({ ...prev, [field.name]: e.target.value }))}
-                  style={{ width: '100%', padding: 10, borderRadius: 8, border: '1px solid #ddd', fontSize: 14 }}
+                  onChange={(e) =>
+                    setExtraFields((prev) => ({ ...prev, [field.name]: e.target.value }))
+                  }
+                  style={{
+                    width: '100%',
+                    padding: 10,
+                    borderRadius: 8,
+                    border: '1px solid #ddd',
+                    fontSize: 14,
+                  }}
                 >
                   <option value="">Seleccionar...</option>
-                  {field.options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                  {field.options.map((opt) => (
+                    <option key={opt} value={opt}>
+                      {opt}
+                    </option>
+                  ))}
                 </select>
               </div>
             );
@@ -220,29 +284,62 @@ export default function RegisterPage() {
               type={field.type}
               placeholder={field.placeholder}
               value={extraFields[field.name] || ''}
-              onChange={(e) => setExtraFields(prev => ({ ...prev, [field.name]: e.target.value }))}
+              onChange={(e) =>
+                setExtraFields((prev) => ({ ...prev, [field.name]: e.target.value }))
+              }
             />
           );
         })}
 
         {requestedRole === 'Jugador' && teams.length > 0 && (
           <div>
-            <label style={{ fontSize: 13, color: '#666', display: 'block', marginBottom: 4 }}>Equipo actual</label>
+            <label style={{ fontSize: 13, color: '#666', display: 'block', marginBottom: 4 }}>
+              Equipo actual
+            </label>
             <select
               value={extraFields.current_team_id || ''}
-              onChange={(e) => setExtraFields(prev => ({ ...prev, current_team_id: e.target.value }))}
-              style={{ width: '100%', padding: 10, borderRadius: 8, border: '1px solid #ddd', fontSize: 14 }}
+              onChange={(e) =>
+                setExtraFields((prev) => ({ ...prev, current_team_id: e.target.value }))
+              }
+              style={{
+                width: '100%',
+                padding: 10,
+                borderRadius: 8,
+                border: '1px solid #ddd',
+                fontSize: 14,
+              }}
             >
               <option value="">Seleccionar equipo...</option>
-              {teams.map(t => <option key={t.id} value={t.id}>{t.name} ({t.category})</option>)}
+              {teams.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.name} ({t.category})
+                </option>
+              ))}
             </select>
           </div>
         )}
 
-        <button type="submit" disabled={loading} style={{ padding: 12, background: '#1a1a2e', color: '#fff', border: 'none', borderRadius: 8, cursor: loading ? 'not-allowed' : 'pointer', fontSize: 16, fontWeight: 500 }}>
+        <button
+          type="submit"
+          disabled={loading}
+          style={{
+            padding: 12,
+            background: '#1a1a2e',
+            color: '#fff',
+            border: 'none',
+            borderRadius: 8,
+            cursor: loading ? 'not-allowed' : 'pointer',
+            fontSize: 16,
+            fontWeight: 500,
+          }}
+        >
           {loading ? 'Registrando...' : 'Registrar'}
         </button>
-        {message ? <p style={{ color: message.includes('completado') ? 'green' : 'crimson', fontSize: 14 }}>{message}</p> : null}
+        {message ? (
+          <p style={{ color: message.includes('completado') ? 'green' : 'crimson', fontSize: 14 }}>
+            {message}
+          </p>
+        ) : null}
       </form>
       <p style={{ marginTop: 24 }}>
         ¿Ya tienes cuenta? <Link href="/login">Inicia sesión</Link>

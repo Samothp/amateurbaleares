@@ -1,4 +1,14 @@
-import { ROLES, ROLE_LABELS, NAV_ITEMS, isRole, ROLE_STATUS, SUBSCRIPTION_ROLES, isSubscriptionRole, getNavItems, getExtraFields } from '../lib/roles';
+import {
+  ROLES,
+  ROLE_LABELS,
+  NAV_ITEMS,
+  isRole,
+  ROLE_STATUS,
+  SUBSCRIPTION_ROLES,
+  isSubscriptionRole,
+  getNavItems,
+  getExtraFields,
+} from '../lib/roles';
 import '@testing-library/jest-dom/jest-globals';
 
 describe('roles.js', () => {
@@ -69,10 +79,25 @@ describe('roles.js', () => {
   });
 
   it('getExtraFields returns correct fields per role', () => {
-    expect(getExtraFields('Entrenador')).toEqual(['license', 'experience_years', 'preferred_formation']);
+    expect(getExtraFields('Entrenador')).toEqual([
+      'license',
+      'experience_years',
+      'preferred_formation',
+    ]);
     expect(getExtraFields('Club')).toEqual(['club_name', 'position_in_club']);
-    expect(getExtraFields('Ojeador')).toEqual(['scout_zone', 'preferred_categories', 'scout_experience']);
-    expect(getExtraFields('Jugador')).toEqual(['current_team_id', 'position', 'birth_year', 'dominant_foot', 'height', 'weight']);
+    expect(getExtraFields('Ojeador')).toEqual([
+      'scout_zone',
+      'preferred_categories',
+      'scout_experience',
+    ]);
+    expect(getExtraFields('Jugador')).toEqual([
+      'current_team_id',
+      'position',
+      'birth_year',
+      'dominant_foot',
+      'height',
+      'weight',
+    ]);
     expect(getExtraFields('Aficionado')).toEqual([]);
     expect(getExtraFields('Admin')).toEqual([]);
   });
@@ -90,7 +115,9 @@ describe('roles.js', () => {
   });
 
   it('NAV_ITEMS for Entrenador includes Mi Equipo', () => {
-    expect(NAV_ITEMS.Entrenador.some((i) => i.href === '/equipos' && i.label === 'Mi Equipo')).toBe(true);
+    expect(NAV_ITEMS.Entrenador.some((i) => i.href === '/equipos' && i.label === 'Mi Equipo')).toBe(
+      true
+    );
   });
 
   it('NAV_ITEMS for Ojeador includes Scouting', () => {
@@ -106,7 +133,9 @@ describe('roles.js', () => {
   });
 
   it('NAV_ITEMS for Jugador includes Mi Ficha', () => {
-    expect(NAV_ITEMS.Jugador.some((i) => i.href === '/dashboard-jugador' && i.label === 'Mi Ficha')).toBe(true);
+    expect(
+      NAV_ITEMS.Jugador.some((i) => i.href === '/dashboard-jugador' && i.label === 'Mi Ficha')
+    ).toBe(true);
   });
 
   it('NAV_ITEMS for Aficionado has limited entries', () => {

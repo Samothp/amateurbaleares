@@ -36,7 +36,7 @@ function AdminPage({ user: _user, profile }) {
       }
       setLoading(false);
     }
-    
+
     async function fetchPendingRequests() {
       const supabase = getSupabase();
       if (!supabase) return;
@@ -53,7 +53,7 @@ function AdminPage({ user: _user, profile }) {
         setPendingRequests(data);
       }
     }
-    
+
     fetchUsers();
     fetchPendingRequests();
   }, []);
@@ -157,7 +157,7 @@ function AdminPage({ user: _user, profile }) {
                     </span>
                   </div>
                 </div>
-                
+
                 <div style={{ marginBottom: 16 }}>
                   <p style={{ fontSize: 14, marginBottom: 8 }}>
                     <strong>Rol actual:</strong> {user.role}
@@ -166,7 +166,7 @@ function AdminPage({ user: _user, profile }) {
                     <strong>Solicita rol:</strong> {user.requested_role}
                   </p>
                 </div>
-                
+
                 <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
                   <button
                     onClick={() => {

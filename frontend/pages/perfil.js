@@ -213,7 +213,8 @@ function ProfilePage({ user, profile: initialProfile }) {
             {profile?.role === 'Aficionado' ? (
               <div>
                 <p style={{ fontSize: 14, color: '#666', marginBottom: 16 }}>
-                  Solicita un rol específico (Entrenador, Club, Ojeador, Jugador) para acceder a más funcionalidades.
+                  Solicita un rol específico (Entrenador, Club, Ojeador, Jugador) para acceder a más
+                  funcionalidades.
                 </p>
                 <RoleRequestForm
                   initialRole={profile?.requested_role || 'Aficionado'}
@@ -243,9 +244,7 @@ function ProfilePage({ user, profile: initialProfile }) {
                   Ya has solicitado un cambio de rol a <strong>{profile?.requested_role}</strong>.
                   El administrador lo revisará pronto.
                 </p>
-                <p style={{ fontSize: 13, color: '#999' }}>
-                  Estado: En espera de aprobación
-                </p>
+                <p style={{ fontSize: 13, color: '#999' }}>Estado: En espera de aprobación</p>
               </div>
             ) : null}
           </Card>

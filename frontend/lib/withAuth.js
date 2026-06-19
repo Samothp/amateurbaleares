@@ -34,7 +34,9 @@ export default function withAuth(WrappedComponent, allowedRoles = []) {
 
           const { data: userData } = await supabase
             .from('users')
-            .select('name, email, role, requested_role, role_status, license, experience_years, preferred_formation, club_name, position_in_club, scout_zone, preferred_categories, scout_experience, current_team_id, position, birth_year, dominant_foot, height, weight')
+            .select(
+              'name, email, role, requested_role, role_status, license, experience_years, preferred_formation, club_name, position_in_club, scout_zone, preferred_categories, scout_experience, current_team_id, position, birth_year, dominant_foot, height, weight'
+            )
             .eq('id', sessionUser.id)
             .single();
 
@@ -69,8 +71,9 @@ export default function withAuth(WrappedComponent, allowedRoles = []) {
           }
 
           if (!cancelled) {
-            const effectiveRole = userProfile.role_status === 'approved' ? userProfile.role : userProfile.role;
-            
+            const effectiveRole =
+              userProfile.role_status === 'approved' ? userProfile.role : userProfile.role;
+
             if (allowedRoles.length > 0 && !allowedRoles.includes(effectiveRole)) {
               router.replace('/dashboard');
               return;
