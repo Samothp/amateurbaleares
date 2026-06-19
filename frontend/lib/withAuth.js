@@ -34,17 +34,19 @@ export default function withAuth(WrappedComponent, allowedRoles = []) {
 
           const { data: userData } = await supabase
             .from('users')
-            .select('name, email, role')
+            .select('name, email, role, requested_role, role_status, license, experience_years, preferred_formation, club_name, position_in_club, scout_zone, preferred_categories, scout_experience, current_team_id, position, birth_year, dominant_foot, height, weight')
             .eq('id', sessionUser.id)
             .single();
 
           let userProfile = userData || {
             name: sessionUser.user_metadata?.full_name || sessionUser.email,
             email: sessionUser.email,
-            role: sessionUser.user_metadata?.role || 'Entrenador',
+            role: sessionUser.user_metadata?.role || 'Aficionado',
+            requested_role: null,
+            role_status: 'none',
           };
 
-          if (userProfile.role === 'Entrenador') {
+          if (userProfile.role === 'Entrenador' || userProfile.role === 'Jugador') {
             const { data: teamData } = await supabase
               .from('teams')
               .select('id, name, category, liga, ciudad')
@@ -55,8 +57,21 @@ export default function withAuth(WrappedComponent, allowedRoles = []) {
             }
           }
 
+          if (userProfile.role === 'Jugador') {
+            const { data: playerData } = await supabase
+              .from('players')
+              .select('id, name, age, position, dorsal, height, weight, dominant_foot, photo')
+              .eq('team_id', userProfile.current_team_id)
+              .single();
+            if (playerData) {
+              userProfile = { ...userProfile, player: playerData };
+            }
+          }
+
           if (!cancelled) {
-            if (allowedRoles.length > 0 && !allowedRoles.includes(userProfile.role)) {
+            const effectiveRole = userProfile.role_status === 'approved' ? userProfile.role : userProfile.role;
+            
+            if (allowedRoles.length > 0 && !allowedRoles.includes(effectiveRole)) {
               router.replace('/dashboard');
               return;
             }

@@ -80,7 +80,6 @@ function EquiposPage({ user, profile }) {
   const router = useRouter();
   const [teams, setTeams] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showForm, setShowForm] = useState(false);
   const [editingTeam, setEditingTeam] = useState(null);
   const [form, setForm] = useState({ name: '', category: 'Senior', liga: '', ciudad: '' });
   const [toast, setToast] = useState(null);
@@ -124,7 +123,6 @@ function EquiposPage({ user, profile }) {
   const resetForm = () => {
     setForm({ name: '', category: 'Senior', liga: '', ciudad: '' });
     setEditingTeam(null);
-    setShowForm(false);
   };
 
   const handleEdit = (team) => {
@@ -135,52 +133,29 @@ function EquiposPage({ user, profile }) {
       liga: team.liga || '',
       ciudad: team.ciudad || '',
     });
-    setShowForm(true);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setToast(null);
     const supabase = getSupabase();
-    if (!supabase) return;
+    if (!supabase || !editingTeam) return;
 
-    if (editingTeam) {
-      const { error } = await supabase
-        .from('teams')
-        .update({
-          name: form.name,
-          category: form.category,
-          liga: form.liga || null,
-          ciudad: form.ciudad || null,
-        })
-        .eq('id', editingTeam.id);
-      if (error) {
-        setToast('Error al actualizar: ' + error.message);
-      } else {
-        setToast('Equipo actualizado correctamente');
-        resetForm();
-        fetchTeams();
-      }
+    const { error } = await supabase
+      .from('teams')
+      .update({
+        name: form.name,
+        category: form.category,
+        liga: form.liga || null,
+        ciudad: form.ciudad || null,
+      })
+      .eq('id', editingTeam.id);
+    if (error) {
+      setToast('Error al actualizar: ' + error.message);
     } else {
-      const { data, error } = await supabase
-        .from('teams')
-        .insert({
-          name: form.name,
-          category: form.category,
-          liga: form.liga || null,
-          ciudad: form.ciudad || null,
-          coach_id: user.id,
-        })
-        .select();
-      if (error) {
-        setToast('Error al crear: ' + error.message);
-      } else if (!data || data.length === 0) {
-        setToast('Error al crear: verifica las políticas de acceso.');
-      } else {
-        setToast('Equipo creado correctamente');
-        resetForm();
-        fetchTeams();
-      }
+      setToast('Equipo actualizado correctamente');
+      resetForm();
+      fetchTeams();
     }
   };
 
@@ -247,7 +222,6 @@ function EquiposPage({ user, profile }) {
   };
 
   const canEdit = profile?.role === 'Admin';
-  const canCreate = profile?.role === 'Admin';
 
   const filtered = filterByText(teams, search, ['name', 'category', 'liga', 'ciudad']);
   const paged = paginate(filtered, page, PAGE_SIZE);
@@ -275,29 +249,10 @@ function EquiposPage({ user, profile }) {
         </h1>
         <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
           <SearchBar value={search} onChange={handleSearchChange} placeholder="Buscar equipo..." />
-          {canEdit && (
-            <button
-              onClick={() => {
-                resetForm();
-                setShowForm(!showForm);
-              }}
-              style={{
-                padding: '10px 20px',
-                background: '#1a1a2e',
-                color: '#fff',
-                border: 'none',
-                borderRadius: 8,
-                cursor: 'pointer',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {showForm ? 'Cancelar' : '+ Nuevo Equipo'}
-            </button>
-          )}
         </div>
       </div>
 
-      {showForm && (
+      {editingTeam && (
         <form
           onSubmit={handleSubmit}
           style={{
@@ -308,7 +263,7 @@ function EquiposPage({ user, profile }) {
             boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
           }}
         >
-          <h3 style={{ marginBottom: 16 }}>{editingTeam ? 'Editar Equipo' : 'Crear Equipo'}</h3>
+          <h3 style={{ marginBottom: 16 }}>Editar Equipo</h3>
           <div style={{ display: 'grid', gap: 12 }}>
             <input
               type="text"
@@ -365,7 +320,7 @@ function EquiposPage({ user, profile }) {
                 cursor: 'pointer',
               }}
             >
-              {editingTeam ? 'Guardar cambios' : 'Crear'}
+              Guardar cambios
             </button>
           </div>
         </form>

@@ -479,6 +479,35 @@ function DashboardPage({ user, profile }) {
             />
           </>
         )}
+        {profile?.role === 'Aficionado' && (
+          <>
+            <QuickAction
+              icon="🏆"
+              label="Ranking"
+              description="Clasificación global de jugadores"
+              onClick={() => router.push('/ranking')}
+              primary
+            />
+            <QuickAction
+              icon="⚡"
+              label="Comparativa"
+              description="Comparar jugadores"
+              onClick={() => router.push('/comparativa')}
+            />
+            <QuickAction
+              icon="🔍"
+              label="Scouting"
+              description="Buscar y analizar jugadores"
+              onClick={() => router.push('/scouting')}
+            />
+            <QuickAction
+              icon="⚽"
+              label="Partidos"
+              description="Resultados y calendario"
+              onClick={() => router.push('/partidos')}
+            />
+          </>
+        )}
         {profile?.role === 'Admin' && (
           <>
             <QuickAction

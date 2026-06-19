@@ -24,6 +24,12 @@ DROP POLICY IF EXISTS "users_update_own" ON users;
 CREATE POLICY "users_update_own" ON users
   FOR UPDATE USING (auth.uid() = id);
 
+DROP POLICY IF EXISTS "users_update_admin" ON users;
+CREATE POLICY "users_update_admin" ON users
+  FOR UPDATE USING (
+    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role = 'Admin')
+  );
+
 DROP POLICY IF EXISTS "users_delete_admin" ON users;
 CREATE POLICY "users_delete_admin" ON users
   FOR DELETE USING (auth.uid() = id);
@@ -59,8 +65,11 @@ CREATE POLICY "teams_select_auth" ON teams
   FOR SELECT USING (auth.role() = 'authenticated');
 
 DROP POLICY IF EXISTS "teams_insert_auth" ON teams;
-CREATE POLICY "teams_insert_auth" ON teams
-  FOR INSERT WITH CHECK (auth.uid() = coach_id);
+DROP POLICY IF EXISTS "teams_insert_admin" ON teams;
+CREATE POLICY "teams_insert_admin" ON teams
+  FOR INSERT WITH CHECK (
+    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role = 'Admin')
+  );
 
 DROP POLICY IF EXISTS "teams_update_coach" ON teams;
 CREATE POLICY "teams_update_coach" ON teams
@@ -153,3 +162,24 @@ CREATE POLICY "player_stats_update_auth" ON player_stats
 DROP POLICY IF EXISTS "player_stats_insert_auth" ON player_stats;
 CREATE POLICY "player_stats_insert_auth" ON player_stats
   FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+
+-- ============================================================
+-- ADMIN_NOTIFICATIONS table
+-- ============================================================
+ALTER TABLE admin_notifications ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "admin_notifications_select_admin" ON admin_notifications;
+CREATE POLICY "admin_notifications_select_admin" ON admin_notifications
+  FOR SELECT USING (
+    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role = 'Admin')
+  );
+
+DROP POLICY IF EXISTS "admin_notifications_insert_system" ON admin_notifications;
+CREATE POLICY "admin_notifications_insert_system" ON admin_notifications
+  FOR INSERT WITH CHECK (true);
+
+DROP POLICY IF EXISTS "admin_notifications_update_admin" ON admin_notifications;
+CREATE POLICY "admin_notifications_update_admin" ON admin_notifications
+  FOR UPDATE USING (
+    EXISTS (SELECT 1 FROM users WHERE id = auth.uid() AND role = 'Admin')
+  );

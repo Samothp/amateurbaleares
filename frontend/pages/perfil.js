@@ -6,6 +6,7 @@ import { Button } from '../components/Button';
 import { Card } from '../components/Card';
 import { MessageBanner } from '../components/MessageBanner';
 import { FormField } from '../components/FormField';
+import RoleRequestForm from '../components/RoleRequestForm';
 
 function ProfilePage({ user, profile: initialProfile }) {
   const [profile, setProfile] = useState(initialProfile);
@@ -205,6 +206,50 @@ function ProfilePage({ user, profile: initialProfile }) {
             Cambiar contraseña
           </Button>
         </Card>
+
+        {(profile?.role === 'Aficionado' || profile?.role_status === 'pending') && (
+          <Card padding={24}>
+            <h2 style={{ fontSize: 18, marginBottom: 16 }}>Solicitar Rol</h2>
+            {profile?.role === 'Aficionado' ? (
+              <div>
+                <p style={{ fontSize: 14, color: '#666', marginBottom: 16 }}>
+                  Solicita un rol específico (Entrenador, Club, Ojeador, Jugador) para acceder a más funcionalidades.
+                </p>
+                <RoleRequestForm
+                  initialRole={profile?.requested_role || 'Aficionado'}
+                  initialExtraFields={{
+                    license: profile?.license || '',
+                    experience_years: profile?.experience_years || '',
+                    preferred_formation: profile?.preferred_formation || '',
+                    club_name: profile?.club_name || '',
+                    position_in_club: profile?.position_in_club || '',
+                    scout_zone: profile?.scout_zone || '',
+                    preferred_categories: profile?.preferred_categories || '',
+                    scout_experience: profile?.scout_experience || '',
+                    current_team_id: profile?.current_team_id || '',
+                    position: profile?.position || '',
+                    birth_year: profile?.birth_year || '',
+                    dominant_foot: profile?.dominant_foot || '',
+                    height: profile?.height || '',
+                    weight: profile?.weight || '',
+                  }}
+                  submitLabel="Enviar solicitud"
+                  isEditing={false}
+                />
+              </div>
+            ) : profile?.role_status === 'pending' ? (
+              <div>
+                <p style={{ fontSize: 14, color: '#666', marginBottom: 16 }}>
+                  Ya has solicitado un cambio de rol a <strong>{profile?.requested_role}</strong>.
+                  El administrador lo revisará pronto.
+                </p>
+                <p style={{ fontSize: 13, color: '#999' }}>
+                  Estado: En espera de aprobación
+                </p>
+              </div>
+            ) : null}
+          </Card>
+        )}
 
         {profile?.role === 'Entrenador' && (
           <Card padding={24}>

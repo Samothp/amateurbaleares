@@ -7,10 +7,11 @@ import { SearchBar, filterByText } from '../components/SearchBar';
 import { Pagination, paginate } from '../components/Pagination';
 import { Toast } from '../components/Toast';
 
-const ROLE_OPTIONS = ['Entrenador', 'Club', 'Scout', 'Admin'];
+const ROLE_OPTIONS = ['Aficionado', 'Entrenador', 'Club', 'Ojeador', 'Jugador', 'Admin'];
 
 function AdminPage({ user: _user, profile }) {
   const [users, setUsers] = useState([]);
+  const [pendingRequests, setPendingRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(null);
   const [confirmRole, setConfirmRole] = useState(null);
@@ -35,7 +36,26 @@ function AdminPage({ user: _user, profile }) {
       }
       setLoading(false);
     }
+    
+    async function fetchPendingRequests() {
+      const supabase = getSupabase();
+      if (!supabase) return;
+
+      const { data, error } = await supabase
+        .from('users')
+        .select('id, name, email, role, requested_role, role_status, created_at')
+        .eq('role_status', 'pending')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        setToast('Error al cargar solicitudes pendientes: ' + error.message);
+      } else if (data) {
+        setPendingRequests(data);
+      }
+    }
+    
     fetchUsers();
+    fetchPendingRequests();
   }, []);
 
   const handleRoleChange = async (userId, newRole) => {
@@ -89,6 +109,103 @@ function AdminPage({ user: _user, profile }) {
         </div>
         <SearchBar value={search} onChange={handleSearchChange} placeholder="Buscar usuario..." />
       </div>
+
+      {pendingRequests.length > 0 && (
+        <div style={{ marginBottom: 32 }}>
+          <h2 style={{ fontSize: 20, marginBottom: 16 }}>Solicitudes Pendientes</h2>
+          <div style={{ display: 'grid', gap: 16 }}>
+            {pendingRequests.map((user) => (
+              <div
+                key={user.id}
+                style={{
+                  background: '#fff',
+                  borderRadius: 12,
+                  padding: 20,
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+                  border: '1px solid #e0e0e0',
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                    marginBottom: 12,
+                  }}
+                >
+                  <div>
+                    <h3 style={{ fontSize: 16, marginBottom: 4 }}>{user.name || 'Sin nombre'}</h3>
+                    <p style={{ fontSize: 14, color: '#666' }}>{user.email}</p>
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <p style={{ fontSize: 13, color: '#999', marginBottom: 4 }}>
+                      Solicitado el {new Date(user.created_at).toLocaleDateString('es-ES')}
+                    </p>
+                    <span
+                      style={{
+                        padding: '4px 8px',
+                        borderRadius: 4,
+                        fontSize: 12,
+                        fontWeight: 500,
+                        background: '#fff3cd',
+                        color: '#856404',
+                      }}
+                    >
+                      Pendiente
+                    </span>
+                  </div>
+                </div>
+                
+                <div style={{ marginBottom: 16 }}>
+                  <p style={{ fontSize: 14, marginBottom: 8 }}>
+                    <strong>Rol actual:</strong> {user.role}
+                  </p>
+                  <p style={{ fontSize: 14 }}>
+                    <strong>Solicita rol:</strong> {user.requested_role}
+                  </p>
+                </div>
+                
+                <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+                  <button
+                    onClick={() => {
+                      const newRole = user.requested_role;
+                      setConfirmRole({ userId: user.id, newRole });
+                    }}
+                    style={{
+                      padding: '8px 16px',
+                      background: '#28a745',
+                      color: '#fff',
+                      border: 'none',
+                      borderRadius: 6,
+                      cursor: 'pointer',
+                      fontSize: 13,
+                      fontWeight: 500,
+                    }}
+                  >
+                    Aprobar
+                  </button>
+                  <button
+                    onClick={() => {
+                      setConfirmRole({ userId: user.id, newRole: 'Aficionado' });
+                    }}
+                    style={{
+                      padding: '8px 16px',
+                      background: '#6c757d',
+                      color: '#fff',
+                      border: 'none',
+                      borderRadius: 6,
+                      cursor: 'pointer',
+                      fontSize: 13,
+                    }}
+                  >
+                    Rechazar
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {confirmRole && (
         <div
