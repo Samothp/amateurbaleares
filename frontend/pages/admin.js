@@ -70,13 +70,15 @@ function AdminPage({ user: _user, profile }) {
     const supabase = getSupabase();
     if (!supabase) return;
 
-    const { error } = await supabase.from('users').update({ role: newRole }).eq('id', userId);
+    const updates = { role: newRole, role_status: 'approved', requested_role: null };
+    const { error } = await supabase.from('users').update(updates).eq('id', userId);
 
     if (error) {
       setToast('Error al cambiar rol: ' + error.message);
     } else {
       setUsers(users.map((u) => (u.id === userId ? { ...u, role: newRole } : u)));
-      setToast('Rol actualizado correctamente');
+      setPendingRequests(pendingRequests.filter((r) => r.id !== userId));
+      setToast('Rol aprobado correctamente');
     }
   };
 
